@@ -1,0 +1,66 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="beep_body_header">
+<span style="font-size:larger; color:black;">Shear your Thought!!! </span><br/> <br/>
+</div>
+<%=image_tag("logo_sign.png")%>
+
+
+<%=form_for :beeppicture,:html=>{:multipart=>true},:controller=>'beep',:action=>'beep_picture',:id=>@user.id do |f|%>
+
+<div class="change_pic">
+<div class="new_image">
+         <%=f.file_field :image,:placeholder=>"Type Item name"%><br/>
+</div>
+</div>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Description <span style="font-size:11px"><i>(not compulsory)</i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <div class="beep_status">
+<div id="counters"></div>
+</div>
+
+
+<%=f.text_area :description,:class =>"create_beep"%><br/>
+
+<div class="create_beep_form">
+<div class="beep_button">
+<%=image_submit_tag ('beep_button.png')%>
+</div>
+
+<select name="name" class="profile_restriction_drop_down">
+ <option value="partner">Partners only</option>
+ <option value="public">Public</option>
+</select>
+
+
+</div>
+
+<%end%>
+
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    var characters = 220;
+    $("#counters").append("<strong>"+characters+"</strong> characters remaining");
+    $(".create_beep").keyup(function(){
+        if($(this).val().length > characters){
+        $(this).val($(this).val().substr(0, characters));
+        }
+    var remaining = characters -  $(this).val().length;
+    $("#counters").html("You have <strong>"+  remaining+"</strong> characters remaining");
+    if(remaining <= 10)
+    {
+        $("#counters").css("color","red");
+    }
+    else
+    {
+        $("#counters").css("color","black");
+    }
+
+});
+
+
+});
+
+</script>

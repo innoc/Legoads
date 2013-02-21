@@ -1,0 +1,81 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%if partnership_indicator(@user.id,feed.user_id) == "yes_boss" || @user.id == feed.user_id%>
+  <%@item= Item.find(feed.source_id)%>
+
+  <%@partner=User.find(feed.user_id)%>
+  <div class="beep_master_blog">
+    <div id="image_tag">
+    <%@image= UserImage.find(:first,:conditions=>["user_id=?",@partner.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox",:layout=>nil%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+    </div>
+    <div class="beep_contain_block">
+      <div class="activity_right">
+
+          price<br/>
+         <%= number_to_currency(@item.item_price)%>
+        <br/><br/>
+        <%unless @item.partner_price.blank?%>
+        Partner Price<br/>
+        <%= number_to_currency(@item.partner_price)%>
+        <%end%>
+
+       </div>
+        <div id="beep_user_names">
+            <%= link_to truncate(@partner.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@partner.id},:rel=>'facebox'%> <span style="font-size:11.5px;color:black">
+              has posted an item for sale
+            </span>
+        </div>
+        <div id="beed_content">
+            <%@image=Picture.find(:all,:conditions=>["item_id=?",@item.id])%>
+
+        <div id="beep_user_names">
+           <%=link_to @item.item_name%><br/>
+           </div>
+            <%unless @image[0].blank?%>
+            <%= link_to image_tag(@image[0].image.url(:thumb)),{:controller=>"items",:action=>"full_size",:id=>@image[0].id},:target=>'_blank'%>
+            <%end%>
+            <%unless @image[1].blank?%>
+            <%= link_to image_tag(@image[1].image.url(:thumb)),{:controller=>"items",:action=>"full_size",:id=>@image[1].id},:target=>'_blank'%>
+            <%end%>
+                <%unless @image[2].blank?%>
+            <%= link_to image_tag(@image[2].image.url(:thumb)),{:controller=>"items",:action=>"full_size",:id=>@image[2].id},:target=>'_blank'%>
+            <%end%>
+        </div>
+      <div class="smiley_set">
+      <div class="created_at">
+       <%=link_to image_tag("interested.png"),:controller=>'items',:action=>"interested",:id=>@item.id%>
+      </div>
+       <span class="beep_created">item entry created <%= time_ago_in_words(feed.created_at)%> ago </span>
+     </div>
+
+    </div>
+    <br/>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+   </div>
+ <%end%>
+

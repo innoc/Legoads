@@ -1,0 +1,143 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%= stylesheet_link_tag 'office.css'%>
+
+<div class="main_block">
+
+  <p> </p>
+
+<div class="freeC">
+
+</div>
+
+ <div class="FreeItemA">
+   <div class="paginate_item">
+ &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <%=link_to"<~ Back to Services",:action=>'vacancy',:id=>'1'%>
+    
+</div>
+
+<div class="edit_vacancy">
+<table cellpadding="5" border="0"  width="125%" id="item_table">
+
+       <% for service in @service_post %>
+			<tr class="<%= cycle('list-line-odd', 'list-line-even') %>">
+                          <td>
+                             [<%=service.id%>]
+                          </td>
+			<td>
+                         <%=service.service_name%>
+
+                       </td>
+
+			<td width="70%">
+			 <%=service.description%>
+			</td>
+
+
+			</tr>
+
+		<% end %>
+</table>
+
+</div>
+<div class="vacancy_box">
+  <hr/>
+  <b>Edit Service Information </b><br/>
+  <hr/>
+<%form_for :service do |f|%>
+ name of service rendered:<%= f.text_field :service_name %>
+ Description: <br/> <%= f.text_area :description,:cols => 35, :rows => 10%><br/>
+ <%=image_submit_tag("service_button.png")%>
+<%end%>
+</div>
+ </div>
+
+
+  <div class="blockB">
+
+ <div class="change_pic">
+ <%=link_to '<--Upload Your logo',:controller=>'users',:action=>'upload_image',:id=>'1'%>
+</div>
+ <div class="card_content">
+ <%=@user.user_name%>
+  <div id="cash">200,000 NGN </div>
+ </div>
+
+    <table border="1" class="image_block">
+<tr>
+    <td>
+       <%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+       <%if @image.blank?%>
+       <%= image_tag("photo.png")%>
+       <%else%>
+        <%= image_tag(@image.image.url(:thumb))%>
+       <%end%>
+    </td>
+  </tr>
+
+
+</table>
+    <div class="memebershipType">
+     Payment type:<%=@user.plan_type%>
+   </div>
+
+    <div class="memebershipType">
+     Membership type: white
+   </div>
+  <div class="office_menus">
+	<ul>
+        <li><%= link_to'<--Back to Office',:controller=>'users',:action=>'office', :id=>'1'%></li>
+
+	<li><%= link_to 'ITEMS',:controller=>'items',:action=>'free_item',:id=>1 %></li>
+	<li><%= link_to 'CUSTOMER REQUEST',:controller=>'requests',:action=>'view_request',:id=>'1' %></li>
+        <li><%= link_to 'EDIT COMPANY INFO',:action=>'edit',:id=>'1'%></li>
+        <%if @user.account == 'Activate'%>
+        <li><%= link_to 'ADD SERVICES',:action=>'services',:id=>'1'%></li>
+        <%end%>
+
+	</ul>
+
+
+<%if @user.account == 'Activate'%>
+  <div class="sell_item">
+     <%= link_to image_tag("sellItem.png"),:controller=>'items',:action=>'new'%><br/>
+ </div>
+<%end%>
+ </div>
+
+ </div>
+
+
+<div class="office_Labels">
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+

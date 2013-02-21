@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+<head lang="en-US">
+  <title>.:LegoAds:.</title>
+  
+  <%= stylesheet_link_tag 'index.css'%>
+  <%= stylesheet_link_tag 'facebox.css' %>
+  <%= stylesheet_link_tag 'compete.css' %>
+  <%= stylesheet_link_tag 'beeps.css' %>
+  <%= stylesheet_link_tag 'application.css' %>
+  <%= stylesheet_link_tag 'reset.css' %>
+  <%= stylesheet_link_tag 'profile.css' %>
+  <%= stylesheet_link_tag 'admin.css' %>
+  <%= stylesheet_link_tag 'office.css' %>
+  <%= stylesheet_link_tag 'pre_register.css' %>
+  <%= stylesheet_link_tag 'publicRegister.css' %>
+  <%= javascript_include_tag 'jquery.js' %>
+  <%=javascript_include_tag 'profile.js'%>
+  <%= javascript_include_tag 'show_review.js'%>
+  <%= javascript_include_tag 'rails.js' %>
+  <%= javascript_include_tag 'slider.js' %>
+  <%= javascript_include_tag 'jquery_limit.js' %>
+  <%= javascript_include_tag 'hide_content.js' %>
+  <%= javascript_include_tag 'user_info_show.js' %>
+  <%= javascript_include_tag 'jquery.nivo.slider.js'%>
+  <%=javascript_include_tag 'jquery.ennui.contentslider.js'%>
+  <%=javascript_include_tag 'jquery.easing.1.3.js'%>
+  <%= javascript_include_tag 'jquery.bxSlider.min.js' %>
+  <%= javascript_include_tag 'layout_setup.js' %>
+  <%= javascript_include_tag 'edit_profile_pic.js' %>
+  <%= javascript_include_tag 'facebox.js' %>
+  <%= javascript_include_tag 'slide_right.js'%>
+  <%= javascript_include_tag 'activatables.js'%>
+  <%= javascript_include_tag 'application.js' %>
+  <%= javascript_include_tag 'auto_click.js' %>
+  <%= javascript_include_tag 'jquery-ui-1.9.0.custom.min.js' %>
+  <%= javascript_include_tag 'jquery.ui.autocomplete.min.js' %>
+  <%= javascript_include_tag 'jquery.autoresize.js' %>
+  <%= javascript_include_tag 'jquery.qtip-1.0.0-rc3.min.js' %>
+  <%= stylesheet_link_tag 'layout.css'%>
+  <%= stylesheet_link_tag 'jquery-ui-1.9.0.custom.css' %>
+  <%= stylesheet_link_tag 'default.css' %>
+  <%= csrf_meta_tag %>
+
+
+</head>
+
+<body>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  $('a[rel*=facebox]').facebox();
+  $('#search').focus(function(){
+     $(this).css('background-color', 'white')
+     $(".search_index").css('background-color', 'white')
+    })
+   $('#search').focusout(function(){
+     $(this).css('background-color', '#cccccc')
+     $(".search_index").css('background-color', '#cccccc')
+    })
+
+
+
+
+    $('#search').autocomplete({
+     minLength: 1,
+     source: "<%= list_path(:json) %>",
+
+     focus: function(event, ui){
+       $('#search').val(ui.user.user_name);
+       return false;
+     },
+
+      select: function(event, ui) {
+       // place the person.given_name value into the textfield called 'select_origin'...
+          $('#search').val(ui.user.user_name);
+       // and place the person.id into the hidden textfield called 'link_origin_id'.
+          return false;
+            }
+
+    })
+
+    .data("autocomplete")._renderItem = function(ul,user){
+      return $("<li></li>")
+          .append("<a href='http://localhost:3000/profile/profile/" + user.id  + "?sort=all '><img src='" + user.image  + "' /> "  +  user.first_name + " " + user.last_name + "   | <strong>"     + user.user_name + "</strong> </a>" )
+      .appendTo(ul);
+    };
+
+    });
+ </script>
+
+<div id="wrapper">
+<div class="relativejs">
+
+
+<div class="index_header">
+ <div class="all_nav">
+  <div id="top_nav_activate">
+<% if session[:user_id] != nil %>
+<%@image= UserImage.find(:first,:conditions=>["user_id=?",session[:user_id]])%>
+<%@user=User.find(:first,:conditions=>["id=?",session[:user_id]])%>
+<%if @user.user_type == 'admin'%>
+    <div class="sign_out">
+     <%= link_to  image_tag("sign_out.png"),logout_path%>
+   </div>
+  <div class="name_index">
+   <%=link_to 'admin' , :controller=>'admins',:action=>'index'%>
+  </div>
+  <%else%>
+
+  <div id="top_nav">
+    <div class="sign_out">
+     <%= link_to  image_tag("sign_out.png"),logout_path%>
+   </div>
+  <div class="name_index">
+         &nbsp;<span style="color:#00e4e4;">
+       
+     <%=link_to @user.user_name,{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%>&nbsp;<span style="font-size:11px"> [ <%=@user.rank.rank_type%> ]&nbsp;
+     
+       <%@user_notification = Notification.find(:all,:conditions=>["notification_flag=? && user_id=?","unread",@user.id])%>
+       <%unless @user_notification.blank?%>
+        <span class="notice_box">
+        <%= link_to  @user_notification.count,office_path(:id=>"notification")%>
+        </span>
+       <%end%>
+  
+       
+     </span>
+    
+   </span>
+    
+  </div>
+ 
+   </div>
+
+<%end%>
+
+<%else%>
+<div class="advertise_here">
+<%= link_to image_tag("sign_up.png"),:controller=>'users',:action=>'public_register'%>
+</div>
+<%end%>
+</div>
+ <% if session[:user_id] != nil %>
+  <div class="recommend">
+  <%= link_to image_tag("FAQ.png")%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to image_tag("recommend.png"),{:controller=>"find_friend",:action=>"invite_friend"},:rel=>"facebox"%>
+</div>
+<%end%>
+ </div>
+
+<% if session[:user_id] != nil %>
+<div class="search_index">
+ 
+<%=form_tag(:controller=>"search",:action=>"search_for",:id=>"results") do%>
+<span id="submit1"><%=image_submit_tag ('search_box1.png')%></span>
+<%=text_field_tag(:search,nil,:class =>"search_field_ajax1",:autocomplete => "off",:placeholder=>"Search for Partners")%>
+<%end%>
+</div>
+
+<%else%>
+<div class="front_design">
+<%=image_tag("front_design.png")%>
+</div>
+<%end%>
+  
+
+
+<div class="logo">
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%=image_tag ("logo.png")%>  
+</div>
+
+  
+
+</div>
+
+</div>
+<div class="left_container">
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to image_tag("home.png",alt:"home"),root_path%> <br/><br/>
+   <% if session[:user_id] != nil %>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to image_tag("office.png"),office_path(:id=>"activity")%><br/><br/>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to image_tag("profile.png"),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%><br/><br/>
+ <%end%>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to image_tag("item.png"),market_path(:partial=>"market")%><br/><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to image_tag("contact_us.png"),{:controller=>"info",:action=>"contact_us"}%><br/><br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to image_tag("help.png"),{:controller=>"info",:action=>"help"}%>
+
+
+
+</div>
+
+
+
+
+<div id="yield">
+ <%= yield %>
+</div>
+<div class="footer">
+<span class="footer2">Designed by | Innocent Softwares</span>
+  <span class="footer1">Copy right &copy; 2011 | All right revered | Privacy Policy </span>
+</div>
+</div>
+</body>
+</html>

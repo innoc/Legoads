@@ -1,0 +1,74 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<div class="mid_page_container">
+<div class="mid_section_center">
+<div class="activity_header">
+<span class="smiley_set">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "Back to profile",{:controller=>'profile',:action=>'profile',:id=>@user.id ,:sort=>'all'}%>
+</span>
+</div>
+
+
+<%=form_for :user ,:url=>{:controller=>"users",:action=>"edit_info",:id=>@user.id} do |f|%>
+
+<div class="PublicRegister_blockdd">
+
+<div class="error">
+<% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h3><%= pluralize(@user.errors.count, "error") %> There is an error </h3>
+      <ol>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ol>
+    </div>
+  <br/>
+
+  <br/>
+
+<%end%>
+</div>
+
+<div class="edit_note">
+Edit your user information by changing what is displayed in the text field then click the "Edit info" button.
+</div>
+
+<div class="edit_info">
+
+First Name:<br/>
+<%=f.text_field :first_name, :class => "editTextField" %><br/>
+Last Name:<br/>
+<%=f.text_field :last_name, :class => "editTextField" %><br/>
+Login Name:<br/>
+<%=f.text_field :user_name, :class => "editTextField",:maxlength=>"15"%><br/>
+Country:<br/><%=f.text_field :country, :class => "editTextField" %><br/>
+Email Address:<br/><%=f.text_field :email, :class => "editTextField" %><br/>
+Password:<br/><%=f.password_field :password, :class => "editTextField" %><br/>
+Re-enter Password:<br/><%= f.password_field :password_confirmation,:class => "editTextField" %><br/><br/>
+ <div class="publicButtoms">
+ &nbsp;<%=image_submit_tag("edit_info.png")%>
+</div>
+</div>
+</div>
+<% end %>
+<div class="deactivate_account">
+   <div class="smiley_set">
+<%=link_to "Deactivate account",:controller=>"users",:action=>"deactivate_account",:id=>@user.id%>
+   </div>
+</div>
+  </div>
+
+
+
+
+
+
+
+
+</div>
+
+

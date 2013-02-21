@@ -1,0 +1,200 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+<%= stylesheet_link_tag 'default.css' %>
+<%= stylesheet_link_tag 'nivo-slider.css' %>
+<%= stylesheet_link_tag 'style.css' %>
+
+<div class="right_container">
+<div class="margin_up">
+
+
+
+<div class="ads">
+<%=image_tag("ads.png")%>
+</div>
+
+<div class="live_ture">
+ <b>Take a live tour</b>
+</div><br/>
+<div class="video_patch">
+<%=link_to image_tag("video_patch.jpg"),{:action=>'live_vid',:id=>1},:rel=>'facebox'%>
+</div>
+
+
+
+
+</div>
+</div>
+
+<div class="center_container_index">
+
+
+
+<%if session[:user_id] == nil %>
+
+<div class="sign_in_up">
+
+<div class="sign_in">
+  Log-in
+</div>
+<div class="loginsd">
+<%= form_tag session_path do %>
+
+  &nbsp&nbsp<%= label_tag :user_name %><br />
+   &nbsp&nbsp<%= text_field_tag(:username,nil,:class => "login_index") %>
+
+<br/>
+
+ &nbsp&nbsp<%= label_tag :password %><br/>
+ &nbsp&nbsp<%= password_field_tag :password,nil,:class =>"login_index_password"%>
+<br/>
+
+<% if !flash.empty? %>
+  &nbsp&nbsp&nbsp<%= flash[:notice] %>
+<% end %>
+
+
+  <br/><br/>
+
+ &nbsp&nbsp<%=image_submit_tag("loginButton.png")%>
+
+
+<% end %>
+
+</div>
+  <br/>
+  <br/>
+
+<div class="sign_in">
+ Sign up
+</div>
+
+  <div class="sign-up_index">
+      Join the LegoAds family today,its fun,its free<br/><br/>
+  <%=link_to image_tag("sign_up_index.png"),:controller=>'users',:action=>'public_register'%>
+  </div>
+  </div>
+ <%else%>
+
+<div class="index_side">
+ <div class="beep_status_index" >
+ <%@user = User.find(session[:user_id])%>
+ <%@beep_store = @user.beeps%>
+<%for beep in @beep_store%>
+  <%if beep_status(beep)=="winning"%>
+   <%@winning << 1%>
+  <%else%>
+  <%if beep_status(beep)=="losing"%>
+   <%@losing << 1%>
+  <%end%>
+  <%end%>
+<%end%>
+<%=link_to "Beeps Winning:",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"winning"}%>&nbsp;<%=@winning.count%> &nbsp;&nbsp;&nbsp;
+<%=link_to "Beeps Losing:",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"losing"}%>&nbsp;<%=@losing.count%>
+</div>
+
+
+
+<div class="hottest_beep_index">
+<div class="searching_gif">
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=image_tag("searching.gif")%>
+</div>
+<div class="hottest_beeps">
+&nbsp <span style="display:none"><%=link_to'View',{:controller=>'beep',:action=>'hottest_beeps'},:remote=>true,:id=>'auto_click'%></span>Trending Beeps
+<br/>
+<br/>
+</div>
+<div class="update_beep">
+<%=render :partial=>"beep/hottest_beeps"%>
+</div>
+</div>
+
+<%if @user.rank.rank_type == "Freshman"%>
+<div class="lego_champ">
+<div class="under_rule">
+ <b>You are currently a Freshman</b>
+</div>
+  <br/>
+ <%=image_tag("fresh_man.png")%><br/>
+<b>Hello <%=@user.user_name%>,</b><br/>
+You can move up to a higher rank <br/>
+by creating Beeps, indulging in <br/>
+friendly Beep competitions,creating <br/>
+partnerships and being vibrant.
+</div>
+<%end%>
+</div>
+
+
+<%end%>
+<div class="welcome_note">
+
+  <div class="index_float">
+
+
+<span class="text_ablility">Welcome to the LegoAds family !!!</span> <br/><br/>
+
+ <span style="color:black;">Test your ability to socialize</span> <br/>
+
+ Beep out your thoughts through Text or images and progress in the LegoAds ranking. Build your social reputation, Quote Beeps,
+ indulge in friendly Beep to Beep Competitions, advertise your items in the LegoAds market.<br/>
+ <br/>
+ <br/>
+  <span style="font-size:15px;">Click on the video to learn everything you need to know about LegoAds</span>
+ </div>
+ <div class="thinking_panda">
+&nbsp&nbsp&nbsp&nbsp<%=image_tag("thinking_panda.png")%>
+ </div>
+</div>
+
+<br/>
+<div class="welcome">
+  <br/><br/><br/><br/><br/><br/><br/>
+  <%=image_tag("map_index.png")%><br/><br/>
+  
+  Separate yourself from the norm
+
+</div>
+<div class="arrange_it">
+
+<div class="video">
+<%#
+<iframe width="500" height="400" src="http://www.youtube.com/embed/XGSy3_Czz8k">
+</iframe>
+%>
+<%=image_tag("video_mask.png")%>
+</div>
+</div>
+&nbsp&nbsp<span style="color:black;font-size:11px">Learn everything you need to know about LegoAds by watching the short tutorial above </span>
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider();
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

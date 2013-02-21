@@ -1,0 +1,216 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+   $(document).on("click",".see_all",function(){
+    $(this).nextAll().slideToggle("fast");
+   });
+  $(document).on("click",".change_text",function(){
+    if($(this).text() == "Expand"){
+     $(this).html("hide")
+    }
+    else
+     if($(this).text() == "hide"){
+     $(this).html("Expand")
+    }
+
+   });
+   $(document).on("keyup",".beep_comment_list",function(){
+    while($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
+        $(this).height($(this).height()+1);
+    };
+    });
+    
+    $(document).on("click",".close_rep_note",function(){
+    $(this).hide()
+    $(".rep_note").hide()
+    $(".invite_friends").show()
+    });
+
+</script>
+
+<div class="center_container">
+
+<div class="advert_section_office">
+
+<div class="rep_note">
+
+<div class="rep_note_header">
+<div class="close_rep_note">
+  <%=image_tag("closelabel.png")%>
+</div>
+&nbsp;<%=image_tag("legoAds_small_logo.png")%>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:20px;color:#808080">Hi <%=@user.user_name%></span><br/>
+
+</div>
+  <br/>
+Beep out your thoughts through Text or images and progress in the LegoAds ranking.Build your social reputation, Quote Beeps, indulge in friendly Beep to Beep Competitions,advertise your items in the LegoAds market.<br/>
+
+<br/>Socialize and make money with LegoAds.
+<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<%=image_tag("rank_list.png")%>
+<br/><br/>
+<br/>
+</div>
+<div class="invite_friends">
+  <div class="menu_bar_header">
+    invite your friends
+ </div>
+ 
+    Send your friend an invitation by email
+    <br/><br/>
+<span style="color:#5c5c5c">
+    <%=form_tag(:controller=>"find_friend",:action=>"find_friend",:id=>@user.id) do%>
+    Name of friend:<br/>
+    <%=text_field_tag(:name,nil,:class=>"invite_form",:autocomplete => "off",:placeholder=>"Name")%><br/><br/>
+    Friend's email address : <br/><span style="font-size:11px ; color:black">eg myAddress@yahoo.com</span><br/>
+    <%=text_field_tag(:email,nil,:class=>"invite_form",:autocomplete => "off",:placeholder=>"email address")%><br/>
+    <div id="invitation_button">
+    <%=image_submit_tag ('send_invitation.png')%>
+    </div>
+    <%end%>
+</span>
+
+<br/>
+
+
+
+
+   
+</div>
+<br/>
+<br/>
+
+<div class="hottest_beep_section_office">
+<div class="menu_bar_header">
+  Trending Beeps
+ </div>
+<div class="searching_gif">
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=image_tag("searching.gif")%>
+</div>
+<div class="hottest_beeps">
+&nbsp <span style="display:none"><%=link_to'View',{:controller=>'beep',:action=>'hottest_beeps'},:remote=>true,:id=>'auto_click'%></span>
+<br/>
+</div>
+
+<div class="update_beep">
+<%=render :partial=>"beep/hottest_beeps"%>
+</div>
+</div>
+<br/>
+
+
+
+</div>
+<div class="info_section">
+<div class="default">
+<%@image= UserImage.find(:first,:conditions=>["user_id=?",session[:user_id]])%>
+  <br/>
+  <br/>
+<div class="user_name">
+ &nbsp;<%= link_to truncate(@user.user_name,:length =>19),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%><br/>
+</div>
+</div>
+<div class="profile_pic_id"> 
+     <%if @image.blank?%>
+      <%#
+        {:controller=>"users",:action=>"user_pic",:id=>@user.user_name},:rel=>"facebox",:layout=>nil
+      %>
+     <%=link_to image_tag("default.png"),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:thumb)),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%>
+     <%end%><br/>
+</div>
+
+<div class="reputation_bar">
+ <div class="menu_bar_header">
+    reputation
+ </div> <br/>
+ <div class="rep_name"><%=@user.rank.rank_type%></div><br/>
+   <%if @user.rank.rank_type == "Freshman"%>
+  <%=image_tag("fresh_man.png")%><br/>
+  <span style="color:black"><%=  150 -  @user.rank.user_point %> Points </span> <span style="font-size:11px">remaining to become a Blogger </span>
+<%else%>
+   <%if @user.rank.rank_type == "Blogger"%>
+   <%=image_tag("blogger.png")%><br/>
+     <span style="color:black"><%=  300 -  @user.rank.user_point %> Points </span> <span style="font-size:11px">remaining to become a Middle-class member </span>
+   <%else%>
+   <%if @user.rank.rank_type == "Middle class"%>
+         <%=image_tag("middle_class.png")%><br/>
+   <span style="color:black"><%=  300 -  @user.rank.user_point %> Points </span> <span style="font-size:11px">remaining to become an  Upper-class member </span>
+   <%else%>
+   <%if @user.rank.rank_type == "Upper class"%>
+     <%=image_tag("upper_class.png")%><br/>
+   <span style="color:black"><%=  300 -  @user.rank.user_point %> Points </span> <span style="font-size:11px">remaining to become a Royalty member </span>
+   <%else%>
+   <%if @user.rank.rank_type == "Royalty"%>
+     <%=image_tag("royalty.png")%><br/>
+
+   <%end%>
+   <%end%>
+   <%end%>
+   <%end%>
+   <%end%>
+</div>
+<br/>
+<br/>
+
+  <div class="menu_bar_header">
+    Office desk
+ </div>
+  <div class="move_up">
+  &nbsp;<%= image_tag("notification.png")%> <%=link_to "Activities",office_path(:id=>"activity")%><br/>
+  &nbsp;<%= image_tag("group_go.png")%> <%=link_to "Partners", office_path(:id=>'partner_page')%><br/>
+  &nbsp;<%=image_tag("email_go.png")%>  <%= link_to 'Message',{:controller=>"profile",:action=>"profile",:sort=>"check_message",:id=>@user.id}%><br/>
+  </div>
+<br/>
+ <div class="menu_bar_header">
+    Item
+ </div>
+ <div class="move_up">
+ &nbsp;<%=image_tag("add.png")%>&nbsp;<%=link_to "create an item entry",:controller=>"items",:action=>"new"%><br/>
+ &nbsp;<%=image_tag("wrench.png")%>&nbsp;<%=link_to "Manage Items", :controller=>"items",:action=>"manage_item",:type=>'all',:id=>1%><br/><br/>
+ 
+ </div>
+
+<div class="menu_bar_header">
+  Notification
+</div>
+ <div class="move_up">
+
+<%@user_notification = Notification.find(:all,:conditions=>["user_id=?",@user.id])%>
+<%unless @user_notification.blank?%>
+ <div class="notifications"><%= link_to "#{pluralize(@user_notification.count,'Notification')}",office_path(:id=>"notification")%></div>
+ <%else%>
+  <div class="notifications"><%= link_to "0 New Notifications",office_path(:id=>"notification")%></div>
+<% end %>
+ </div>
+
+</div>
+
+<div class="activity_section">
+
+<%= render :partial=>'activity_user_search'%>
+
+
+<%if @feed.current_page < @feed.num_pages%>
+ <div id="loader">
+   Loading contents <%=image_tag("spinner.gif")%>
+ </div>
+<%end%>
+
+<%if @feed.current_page == @feed.num_pages && !@feed.blank?%>
+ <div id="contents_check">
+   All contents loaded
+ </div>
+<%end%>
+</div>
+<%Feed.find(:all).count > 10%>
+</div>

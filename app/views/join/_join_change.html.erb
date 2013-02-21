@@ -1,0 +1,20 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+<%=form_tag({:controller=>'join',:action=>'create_join',:id=>@beep.id,:compete=>@compete.id}) do%>
+
+<div class="facebox_bottom">
+<div class="hide_identity">
+<%=image_submit_tag ('join.png')%>
+</div>
+<div id="support_button">hide Identity <%=check_box_tag 'hide','hide'%></div>
+</div>
+<br/>
+
+<%end%>
+
+

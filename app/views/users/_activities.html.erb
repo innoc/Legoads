@@ -1,0 +1,117 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+ $('a[rel*=facebox]').facebox();
+ $('#loaders').hide()
+ $('.button_ajax').click(function(){$('#loaders').show();}).ajaxStop(function(){ $('#loaders').hide();});
+})
+</script>
+
+  <%if @feed.blank?%>
+    <br/>
+    <br/>
+   <div class="no_activities">
+   <%=image_tag("office_no_activity.png")%>
+<br/><br/><br/>
+     <span style="color:black; font-size:11px">No Activities Avaliable</span>
+     <br/><br/><br/><br/>
+    <div class="smiley_set">
+    <%= link_to "Invite a friend",{:controller=>"find_friend",:action=>"invite_friend"},:rel=>"facebox"%> &nbsp;&nbsp; .  &nbsp;&nbsp;
+        <%= link_to "Watch Site Tutorial",{:controller=>"items",:action=>"index"}%>
+    </div>
+   </div>
+  <%else%>
+      <%=div_for(@feed,:class=>"feed") do |feed|%>
+      <%if feed.source == "beep"%>
+      <%=render :partial=>"beep_partial", :locals=>{:feed=>feed}%>
+      <%end%>
+      <%if feed.source == "sub_beep"%>
+      <%=render :partial=>"sub_beep_partial", :locals=>{:feed=>feed}%>
+      <%end%>
+      <%if feed.source == "item"%>
+      <%=render :partial=>"item", :locals=>{:feed=>feed}%>
+      <%end%>
+      <%if feed.source == "like"%>
+      <%=render :partial=>"like", :locals=>{:feed=>feed}%>
+      <%end%>
+       <%if feed.source == "dislike"%>
+      <%=render :partial=>"dislike", :locals=>{:feed=>feed}%>
+      <%end%>
+      <%if feed.source == "contest"%>
+      <%=render :partial=>"contest", :locals=>{:feed=>feed}%>
+      <%end%>
+      <%if feed.source == "join"%>
+      <%=render :partial=>"join", :locals=>{:feed=>feed}%>
+      <%end%>
+      <%if feed.source == "beep_picture"%>
+      <%=render :partial=>"beep_picture", :locals=>{:feed=>feed}%>
+      <%end%>
+      <%if feed.source == "rank"%>
+      <%=render :partial=>"rank", :locals=>{:feed=>feed}%>
+      <%end%>
+   
+
+      <%end%>
+    <%end%>
+   
+<%paginate @feed%>
+ <%@feed.current_page%>
+  <%@feed.num_pages%>
+
+<%if @mark == "activity"%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+ (function() {
+  var page = 1,
+  loading = false,
+  finish = false;
+
+  function nearBottomOfPage() {
+    return $(window).scrollTop() > $(document).height() - $(window).height() - 200;
+  }
+  function finish() {
+    finish = true;
+  }
+
+  $(window).scroll(function(){
+    if (loading) {
+      return;
+
+    }
+
+
+    if(nearBottomOfPage() && !finish) {
+      loading=true;
+      $('#loader').show();
+      page+=1;
+      $.ajax({
+        url: '/office?page=' + page,
+        type: 'get',
+        dataType: 'script',
+         success: function() {
+         $('#loader').hide();
+         loading=false;
+        }
+      });
+ 
+    }
+  });
+
+}());
+});
+</script>
+
+
+  
+
+
+
+
+<%end%>
+    
+     
+
+

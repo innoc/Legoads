@@ -1,0 +1,28 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+<div class="invite_friendpos">
+  <div class="menu_bar_header">
+    invite a friends
+ </div>
+
+    Send your friend an invitation by email
+    <br/><br/>
+<span style="color:#5c5c5c">
+    <%=form_tag(:controller=>"find_friend",:action=>"find_friend",:id=>@current_user.id) do%>
+    Name of friend:<br/>
+    <%=text_field_tag(:name,nil,:class=>"invite_form",:autocomplete => "off",:placeholder=>"Name")%><br/><br/>
+    Friend's email address : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:11px ; color:black">example: &nbsp;&nbsp; myAddress@yahoo.com</span><br/>
+    <%=text_field_tag(:email,nil,:class=>"invite_form",:autocomplete => "off",:placeholder=>"email address")%><br/>
+    <div id="invitation_button">
+    <%=image_submit_tag ('send_invitation.png')%>
+    </div>
+    <%end%>
+</span>
+
+<br/>
+</div>

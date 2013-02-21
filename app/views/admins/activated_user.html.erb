@@ -1,0 +1,95 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div id="admin-header">
+ <h1><%= image_tag('suitpic.jpg')%> Administrator</h1>
+ </div>
+ <hr/>
+ <div id="back-to-index">
+ <%=link_to'Back to index',:controller=>'admins',:action=>'index'%>
+ </div>
+ <div id="list-customers">
+ <h3>List of Customers</h3>
+ </div>
+
+
+<table border=0 width="100%" cellpadding="2" cellspacing="0" >
+<tr class="admin_user_list">
+<td  id="admin_sideline"  width="10%">
+User name
+</td>
+
+<td  id="admin_sideline" width="10%">
+ Company Name
+</td>
+
+<td  id="admin_sideline" width="10%">
+Plan Type
+</td>
+
+<td  id="admin_sideline"  width="10%">
+Company Number
+</td>
+
+<td   id="admin_sideline" width="10%">
+Email
+</td>
+<td  id="admin_sideline"  width="10%">
+Date of Establishment
+</td>
+
+<td  id="admin_sideline"  width="10%">
+Country
+</td>
+<td  id="admin_sideline"  width="10%">
+State
+</td>
+
+<td id="admin_sideline2"  width="10%">
+Account
+</td>
+</tr>
+<%if @user.blank?%>
+<tr>
+<td colspan="13">
+  No user available
+</td>
+</tr>
+<%else%>
+<%for user in @user%>
+<tr>
+<td  id="admin_sideline"  width="10%">
+<%=user.user_name%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= link_to user.company_name,:controller=>'admins', :action=>'user_info', :id =>user.id %>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= user.plan_type%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= user.mobile%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= user.email%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= user.year%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= user.country%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= user.state%>
+</td>
+<td id="admin_sideline2"  width="10%">
+<%=user.account%>
+</td>
+</tr>
+<%end%>
+ <%end%>
+</table>
+<br/>
+
+

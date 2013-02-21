@@ -1,0 +1,153 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<% @beep=Beep.find(feed.beep_id)%>
+<%@beep_compete_checker = Compete.find(:first,:conditions=>["original_beep=?",@beep.id])%>
+<%@feed_inditator=feed.second_source%>
+<%@partner=User.find(feed.user_id)%>
+
+ <div class="beep_master_blog">
+    <div id="image_tag">
+     <%if feed.fought_source=='hide'%>
+     <%=image_tag("panda_large.png")%>
+     <%else%>
+    <%@image= UserImage.find(:first,:conditions=>["user_id=?",@partner.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox",:layout=>nil%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     <%end%>
+    </div>
+    <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+          <div class="beep_icon">
+                            <% if feed.third_source == "public"%>
+            <span style="font-size:11px">public</span>
+          <%end%>
+          </div>
+
+         
+           <%if feed.fought_source=='hide'%>
+           <div class="beep_icon">
+          <span style="color:#808080;font-size:smaller">masked</span>
+          </div>
+           <span style="color:#5c5c5c">Hidden Identity</span>
+           <%else%>
+           <%= link_to truncate(@partner.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@partner.id},:rel=>'facebox'%>
+           <%end%>
+            <%if @feed_inditator=="comment"%><%@source=BeepComment.find(feed.second_source_id)%> <span style="font-size:11.5px">commented on</span>  <%end%>
+            <%=link_to truncate(@beep.user.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@beep.user.id},:rel=>'facebox'%>'s
+            <span style="font-size:11.5px">beep</span>
+
+        </div>
+      
+        <div id="beed_content">
+          
+         <%=@source.beep_content%>
+           
+        </div>
+        <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+         <%= distance_of_time_in_words_to_now(feed.created_at)%></span>
+
+      </div>
+      
+
+     </div>
+  
+      
+    </div>
+    <div class="see_all">
+   
+      &nbsp;<span class="change_text" style="cursor:pointer;color:#5c5c5c;font-size:11px">expand-hide</span>
+    </div>
+<div style="display:none;" class="name">
+
+ <%if @beep.beep_picture.blank?%>
+  <div class="quote">
+      <%=link_to "quote",{:controller=>"beep",:action=>'quote_beep',:id=>feed.beep_id},:rel=>'facebox'%>
+  </div>
+
+ <%unless @user.id == @beep.user_id%>
+  <div class="quote">
+    <%if @beep_compete_checker.blank?%>
+     <%=link_to "compete",{:controller=>"compete",:action=>'create_competition',:id=>feed.beep_id},:rel=>'facebox'%>
+    <%else%>
+        <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>@beep_compete_checker.id},:style=>"color:red"%>
+    <%end%>
+  </div>
+ <%end%>
+ <%end%>
+   <br/>
+   <br/>
+  <br/>
+  <div class="show_beep">
+        <span style="font-size:11px;color:#808080">Beep</span> &nbsp; &nbsp;<span style="font-size:10px"><%= distance_of_time_in_words_to_now(@beep.created_at)%></span><br/>
+        <%if @beep.beep_picture.blank?%>
+        <%=link_to @beep.beep_content,:controller=>"users",:action=>"utility",:id=>@beep.id%><br/>
+        <%else%>
+
+        <%=link_to image_tag(@beep.beep_picture.image.url(:thumb)),{:controller=>"beep",:action=>"full_size",:id=>@beep.beep_picture.id},:target=>'_blank'%>
+        <%end%>
+  </div>
+<div class="see_all">
+<span class="smiley_set">
+       &nbsp;<span class="change_text" style="color:#808080"><%=pluralize(@beep.beep_comments.count, 'Comment')%>&nbsp;.</span>
+       <%=render :partial=>"like/likes_added"%>
+       <%=render :partial=>"dislike/dislikes_added"%>
+</span>
+</div>
+<div class="beep_tops">
+<%@beep_comment = BeepComment.find(:all, :conditions=>["beep_id=?",@beep.id],:order=>"created_at desc",:limit=>4)%>
+
+
+<div class="comment_background">
+<%= render :partial=>"beep_comment/comment" %>
+</div>
+</div>
+    
+  </div>
+   </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,78 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div id="admin-header">
+ <h1><%= image_tag('suitpic.jpg')%> Administrator</h1>
+ </div>
+ <hr/>
+  <%=link_to'Back to request list',:controller=>'admins',:action=>'requests'%><br/><br/>
+ <div id="back-to-index">
+ <%=link_to'Back to index',:controller=>'admins',:action=>'index'%>
+ </div>
+ <% form_tag :controller => 'admins', :action =>'request_search' do %>
+					<label>requester name</label><%= text_field_tag 'requester_name'%>
+
+<%=submit_tag 'Search'%>
+<%end%>
+ <div id="list-customers">
+ <h3>List of Item</h3>
+ </div>
+
+<br/>
+<table width="100%" border="0" width="100%" cellpadding="2" cellspacing="0" >
+<tr class="admin_user_list">
+<td  id="admin_sideline">
+Name
+</td>
+
+<td  id="admin_sideline">
+Requester name
+</td>
+
+<td  id="admin_sideline">
+Requester Contact
+</td>
+
+<td  id="admin_sideline">
+Requester Description
+</td>
+</tr>
+<%if @requests .blank?%>
+<tr>
+<td colspan="11">
+No Request Avaliable
+</td>
+</tr>
+<%else%>
+<%for request in @requests%>
+<tr>
+<td  id="admin_sideline"  width="10%">
+<%=request.item_name%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%=request.user_name%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= request.Contact%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%=request.description%>
+</td>
+</tr>
+<%end%>
+ <%end%>
+</table>
+<br/>
+
+

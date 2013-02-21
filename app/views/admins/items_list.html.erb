@@ -1,0 +1,77 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="center_container">
+<div id="admin-header">
+ <h1><%= image_tag('suitpic.jpg')%> Administrator</h1>
+ </div>
+ <hr/>
+ <div id="back-to-index">
+ <%=link_to'Back to index',:controller=>'admins',:action=>'index'%>
+ </div>
+ <% form_tag :controller => 'admins', :action =>'item_search' do %>
+					<label>Item name</label><%= text_field_tag 'item_name'%>
+
+<%=submit_tag 'Search'%>
+<%end%>
+ <div id="list-customers">
+ <h3>List of Item</h3>
+ </div>
+
+<br/>
+<table width="100%" border="0" width="100%" cellpadding="2" cellspacing="0" >
+<tr class="admin_user_list">
+<td  id="admin_sideline">
+Duration
+</td>
+
+<td  id="admin_sideline">
+ created date
+</td>
+
+<td  id="admin_sideline">
+Owner
+</td>
+
+
+
+<td  id="admin_sideline">
+Item name
+</td>
+
+<td  id="admin_sideline">
+Item price
+</td>
+</tr>
+<%if @item.blank?%>
+<tr>
+<td colspan="11">
+No Item Avaliable
+</td>
+</tr>
+<%else%>
+<%for item in @item%>
+<tr>
+<td  id="admin_sideline"  width="10%">
+Posted <%= time_ago_in_words(item.created_at)%> ago
+</td>
+<td  id="admin_sideline"  width="10%">
+   <%= item.created_at%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<% @user= User.find(:first, :conditions=>['id=?',item.user_id])%>
+<%= @user.user_name%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= link_to item.item_name,:controller=>'admins', :action=>'item_info', :id =>item.id %>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= item.item_price%>
+</td>
+</tr>
+<%end%>
+ <%end%>
+</table>
+<br/>
+</div>

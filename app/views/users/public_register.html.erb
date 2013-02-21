@@ -1,0 +1,74 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="mid_page_container">
+<div class="mid_section_center">
+<div class="activity_header">
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:11px;">You are almost there </span>
+
+</div>
+
+<%=form_for :user do |f|%>
+
+<div class="PublicRegister_block">
+
+<div class="error">
+<% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h3><%= pluralize(@user.errors.count, "error") %> There is an error </h3>
+      <ol>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ol>
+    </div>
+  <br/>
+
+  <br/>
+
+<%end%>
+</div>
+
+<div class="edit_note">
+<span style="color:#808080">
+ Build your social reputation,shear your thoughts,ideas and opinions through Beeps. Indulge in friendly beep to beep competitions, separate yourself
+ from the norm and become a royalty member. Create Ads get interested buyers and make money. Its Fun, Profitable and  Free.
+</span>
+</div>
+
+<div class="edit_info">
+
+First Name:<br/>
+<%=f.text_field :first_name, :class => "editTextField" %><br/>
+Last Name:<br/>
+<%=f.text_field :last_name,  :class => "editTextField" %><br/>
+Login Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:black; font-size:10px">Not more than 15 characters</span> <br/>
+<%=f.text_field :user_name,  :class => "editTextField2",:maxlength=>"15" %><br/>
+
+Country:<br/><%=f.text_field :country, :class => "editTextField" %><br/>
+Email Address:<br/><%=f.text_field :email, :class => "editTextField" %><br/>
+Password:<br/><%=f.password_field :password, :class => "editTextField" %><br/>
+Re-enter Password:<br/><%= f.password_field :password_confirmation,:class => "editTextField" %><br/><br/>
+ <div class="publicButtoms">
+ &nbsp;<%=image_submit_tag("public_button.png")%>
+</div>
+</div>
+</div>
+<% end %>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+

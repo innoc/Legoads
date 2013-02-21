@@ -1,0 +1,67 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="item_block">
+
+<div class="item_listj">
+
+<table cellpadding="5" cellspacing="0" border="0">
+
+      <tr>
+       <td>
+         <%@image=Picture.find(:first,:conditions=>["item_id=?",@item.id])%>
+         <%= image_tag(@image.image.url(:thumb))%>
+       </td>
+
+       <td>
+        <%@user = User.find(@item.user_id)%>
+        <span style="font-size:larger;"><%=@item.item_name%></span><br/>
+        <span style="font-size:smaller;color:grey;">Current Price: </span><%=@item.item_price%><br/>
+        <%@comments = Comment.find(:all,:conditions=>["item_id=?",@item.id])%>
+        <%@comments = @comments.count%>
+        <span style="font-size:smaller;color:grey;">Condition:</span> <%=@item.item_condition%>
+        <br/>
+       <span class="item_item">Posted <%= time_ago_in_words(@item.created_at)%> ago</span><br/>
+
+      </td>
+
+        <td>
+        <span style="font-size:small;color:orange;"><%=@user.company_name%></span><br/>
+        <span style="font-size:smaller;"><%=@user.country%>(<%=@user.state%>)</span><br/><br/><br/>
+  
+        </td>
+      </tr>
+
+
+</table>
+<hr/>
+<div id="user_comment"><%=render :partial=>"items/comment"%></div>
+
+
+<div class="user_comment_block">
+<%= form_for :comment,:remote=>true do |f| %>
+<div class="field">
+<legend>Add a comment</legend>
+<%= f.text_area :comment_text,:cols =>35,:rows => 5%>
+
+</div>
+<div class="actions">
+<%=image_submit_tag("comment.png")%>
+</div>
+<% end %>
+  <br/>
+</div>
+
+</div>
+
+
+</div>
+
+
+
+

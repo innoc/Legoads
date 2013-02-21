@@ -1,0 +1,90 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%= stylesheet_link_tag 'default.css' %>
+<%= stylesheet_link_tag 'nivo-slider.css' %>
+<%= stylesheet_link_tag 'style.css' %>
+
+
+
+
+<div class="market_info_section">
+
+<div class="top_border_menu">
+<div class="item_cart">
+<%=image_tag("item_cart.png")%>
+</div>
+ &nbsp; &nbsp; &nbsp; &nbsp;Item Menu
+</div>
+<br/>
+<div id= "item_menu">
+
+          <div class="menu_bar_header">
+          Computers and Electronics<br/>
+          </div>
+
+	<ul>
+
+        <li><%= link_to 'Laptops',:action=>'market',:type=>'all',:id=> 'Laptops',:partial=>"item_search" %></li>
+	<li><%= link_to 'Tablet Computers',:action=>'market',:type=>'all',:id=> 'Tablet Computers',:partial=>"item_search"%></li>
+        <li><%= link_to 'Mobile Phones',:action=>'market',:type=>'all',:id=> 'Mobile Phones',:partial=>"item_search"%></li>
+        <li><%= link_to 'Video Games',:action=>'market',:type=>'all',:id=> 'Video Games',:partial=>"item_search"%></li>
+	<li><%= link_to 'ipods',:action=>'market',:type=>'all',:id=> 'ipods',:partial=>"item_search"%></li>
+     	<li><%= link_to 'Home theaters',:action=>'market',:type=>'all',:id=> 'Home theaters',:partial=>"item_search"%></li>
+      	<li><%= link_to 'Electronic home appliances',:action=>'market',:type=>'all',:id=> 'Electronic home appliances',:partial=>"item_search"%></li>
+     	<li><%= link_to 'Musical instruments',:action=>'market',:type=>'all',:id=> 'Musical instruments',:partial=>"item_search"%></li>
+        </ul>
+
+        <div class="menu_bar_header">
+        Fashion<br/>
+        </div>
+
+        <ul>
+      	<li><%= link_to 'Male cloths',:action=>'market',:type=>'all',:id=> 'Male cloths',:partial=>"item_search"%></li>
+      	<li><%= link_to 'Female cloths',:action=>'market',:type=>'all',:id=> 'Female cloths',:partial=>"item_search"%></li>
+      	<li><%= link_to 'kids outfit',:action=>'market',:type=>'all',:id=> 'kids outfits',:partial=>"item_search"%></li>
+       	<li><%= link_to 'Shoes',:action=>'market',:type=>'all',:id=> 'shoes',:partial=>"item_search"%></li>
+        </ul>
+
+        <div class="menu_bar_header">
+        Accesories<br/>
+        </div>
+	
+        <ul>
+      	<li><%= link_to 'Anitques',:action=>'market',:type=>'all',:id=> 'Anitques',:partial=>"item_search"%></li>
+       	<li><%= link_to 'jewelry & watches',:action=>'market',:type=>'all',:id=> 'jewelry & watches',:partial=>"item_search"%></li>
+      	<li><%= link_to 'Perfumes',:action=>'market',:type=>'all',:id=> 'Perfumes',:partial=>"item_search"%></li>
+        </ul>
+
+
+        
+        <div class="menu_bar_header">
+        Educational<br/>
+        </div>
+      
+	<ul>
+        <li><%= link_to 'Books',:action=>'market',:type=>'all',:id=>'Books',:partial=>"item_search"%></li>
+        <li><%= link_to 'Stationary',:action=>'market',:type=>'all',:id=>'Stationary',:partial=>"item_search"%></li>
+        </ul>
+</div>
+
+<br/>
+<br/>
+
+
+ </div>
+<div class="item_center_container">
+<%if @mark == "market"%>
+<%=render :partial=>"market_partial" %>
+<%else%>
+<%if @mark == "item_search"%>
+<%=render :partial=>"item_search"%>
+<%else%>
+<%if @mark == "search_for"%>
+<%=render :partial=>"search"%>
+<%end%>
+<%end%>
+<%end%>
+</div>

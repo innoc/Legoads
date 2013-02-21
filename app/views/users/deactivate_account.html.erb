@@ -1,0 +1,42 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<div class="mid_page_container">
+<div class="mid_section_center_good_bye">
+
+<div class="activity_header">
+<span class="smiley_set">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "Back to profile",{:controller=>'profile',:action=>'profile',:id=>@user.id ,:sort=>'all'}%>
+</span>
+</div>
+<div class="goodbye">
+Is this goodbye?
+</div>
+&nbsp;Are you sure you don't want to reconsider? Was it something we said? <br/><br/>
+<div class="last_words">
+<%=form_tag(:controller=>'users',:action=>'deactivate_account',:id=>@user.id) do%>
+<div class="goodbye_float">
+Why are you leaving the legoAds family?<br/><br/>
+<%=text_area_tag(:goodbye,nil,:class =>"goodbye_field",:autocomplete => "off",:placeholder=>"What went wrong?")%><br/><br/>
+Enter password
+<%=password_field_tag(:password,nil,:autocomplete => "off",:placeholder=>"password")%><br/>
+</div>
+&nbsp;<%=image_tag("goodbye.png")%>
+</div>
+<div class="goodbye_buttom_layer">
+ <%if  @error == "error" %>
+ <span style="color:red"> Sorry an Error Occurred </span> <br/><br/>
+ <%end%>
+<%=image_submit_tag("leave.png")%>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%= link_to image_tag("stay.png"),{:controller=>'profile',:action=>'profile',:id=>@user.id ,:sort=>'all'}%>
+</div>
+<%end%>
+</div>
+</div>
+
+<%@error = nil%>

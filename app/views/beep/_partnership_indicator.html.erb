@@ -1,0 +1,25 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+<span style="font-size:11px; color:red; display:none" class="request_pending">request is pending</span>
+
+<%unless Partnership.exists?(@user,@beep.user) || @user.id == @beep.user.id%>
+
+<span class="requester">
+<%=link_to image_tag("request_big_icon.png"),{:controller=>'partnership',:action=>'create',:id=>@beep.user.id},:remote=>true%>
+</span>
+<%else%>
+<%if partnership_indicator(@user,@beep.user)=="yes_boss"%>
+<br/>
+&nbsp&nbsp&nbsp&nbsp<%=link_to image_tag("profile_big_icon.png")%>
+<%else%>
+
+<%unless @user.id == @beep.user.id%>
+<span style="font-size:11px; color:red;">request is pending</span>
+<%end%>
+<%end%>
+
+<%end%>

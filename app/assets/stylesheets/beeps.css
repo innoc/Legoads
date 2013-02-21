@@ -1,0 +1,173 @@
+/* 
+    Document   : beeps
+    Created on : Aug 25, 2012, 5:50:30 AM
+    Author     : mummy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+.owner_beep{
+float:left;
+
+min-width:22.2%;
+}
+.Beep_box{
+margin-top:0.2%;
+width:55%;
+
+margin-left:26%;
+}
+#beep_owner_image{
+float:right;
+margin-top:0.5%;
+margin-right:22.5%;
+width:40%;
+}
+#beep_owner_images{
+float:right;
+margin-right:32%;
+width:35%;
+}
+
+.hottest_beep_contents{
+    margin-left:0%;
+    background-color:#eeeeee;
+    text-align:center;
+    color:black;
+    padding-top:1.5%;
+    border:1px solid white ;
+    min-height:50px;
+}
+.hottest_beep_bottom{
+width:50%;
+margin-left:12%;
+margin-top:3%;
+padding:0.5%;
+border:1px solid #c0c0c0;
+background-color:white;
+}
+
+.review{
+width:20%;
+margin-left:1%;
+font-size:small;
+border-bottom:1px solid #c0c0c0
+}
+
+.hottest_review{
+min-height:10px;
+padding-top:0.5%;
+padding-left:1%;
+margin-left:2%;
+margin-top:1%;
+color:black;
+width:99.5%;
+
+}
+.owner_hottest_beep{
+border:1px solid #c0c0c0;
+width:75%;
+min-height:110px;
+background-color:#eeeeee;
+}
+.owner_hottest_beeps{
+border:1px solid #c0c0c0;
+width:95%;
+margin-left:2.5%;
+min-height:110px;
+background-color:#eeeeee;
+}
+
+.hottest_respond{
+width:104%;
+color:#8397d7;
+padding-right:1%;
+margin-left:1%;
+}
+.hottest_respond a{
+ text-decoration:none;
+ color:#8397d7;
+ font-size:11px;
+}
+.hottest_respond a:hover{
+text-decoration:underline;
+}
+.hottest_respond{
+width:104%;
+padding-right:1%;
+}
+.winning_beep{
+border:1px solid white;
+padding:2%;
+width:30%;
+font-size:11px;
+color:black;
+margin-right:0.5%;
+float:right;
+}
+.bottom_border_hot_beep{
+border-bottom:1px solid #c0c0c0;
+color:black;
+font-size:small;
+}
+.Losing_beep{
+  padding:2%;
+  width:26.5%;
+  font-size:11px;
+color:black;
+  border:1px solid white;
+ 
+}
+.hottest_partner_indicator{
+ float:right;
+ margin-right:0%;
+ margin-top:0.2%;
+ width:20%;
+}
+.partner_profile{
+margin-top:-5%;
+}
+.image_tag_pro{ 
+margin-top:0.5%;
+margin-left:0.5%;
+}
+.requested_heading{
+margin-left: 3%;
+border-bottom:1px solid #c0c0c0;
+margin-top:1%;
+width:70%;
+}
+.requested_hide_partner_section{
+margin-top:0.5%;
+font-size:11px;
+float:right;
+cursor:pointer;
+height:13px;
+color:#4d4d68;
+}
+.beep_comment{
+    width:100%;
+    
+}
+.beep_commenter{
+    width:70%;
+    border-top:1px solid #c0c0c0;
+    border-bottom:1px solid #c0c0c0;
+    margin-top:10%;
+    margin-left:14.5%;
+    padding-top:1%;
+    padding-top:1%;
+}
+
+
+
+
+

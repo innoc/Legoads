@@ -1,0 +1,154 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="mid_page_container">
+<div class="mid_section_center">
+<div class="activity_header">
+<span class="smiley_set">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "back",:back%>
+</span>
+</div>
+
+
+  <%@image=Picture.find(:first,:conditions=>["item_id=?",@item.id])%>
+
+    <div class="market_item_list_all_comment ">
+     <table width="100%">
+      <tr>
+       <td>
+    <div class="item_image_page">
+     <%if @image.blank?%>
+     <%=image_tag("default_image.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:moderate))%>
+     <%end%><br/>
+     <div class="smiley_set">
+
+     </div>
+    </div>
+
+      <div class="item_content_pricing">
+
+        <div class="item_price">
+
+          <span style="color:black">price<br/>
+         <%= number_to_currency(@item.item_price)%>
+        <br/><br/>
+        <%unless @item.partner_price.blank?%>
+        Partner Price<br/>
+        <%=number_to_currency(@item.partner_price)%>
+        <%end%>
+        </span>
+         <br/>
+         <br/>
+     
+        </div>
+      </div>
+     &nbsp;<span style="color:black; font-size:large"><%= @item.item_name %></span><br/>
+      &nbsp;<%=@item.item_condition%>
+      </td>
+      </tr>
+      <tr>
+       <td>
+        <span style="color:black; font-size:small"><b>Description</b></span><br/>
+        <%=@item.description %>
+       </td>
+      </tr>
+
+     </table>
+    </div>
+
+
+<div class="contact_info_interested">
+<div class="contact_info_center">
+ Owner's Contact Info
+</div>
+<%unless session[:user_id].blank?%>
+<div class="partnership_indicator">
+<%=render :partial=>'users/partnership_indicator'%>
+</div>
+<%end%>
+  <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@item.user_id])%>
+     <%@user=User.find(@item.user_id)%>
+     <%if @image.blank?%>
+     <%=image_tag("default.png")%>
+     <%else%>
+     <%= image_tag(@image.image.url(:mid))%>
+     <%end%>
+  </div>
+    <div id="beep_user_names">
+      <%= link_to truncate(@item.user.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@item.user.id,},:rel=>'facebox'%> <span style="font-size:11px"></span><br/>
+      <span style="font-size:12px; color:black">
+      Items : <%=@item.user.items.count%><br/>
+      Beep : <%=@item.user.beeps.count%><br/><br/>
+      Rank: <span class="rank_rack"><%=@user.rank.rank_type%> </span><br/>
+     </span>
+    </div>
+  <br/>
+   
+
+  <span style="font-size:12px; color:black">
+    Email:</span> <%=@item.user.email%><br/>
+    <%unless @item.contact_number.blank?%>
+  <span style="font-size:12px; color:black"> Phone Number:</span> 0<%=@item.contact_number%><br/>
+    <%end%>
+    <%unless @item.BlackBerry_pin.blank?%>
+      <span style="font-size:12px; color:black"> BB pin:</span> <%=@item.BlackBerry_pin%>
+    <%end%>
+
+
+</div>
+ <br/><br/> <br/><br/> <br/><br/> <br/><br/>
+  <br/><br/> <br/><br/> <br/><br/>
+<div class="market_comment_background_see_all_comment">
+<%if  @item_comment.blank?%>
+&nbsp;<span style="font-size:11px">No response has been made on this item</span>
+<%else%>
+&nbsp;<span style="font-size:10px;color:#111">recent comments</span>
+<%for comment in  @item_comment%>
+
+
+   <div class="">
+
+    <div class="market_see_all_previews">
+    <div id="image_tag">
+
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",comment.commenter_id])%>
+     <%@user=User.find(@item.user_id)%>
+     <%if @image.blank?%>
+     <%=image_tag("photo.png")%>
+     <%else%>
+     <%= image_tag(@image.image.url(:small))%>
+     <%end%>
+    </div>
+         <div id="beep_user_names">
+
+             <div class="beep_created_at">
+             <%= time_ago_in_words(comment.created_at)%>
+             </div>
+             <%= link_to truncate(@item.user.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@item.user.id,},:rel=>'facebox'%> <span style="font-size:11px"></span>
+
+          </div>
+        <div id="see_all_content">
+            <%=comment.comment_text%>
+        </div>
+
+
+
+       </div>
+
+   </div>
+
+<%end%>
+<%if @item.comments.count > 7%>
+<div class="see_all_comments">
+<%=link_to "see all",:controller=>"items",:action=>"see_all_comments",:id=>@item.id%>
+</div>
+<%end%>
+<%end%>
+</div>
+<br/>
+</div>
+</div>

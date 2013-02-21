@@ -1,0 +1,104 @@
+<div class="mid_page_container">
+<div class="mid_section_center">
+<div class="activity_header">
+<span class="smiley_set">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "back",:back%>
+</span>
+</div>
+
+<%@image= UserImage.find(:first,:conditions=>["user_id=?", @user.id])%>
+<div class="view_users_item">
+<div class="partnership_indicator">
+<%=render :partial=>'profile/partnership_indicator'%>
+</div>
+ <div class="view_user_item_user_info">
+  &nbsp;<span style="font-size:17px;color:black;"><%= link_to truncate( "#{@user.first_name} #{@user.last_name}",:length =>26),{:controller=>"users",:action=>"user_info",:id=>@user.id},:rel=>"facebox"%>&nbsp;</span><br/>
+   <span style="font-size:13px;"> &nbsp;<%=truncate(@user.user_name,:length =>19)%></span> <br/>
+    &nbsp;Item : <%=@user.items.count%>
+ </div>
+<div class="view_users_item_image_box">
+     <%if @image.blank?%>
+      <%#
+        {:controller=>"users",:action=>"user_pic",:id=>@user.user_name},:rel=>"facebox",:layout=>nil
+      %>
+    
+     <%=link_to image_tag("default.png"),{:controller=>"users",:action=>"user_pic",:id=>@user.id},:rel=>"facebox"%>
+
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:thumb)),{:controller=>"users",:action=>"user_pic",:id=>@user.id},:rel=>"facebox"%>
+     <%end%><br/>
+  </div>
+
+</div>
+
+<br/>
+&nbsp; &nbsp;<%=image_tag("tag_blue.png")%> <span style="color:black; font-size:large"> <%=@user.user_name%>'s Item List </span>
+
+<div id="result">
+ <%unless @item.blank?%>
+   <%for item in @item%>
+
+     <%@image=Picture.find(:first,:conditions=>["item_id=?",item.id])%>
+
+    <div class="whole_body">
+     <table width="100%">
+      <tr>
+       <td>
+    <div class="item_image_page">
+     <%if @image.blank?%>
+     <%=image_tag("default_image.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:thumb))%>
+     <%end%><br/>
+  
+    </div>
+    <div class="see_item_content">
+      <div class="item_content_pricing">
+        <%=item.item_condition%>
+        <div class="item_price">
+          <span style="color:black">price<br/>
+         <%= number_to_currency(item.item_price)%>
+        <br/><br/>
+        <%unless item.partner_price.blank?%>
+        Partner Price<br/>
+        <%= number_to_currency(item.partner_price)%>
+        <%end%>
+        <br/>
+        <br/>
+         <%=link_to image_tag("item_interest.png"),:controller=>'items',:action=>'interested',:id=>item.id%>
+        <br/>
+        <br/>
+        </span>
+        </div>
+      </div>
+     <span style="color:black; font-size:large"> <%= item.item_name %></span><br/>
+      <br/>
+      <%=item.description %>
+    </div>
+      </td>
+      </tr>
+     </table>
+    </div>
+
+   <%end%>
+  <%else%>
+    you currently don't have any item for sale
+  <%end%>
+
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+

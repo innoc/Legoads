@@ -1,0 +1,30 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%=image_tag("logo_sign.png")%>
+<% if user_join(@current_user,@beep) == "no"%>
+<br/>
+<br/>
+<div class="beep_bodyi">
+<%=@beep.beep_content%>
+</div>
+
+ <br/>
+ <br/>
+<div class="join_change">
+<%=render :partial=>"join_change"%>
+</div>
+<%else%>
+<br/>
+<br/>
+<br/>
+<div class="join_indicator">
+Sorry You cant join more than once
+</div>
+<%end%>
+
+
+
+

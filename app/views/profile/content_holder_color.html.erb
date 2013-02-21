@@ -1,0 +1,74 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<span style="font-size:13px;"> &nbsp;Enter a color name or hexadecimal color code <br/>
+<%=form_tag({:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id}) do%>
+<%=text_field_tag(:color_code,nil,:class =>"search_partner",:placeholder=>"enter color code")%><br/>
+<div class="submitB"><%=image_submit_tag ("submit.png")%></div>
+<%end%>
+ <br/>
+ <br/>
+
+ &nbsp;You can also select one of the samples below
+</span>
+
+<div class="color_scheme">
+
+
+  <table width="0%">
+  <tr>
+    <td>
+      <%=link_to image_tag("color_black.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"black"},:method=>"post"%>
+    </td>
+    <td>
+     <%=link_to image_tag("color_01_B39F73.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"#B39F73"},:method=>"post"%>
+    </td>
+    <td>
+     <%=link_to image_tag("color_02_e198b2.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"#e198b2"},:method=>"post"%>
+    </td>
+    <td>
+     <%=link_to image_tag("color_03_62587c.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"#62587c"},:method=>"post"%>
+    </td>
+ </tr>
+  <tr>
+    <td>
+     <%=link_to image_tag("color_04_d9ccb9.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"#d9ccb9"},:method=>"post"%>
+
+    </td>
+    <td>
+     <%=link_to image_tag("color_05_017890.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"#017890"},:method=>"post"%>
+
+    </td>
+    <td>
+    <%=link_to image_tag("color_06_lightblue.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"lightblue"},:method=>"post"%>
+    </td>
+    <td>
+      <%=link_to image_tag("color_08_white.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"white"},:method=>"post"%>
+    </td>
+ </tr>
+ <tr>
+    <td>
+     <%=link_to image_tag("color_07_lightcyan.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"lightcyan"},:method=>"post"%>
+    </td>
+    <td>
+     <%=link_to image_tag("color_09_eeeeee.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"#eeeeee"},:method=>"post"%>
+    </td>
+    <td>
+    <%=link_to image_tag("color_10_red.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"red"},:method=>"post"%>
+    </td>
+    <td>
+      <%=link_to image_tag("color_11_brown.png"),{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile.id,:color_code=>"brown"},:method=>"post"%>
+    </td>
+ </tr>
+</table>
+
+
+<br/>
+</div>
+
+<div class="smiley_set">
+<%=link_to "change back to befault",{:controller=>'profile',:action=>'content_holder_default',:profile_id=>@profile.id,:color_code=>"black"},:method=>"post"%>
+</div>
+

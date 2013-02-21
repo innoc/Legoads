@@ -1,0 +1,268 @@
+/*
+    Document   : layout
+    Created on : Aug 18, 2011, 6:26:20 AM
+    Author     : mummy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+
+
+.right_container{
+border-left:1px solid #808080;
+width:20em;
+height:100em;
+float:right;
+position:fixed;
+top:-0.2em;
+border:1px solid black;
+z-index:11;
+display:none;
+right:-3em;
+background-color:#f8f8f8;
+}
+.name_index a{
+text-decoration:none;
+color:#00e4e4;
+font-size:14px;
+
+}
+
+.name_index a:hover{
+text-decoration:underline;
+
+}
+
+.name_index{ 
+padding-top:2%;
+margin-right:3%;
+width:70%;
+}
+
+.left_container{
+width:8em;
+height:50em;
+
+top:6em;
+position:fixed;
+float:left;
+margin-top:-2.5%;
+z-index:5;
+background-color:#f1f1f1;
+
+padding-left:1%;
+padding-top:1%;
+margin-left:-1%;
+}
+.index_header{
+position:fixed;
+z-index:10;
+top:0;
+border:1px solid #c0c0c0;
+width:108em;
+margin-left:-1%;
+padding-top:0.7%;
+padding-bottom:0.2%;
+background-color:#3f5362;
+}
+
+.center_container{
+min-height:800px;
+width:103%;
+position:relative;
+left:-1.5%;
+background-color:white;
+margin-left:11.2%;
+margin-top:3.9%;
+border-left:1px solid #c0c0c0;
+border-right:1px solid #c0c0c0;
+border-bottom:1px solid #c0c0c0;
+padding-left:3%;
+padding-top:2%;
+}
+.footer{
+margin-left:11.2%;
+font-size:11px;
+margin-top:1%;
+color:black;
+}
+.item_center_container{
+min-height:580px;
+width:72%;
+position:relative;
+left:-1.5%;
+background-color:white;
+margin-left:37%;
+margin-top:4%;
+border:1px solid #c0c0c0;
+
+padding-top:2%;
+}
+
+
+.search_field_ajax1{
+    outline:none;
+    width:280px;
+    height:21px;
+    text-align: center;
+    float:left;
+    font-family:arial,sans-serif;
+    font-size:1em;
+    color:#808080;
+    background-color:#cccccc;
+    border:none;
+    
+}
+
+.search_index{
+float:right;
+margin-right:5%;
+-moz-border-radius:5px;
+-webkit-border-radius:5px;
+border-radius:5px;
+margin-top:0.1%;
+width:23.5%;
+border:1px solid #cccccc;
+background-color:#cccccc;
+}
+.front_design{
+float:right;
+margin-right:5%;
+width:23.5%;
+}
+
+
+#submit1{
+margin-right:3%;
+margin-top:1%;
+float:right;
+}
+#item_submit{
+margin-right:3%;
+float:right;
+}
+.logo{
+}
+.all_nav{
+margin-right:8.5%;
+float:right;
+
+width:43%;
+}
+.advertise_here{
+    float:right;
+}
+
+
+.image_align{
+margin-top:3%;
+margin-left:-18%;
+width:19%;
+}
+
+
+#more{
+cursor:pointer;
+}
+#moreDiv{
+position:fixed;
+left:3em;
+z-index:10;
+top:30em;
+height:7em;
+width:20em;
+display:none;
+padding-left:2em;
+padding-top:0.5em;
+background:transparent url("../../assets/content_carier.png") no-repeat;
+}
+.notice_box{
+background-color:#d74937;
+color:white;
+cursor:pointer;
+padding-left:2%;
+padding-right:2%;
+font-size:15px;
+}
+.notice_box a{
+font-size:15px;
+  }
+.notification_hidden{
+
+}
+#mini_drop_down_application{
+border:1px solid #727272;
+width:24em;
+height:10em;
+top:27px;
+right:20%;
+z-index:100;
+background-color:white;
+display:none;
+}
+.drop_down_application{
+cursor:pointer;
+margin-top:-3%;
+margin-right:0;
+
+}
+
+
+
+#top_nav_activate{
+float:right;
+
+width:50%;
+}
+.sign_out{
+float:right;
+clear:both;
+}
+body{
+background-color:#f1f1f1;
+font-size:13px;
+color:#5c5c5c;
+min-width:1100px;
+font-family:tahoma;
+}
+
+#wrapper{
+width:1100px;
+background-color:#f1f1f1;
+}
+
+
+#logo{
+margin-top:0.5%;
+margin-left:0%;
+margin-bottom:0.5%;
+padding-top:0.5%;
+padding-left:1%;
+width:9%;
+}
+
+.list-line-odd{
+	background:#EDC393;
+        border-bottom:1px solid black;
+}
+
+.list-line-even{
+	border-top:solid 1px black;
+	border-bottom:solid 1px black;
+	background: white;
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+<div class="center_container">
+ <div id="admin-header">
+ <h1><%= image_tag('suitpic.jpg')%> Administrator</h1>
+ </div>
+ <hr/>
+ <div id="back-to-index">
+ <%=link_to'Back to index',:controller=>'admins',:action=>'index'%>
+ </div>
+ <%= form_tag :controller => 'admins', :action =>'search' do %>
+					<label>User name</label><%= text_field_tag 'user_name'%>
+
+<%=submit_tag 'Search'%>
+<%end%>
+ <div id="list-customers">
+ <h3>List of Users</h3>
+ </div>
+
+
+<table border=0 width="100%" cellpadding="2" cellspacing="0" >
+<tr class="admin_user_list">
+<td  id="admin_sideline"  width="10%">
+<b>User name</b>
+</td>
+
+<td   id="admin_sideline" width="10%">
+<b>Email</b>
+</td>
+
+
+<td  id="admin_sideline"  width="10%">
+<b>Country</b>
+</td>
+
+
+</tr>
+<%if @user.blank?%>
+<tr>
+<td colspan="11">
+No User Avaliable
+</td>
+</tr>
+<%else%>
+<%for user in @user%>
+<tr>
+<td  id="admin_sideline"  width="10%">
+<%=user.user_name%>
+</td>
+
+<td  id="admin_sideline"  width="10%">
+<%= user.email%>
+</td>
+
+<td  id="admin_sideline"  width="10%">
+<%= user.country%>
+</td>
+
+
+</tr>
+<%end%>
+ <%end%>
+</table>
+<br/>
+</div>

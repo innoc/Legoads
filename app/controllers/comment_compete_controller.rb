@@ -1,0 +1,2 @@
+class CommentCompeteController < ApplicationController
+end

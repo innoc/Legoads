@@ -1,0 +1,41 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+ <%if @commented.blank?%>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=image_tag("noComment.png")%>
+ <hr/>
+  <%else%>
+
+  <div class="user_comment_ajax">
+
+    <table cellpadding="0" width="98%" cellspacing="3" border="0">
+       
+     <%for commented in @commented%>
+      <tr>
+      <td >
+      <%@image= UserImage.find(:first,:conditions=>["user_id=?",commented.commenter_id])%>
+      <%if @image.blank?%>
+      <%= image_tag("photo_small.png")%>
+      <%else%>
+      <%= image_tag(@image.image.url(:small))%>
+      <%end%> <br/>
+      </td>
+      <td>
+       <span style="font-size:smaller;"><%=commented.comment_text%></span><br/>
+        <span style="color:purple; font-size:smaller">Posted <%= time_ago_in_words(commented.created_at)%> ago</span><br/>
+      </td>
+    </tr>
+    <tr>
+     <td colspan="2">
+      <hr/>
+     </td>
+    </tr>
+    
+    <%end%>
+    
+  </table>
+
+  </div>
+  <%end%>

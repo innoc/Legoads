@@ -1,0 +1,40 @@
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+ $('a[rel*=facebox]').facebox();
+});
+</script>
+<div class="mid_page_container">
+<div class="mid_section_center">
+<div class="activity_header">
+&nbsp;Messages &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="smiley_set">
+<%=link_to "back to profile",:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"check_message"%>
+</span>
+</div>
+
+<div id="check">
+<%=render :partial=>"message"%>
+</div>
+  
+<%for message in @message%>
+<%unless message.user_id ==@user.id%>
+<%message.update_attribute("status","read")%>
+<%end%>
+<%end%>
+  
+<%=form_tag({:controller=>'messages',:action=>'check_message',:id=>@message[0].conversation_id,:message_id=>@message[0].id},:remote=>true) do%>
+
+<div class="message_form_cover">
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:black; font-size:12px">reply message</span>
+<%=text_area_tag(:body,nil,:class=>"message_body",:autocomplete => "off",:placeholder=>"reply message")%>
+</div><br/>
+
+ &nbsp; &nbsp; &nbsp; &nbsp;<%=image_submit_tag ('send_message.png')%> &nbsp; &nbsp; &nbsp; &nbsp;
+<span class="smiley_set">
+<%=link_to "back to profile",:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"check_message"%>
+</span>
+
+<%end%>
+
+  </div>
+</div>

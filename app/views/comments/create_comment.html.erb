@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag :all %>
+
+<div class="comment_cover">
+<div class="comment_block1">
+<div id="comments"><%=render :partial=>"items/item_comment"%></div>
+</div>
+<div class="comment_blockd">
+<%= form_for :comment,:remote=>true do |f| %>
+
+<legend>Add a comment</legend>
+<%= f.text_area :comment_text,:cols =>45,:rows =>5%>
+<br/>
+<br/>
+<div class="actions">
+<%=image_submit_tag("comment_image.png")%>
+</div>
+<% end %>
+</div>
+</div>
+  
+
+
+
+
+
+
+

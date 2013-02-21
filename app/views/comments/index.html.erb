@@ -1,0 +1,52 @@
+<% if !logged_in? %>
+<div id="wrapper">
+  <div id="top_logo">
+    <% if FileTest.exists?("#{Rails.root}/public/uploads/image/institute_logo.jpg") %>
+      <%= image_tag  "/uploads/image/institute_logo.jpg" ,:width => "155",  :height=>"107" %>
+    <% else %>
+    <div id="content_wrapper">
+      <div id="side_bar">
+        <div id="fedena_logo">
+          <div class="fed_logo">
+            <!--img src="/images/application/app_fedena_logo.jpg"/-->
+          </div>
+        </div>
+      </div>
+    </div>
+   <%end%>
+  </div>
+   
+  <div id="search-area">
+<% unless flash[:notice].nil? %> <p class="flash-msg"><%= flash[:notice]%> </p> <% end %>
+    <div id="searchbox">
+      <form name="search-form" id="search-form">
+        <label for="query">Search users
+          <%= image_tag("loader.gif",
+          :align => "absmiddle",
+          :border => 0,
+          :id => "loader",
+          :style => "display: none;")%>
+        </label>
+        <%= text_field_tag "query", params[:query], :autocomplete => 'off'%>
+      </form>
+    </div>
+  </div>
+  
+  <div id="page-yield">
+  
+   jQuery(function($){ 
+   $("query").change(function(){ 
+   $.post(<%={:action =>'search_user_ajax', :id =>"1"}%>),function (data) {
+   $('user_information').html(data);
+   });
+   });
+   })
+  
+    <div id="user_information"></div>
+    <div class="extender"></div>
+    
+  </div>
+  <%end%>
+
+</div>
+ 

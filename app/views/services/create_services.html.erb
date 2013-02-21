@@ -1,0 +1,107 @@
+<h1>Services#create_services</h1>
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%= stylesheet_link_tag 'office.css'%>
+
+<div class="main_block">
+
+  <p> </p>
+
+<div class="freeC">
+
+</div>
+
+ <div class="FreeItemA">
+<div class="paginate_item">
+  <%= page_entries_info @vacancy %>&nbsp;&nbsp;&nbsp;&nbsp;<%= will_paginate @vacancy%>
+</div>
+
+ <%if @vacancy.blank?%>
+   <div class="NoVacancy">
+
+   </div>
+ <%else%>
+<div class="free_item">
+
+</div>
+<%end%>
+
+ </div>
+
+
+  <div class="blockB">
+
+ <div class="change_pic">
+ <%=link_to '<--Upload Your logo',:controller=>'users',:action=>'upload_image',:id=>'1'%>
+
+</div>
+ <div class="card_content">
+ <%=@user.user_name%>
+  <div id="cash">200,000 NGN </div>
+ </div>
+
+    <table border="1" class="image_block">
+<tr>
+    <td>
+       <%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+       <%if @image.blank?%>
+       <%= image_tag("photo.png")%>
+       <%else%>
+        <%= image_tag(@image.image.url(:thumb))%>
+       <%end%>
+    </td>
+  </tr>
+
+
+</table>
+    <div class="memebershipType">
+     Payment type:<%=@user.plan_type%>
+   </div>
+
+    <div class="memebershipType">
+     Membership type: white
+   </div>
+  <div class="office_menus">
+	<ul>
+        <li><%= link_to'<--Back to Office',:controller=>'users',:action=>'office', :id=>'1'%></li>
+
+	<li><%= link_to 'ITEMS',:controller=>'items',:action=>'free_item',:id=>1 %></li>
+	<li><%= link_to 'CUSTOMER REQUEST',:controller=>'requests',:action=>'view_request',:id=>'1' %></li>
+        <li><%= link_to 'EDIT COMPANY INFO',:controller=>'users',:action=>'edit',:id=>'1'%></li>
+        <li><%= link_to 'JOB VACANCIES',:controller=>'users',:action=>'vacancy',:id=>'1'%></li>
+
+	</ul>
+
+
+<%if @user.account == 'Activate'%>
+  <div class="sell_item">
+     <%= link_to image_tag("sellItem.png"),:controller=>'items',:action=>'new'%><br/>
+ </div>
+<%end%>
+ </div>
+
+ </div>
+
+
+<div class="office_Labels">
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+

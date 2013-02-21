@@ -1,0 +1,371 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<script type="text/javascript">
+$(document).on("click",".see_all",function(){
+    $(this).nextAll().slideToggle("fast");
+   });
+  $(document).on("click",".change_text",function(){
+    if($(this).text() == "Expand"){
+     $(this).html("hide")
+    }
+    else
+     if($(this).text() == "hide"){
+     $(this).html("Expand")
+    }
+
+   });
+ jQuery(document).ready(function($) {
+    var characters = 220;
+    $("#counter").append("You have <strong>"+characters+"</strong> characters remaining");
+    $(".create_beep").keyup(function(){
+        if($(this).val().length > characters){
+        $(this).val($(this).val().substr(0, characters));
+        }
+    var remaining = characters -  $(this).val().length;
+    $("#counter").html("You have <strong>"+  remaining+"</strong> characters remaining");
+    if(remaining <= 10)
+    {
+        $("#counter").css("color","red");
+    }
+    else
+    {
+        $("#counter").css("color","black");
+    }
+
+});
+
+
+});
+</script>
+<div class="profile_page_container">
+ 
+  <%@profile = Profile.find(@profile_id)%>
+
+
+<div class="advert_section">
+<div class="reputation_bar">
+ <div class="menu_bar_header" style="color:<%=@profile.font_color%>;background-color:<%=@profile.content_holder%>">
+    Reputation
+ </div>
+
+   <div class="rep_name"><%=@user.rank.rank_type%></div><br/>
+   
+   <%if @user.rank.rank_type == "Freshman"%>
+  <%=image_tag("fresh_man.png")%><br/>
+  <span style="color:black"><%=  150 -  @user.rank.user_point %> Points </span> <span style="font-size:11px; color:#5c5c5c">remaining to become a Blogger </span>
+<%else%>
+   <%if @user.rank.rank_type == "Blogger"%>
+   <%=image_tag("blogger.png")%><br/>
+     <span style="color:black"><%=  300 -  @user.rank.user_point %> Points </span> <span style="font-size:11px; color:#5c5c5c">remaining to become a Middle-class member </span>
+   <%else%>
+   <%if @user.rank.rank_type == "Middle class"%>
+         <%=image_tag("middle_class.png")%><br/>
+   <span style="color:black"><%=  300 -  @user.rank.user_point %> Points </span> <span style="font-size:11px; color:#5c5c5c">remaining to become an  Upper-class member </span>
+   <%else%>
+   <%if @user.rank.rank_type == "Upper class"%>
+     <%=image_tag("upper_class.png")%><br/>
+   <span style="color:black"><%=  300 -  @user.rank.user_point %> Points </span> <span style="font-size:11px; color:#5c5c5c">remaining to become a Royalty member </span>
+   <%else%>
+   <%if @user.rank.rank_type == "Royalty"%>
+     <%=image_tag("royalty.png")%><br/>
+   <%end%>
+   <%end%>
+   <%end%>
+   <%end%>
+   <%end%>
+<br/><br/><br/><br/>
+   
+</div>
+
+<br/><br/><br/><br/>
+<%if @user.id == @profile_visitor.id%>
+<div class="hottest_beep_section">
+ <div class="menu_bar_header" style="color:<%=@profile.font_color%>;background-color:<%=@profile.content_holder%>">
+   Trending Beeps
+ </div>
+<div class="searching_gif">
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=image_tag("searching.gif")%>
+</div>
+<div class="hottest_beeps">
+&nbsp <span style="display:none"><%=link_to'View',{:controller=>'beep',:action=>'hottest_beeps'},:remote=>true,:id=>'auto_click'%></span>
+<br/>
+</div>
+<div class="update_beep">
+<%=render :partial=>"beep/hottest_beeps"%>
+</div>
+</div>
+<%else%>
+<div class="menu_bar_header" style="color:<%=@profile.font_color%>;background-color:<%=@profile.content_holder%>">
+ Beep @<%=@user.user_name%>
+</div>
+<span style="font-size:11px"><div id="counter"></div></span>
+
+<%=form_tag({:controller=>'beep',:action=>'beep_at',:id=>@user.id}) do%>
+<%=text_area_tag(:beep_text,nil,:class =>"create_beep",:autocomplete => "off",:placeholder=>"@#{@user.user_name}")%><br/>
+<div class="create_beep_form">
+<div class="beep_button">
+<%=image_submit_tag ('beepat.png')%>
+</div>
+</div>
+<%end%>
+<br/>
+<br/>
+<br/>
+
+<%end%>
+</div>
+<div class="profile_info_section" style="color:<%=@profile.font_color%>">
+
+
+<%@image= UserImage.find(:first,:conditions=>["user_id=?", @user.id])%>
+<div class="profile_pic_id">
+          
+     <%if @image.blank?%>
+      <%#
+        {:controller=>"users",:action=>"user_pic",:id=>@user.user_name},:rel=>"facebox",:layout=>nil
+      %>
+     <div class="default_image_div">
+
+     <%unless @user.id == @profile_visitor.id%>
+     <%=image_tag("default_image.png")%>
+     <%else%>
+     <%=link_to image_tag("default_image.png"),{:controller=>"users",:action=>"user_pic",:id=>@user.id},:rel=>"facebox"%>
+     <%end%>
+     </div>
+     <%else%>
+     <%unless @user.id == @profile_visitor.id%>
+     <%=link_to image_tag(@image.image.url(:medium)),{:controller=>"users",:action=>"full_size",:id=>@image.id},:target=>'_blank'%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:medium)),{:controller=>"users",:action=>"user_pic",:id=>@user.id},:rel=>"facebox"%>
+     <%end%>
+      
+     <%end%><br/>
+   &nbsp;<span style="font-size:17px;color:black;"><%= link_to truncate( "#{@user.first_name} #{@user.last_name}",:length =>26),{:controller=>"users",:action=>"user_info",:id=>@user.id},:rel=>"facebox",:style=>"color:#{@profile.font_color}"%>&nbsp;</span>
+ <br/><span style="font-size:13px;"><%=truncate(@user.user_name,:length =>19)%></span> <br/>
+</div>
+ 
+<div class="profile_menu" style="color:<%=@profile.font_color%>;background-color:<%=@profile.content_holder%>">
+
+ <%if @user.id == @profile_visitor.id%>
+ <div class="each_menus">
+ &nbsp;<%=image_tag("email_go.png")%> <%= link_to 'Message',{:controller=>"profile",:action=>"profile",:sort=>"check_message",:id=>@user.id},:style=>"color:#{@profile.font_color}"%>  <span style="color:black"> <%= Message.find(:all,:conditions=>["user_id=? or receiver_id=?",@user.id,@user.id]).count%></span><br/>
+ </div>
+
+ <div class="each_menus">
+ &nbsp;<%=image_tag("tag_blue.png")%> <%= link_to 'Items',{:controller=>"items",:action=>"manage_item",:type=>'all',:id=>1},:style=>"color:#{@profile.font_color}"%> <span style="color:black"> <%=@user_items.count%></span><br/>
+ </div>
+<%else%>
+<div class="each_menu">
+ &nbsp;<%=image_tag("email_go.png")%> <%= link_to 'Send message',{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"send_message"},:remote=>true%>
+</div>
+ <div class="each_menus">
+ &nbsp;<%=image_tag("tag_blue.png")%> <%= link_to 'Items',{:controller=>"items",:action=>"view_user_item",:id=>@user.id},:style=>"color:#{@profile.font_color}"%> <span style="color:black"> <%=@user_items.count%></span><br/>
+ </div>
+<%end%>
+ 
+
+<%unless @user.id == @profile_visitor.id%>
+  <div class="each_menu">
+   &nbsp;<%= image_tag("group_go.png")%> <%= link_to 'Partner',{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"partners"},:style=>"color:#{@profile.font_color}",:remote=>true%> <span style="color:black"> <%= @partner_count.count %></span>
+  </div>
+<%else%>
+ 
+  &nbsp;<%= image_tag("group_go.png")%> <%= link_to 'Partner',office_path(:id=>'partner_page'),:style=>"color:#{@profile.font_color}"%> <span style="color:black"> <%= @user.partners.count %></span>
+
+  <%end%>
+
+ </div>
+  <br/>
+<div class="info_bottom">
+<div class="profile_menu" style="background-color:<%=@profile.content_holder%>">
+ <div class="each_menus">
+ &nbsp;<%= image_tag("comment.png")%> <%=link_to "Beeps",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"},:style=>"color:#{@profile.font_color}"%> <%= @user.beeps.count%><br/>
+ </div>
+   <div class="each_menu">
+  &nbsp;<%= image_tag("winning_beep.png")%> <%=link_to "Winning beeps",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"winning"},:remote=>true,:style=>"color:#{@profile.font_color}"%><br/>
+  </div>
+   <div class="each_menu">
+  &nbsp;<%= image_tag("losing_beep.png")%> <%=link_to "Losing beeps",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"losing"},:remote=>true,:style=>"color:#{@profile.font_color}"%><br/>
+  </div>
+   <div class="each_menu">
+ &nbsp;<%= image_tag("comments.png")%> <%=link_to "Quoted beep",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"quote"},:remote=>true,:style=>"color:#{@profile.font_color}"%><br/>
+  </div>
+  <div class="each_menu">
+ &nbsp;<%= image_tag("competition.png")%> <%=link_to "Competitions",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"contest"},:remote=>true,:style=>"color:#{@profile.font_color}"%><br/>
+  </div>
+</div>
+  <br/>
+  
+<div id="beep_image" style="color:<%=@profile.font_color%>;background-color:<%=@profile.content_holder%>">
+ beeped images   <span class="beep_picture_count">
+ &nbsp;<%=@user.beep_pictures.count%>
+ </span><br/><br/>
+ <%if @user.beep_pictures.blank?%>
+ <%=image_tag("beep_image.png")%>
+ <%else%>
+ <%@max_beep_picture = BeepPicture.find(:all,:conditions=>["user_id=?",@user.id],:order=>"created_at desc",:limit=>4)%>
+ <table width="100%">
+   <tr>
+      
+ <%for beep_image in @max_beep_picture%>
+  <td>
+ <div class="floating_left">
+ <%= link_to  image_tag(beep_image.image.url(:small)),:controller=>"profile",:action=>"profile",:sort=>"picture_gallary"%>&nbsp;<br/>
+ </div>
+  </td>
+ <%end%>
+   
+      </tr>
+ </table>
+ <br/><br/>
+ <%end%>
+
+</div>
+<br/>
+
+
+<br/>
+
+<%if @user.id == @profile_visitor.id%>
+<div class="menu_bar_header" style="color:<%=@profile.font_color%>;background-color:<%=@profile.content_holder%>">
+     Edit
+</div>
+<div class="move_up" >
+ <%#
+  <div class="each_menus">
+ &nbsp;<%=link_to "change front image",{:controller=>'profile',:action=>'profile_front_image',:profile_id=>@profile_id},:rel=>"facebox",:style=>"color:#{@profile.font_color}"<br/>
+ </div>
+%>
+ <div class="each_menus">
+ &nbsp;<%=link_to "change background color",{:controller=>'profile',:action=>'profile_background_color',:profile_id=>@profile_id},:rel=>"facebox",:style=>"color:#{@profile.font_color}"%><br/>
+ </div>
+   <div class="each_menus">
+ &nbsp;<%=link_to "change content holder color",{:controller=>'profile',:action=>'content_holder_color',:profile_id=>@profile_id},:rel=>"facebox",:style=>"color:#{@profile.font_color}"%><br/>
+ </div>
+  <div class="each_menus">
+  &nbsp;<%=link_to "change font color",{:controller=>'profile',:action=>'profile_font_color',:profile_id=>@profile_id},:rel=>"facebox",:style=>"color:#{@profile.font_color}"%><br/>
+  </div>
+   <div class="each_menus">
+  &nbsp;<%=link_to "edit your info", {:controller=>"users",:action=>"edit_info",:id=>@user.id},:style=>"color:#{@profile.font_color}"%><br/>
+  </div>
+
+   </div><br/>
+<%end%>
+</div>
+</div>
+
+ <div class="profile_center" style="background-color:<%=@profile.bg_color%>">
+<div class="beep_status_bar">
+<%for beep in @beep_status%>
+  <%if beep_status(beep)=="winning"%>
+   <%@winning << 1%>
+  <%else%>
+  <%if beep_status(beep)=="losing"%>
+   <%@losing << 1%>
+  <%end%>
+  <%end%>
+<%end%>
+ 
+  <table width="100%" border="0">
+    <tr>
+    <td><%=@winning.count%><br/>Winning Beeps
+    </td>
+    <td>
+      <%=@losing.count%><br/>
+      Losing  Beeps
+    </td>
+    </tr>
+  </table>
+ </div>
+<br/>
+<br/>
+<br/>
+
+   <div class="background_image">
+    <%@profile_image=ProfileImage.find(:first,:conditions=>["profile_id=?",@profile_id])%>
+    <%if @profile_image.blank?%>
+     <%=image_tag("background_sample.png")%><br/>
+     <span style="color:black">Separate yourself from the norm</span>
+     <hr/>
+   <%else%>
+   <div style="background:transparent url(<%=@profile_image.image.url(:medium)-%>)">
+       <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+       <br/> <br/> <br/> 
+   </div>
+   <%end%>
+
+   </div>
+<%#
+<%if @user.id == @profile_visitor.id
+   <div class="change_font_image">
+      &nbsp;<%=link_to "edit front image",{:controller=>'profile',:action=>'profile_front_image',:profile_id=>@profile_id},:rel=>"facebox"% <br/>
+  </div>
+%>
+<%unless @user.id == @profile_visitor.id %>
+<%=render :partial=>'partnership_indicator'%>
+<%end%>
+
+   <% if !flash.empty? %>
+   &nbsp&nbsp&nbsp<div class="error_notice"><%= flash[:notice] %></div>
+   <% end %>
+   <br/>
+   <div class="user_activity">
+    
+      <%=render :partial=>"profile_feed"%>
+       
+   </div>
+        <div id="loader">
+  Loading contents <%=image_tag("spinner.gif")%>
+
+    </div>
+
+
+</div>
+
+</div>
+<%if @beep_stores.count > 10 && @mark == "all"%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+ (function() {
+  var page = 1,
+  loading = false,
+  finish = false;
+
+  function nearBottomOfPage() {
+    return $(window).scrollTop() > $(document).height() - $(window).height() - 200;
+  }
+  function finish() {
+    finish = true;
+  }
+
+  $(window).scroll(function(){
+    if (loading) {
+      return;
+
+    }
+
+
+    if(nearBottomOfPage() && !finish) {
+      loading=true;
+      $('#loader').show();
+      page+=1;
+      $.ajax({
+        url: '/profile/profile/<%=@user.id%>?page=' + page,
+        type: 'get',
+        dataType: 'script',
+         success: function() {
+         $('#loader').hide();
+         loading=false;
+        }
+      });
+
+    }
+  });
+
+}());
+});
+</script>
+<%end%>

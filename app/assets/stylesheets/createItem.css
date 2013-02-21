@@ -1,0 +1,333 @@
+/* 
+    Document   : createItem
+    Created on : Aug 16, 2011, 2:54:50 PM
+    Author     : mummy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+
+.comment_block{
+margin-left:-25%;
+border-top:2px solid #eee;
+}
+
+root { 
+    display: block;
+}
+.field_with_errors {
+  margin-top: 10px;
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+
+#error_explanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+  
+}
+
+.field div{
+ background:transparent url(../../images/news_content_text_box.jpg) top no-repeat;
+padding:0;
+
+}
+.hide_textField{
+display:none;
+}
+.field div div{
+ background:transparent url(../../images/news_content_text_box.jpg) 0 100%;
+}
+
+.uploadImg.form_row{
+
+}
+
+.new_images2{
+ margin-top:3%;
+ text-align:center;
+}
+.text1{
+    padding-top:2%;
+   padding-left:2px;
+font-size:11px;
+color:red;
+}
+.text2{
+    padding-top:2%;
+   padding-left:0px;
+font-size:11px;
+color:red;
+}
+/* Fix IE. Hide from IE Mac \*/
+* html new_image{padding:1000%;}
+* html tr td { padding:4%;}
+/* End */
+
+.field{
+ color: black;
+ padding-top:30px;
+ padding-left:5px;
+ width:49%;
+}
+
+.general_info{
+border-bottom:1px #000 solid;
+width:95.9%;
+padding-left:4%;
+}
+
+.info{
+border-bottom:1px #000 solid;
+width:100%;
+padding-top:1%;
+background-color:#e7ebf2;
+border-bottom:1px solid lightblue;
+height:25px;
+}
+
+.smallForm{
+width:15%;
+
+}
+.item_conts{
+float:right;
+background-color:#fff;
+height:500px;
+width:74%;
+}
+.float_right_item{
+float:right;
+}
+.float_right_item a {
+text-decoration:none;
+color:purple;
+font-size:small;
+}
+.ground_floor{
+width:100%;
+margin-top:0.5%;
+padding-bottom:1%;
+height:180px;
+}
+.item_under{
+float:left;
+        display: block;
+	width:20%;
+        font-size:small;
+        border-right:1px solid #eee;
+        padding-top:0%;
+        padding-left:2%;
+        padding-right:2%;
+        text-decoration:none;
+	height:185px;
+        margin-top:0%;
+        margin-left:-1%;
+       background-position: 5px 0px;
+}
+.item_under1{
+float:left;
+        display: block;
+	width:87%;
+        font-size:small;
+        border-right:1px solid #eee;
+        padding-top:0%;
+        padding-left:2%;
+        padding-right:2%;
+        text-decoration:none;
+	height:185px;
+        margin-top:0%;
+        margin-left:-1%;
+       background-position: 5px 0px;
+}
+.font_style{
+font-size:smaller;
+color:white;
+border-bottom:1px solid black;
+margin-left:40%;
+margin-top:-5%;
+}
+.item_packet {
+        float:left;
+        display: block;
+	width:19%;
+        font-size:small;
+        padding-top:1%;
+        padding-left:2%;
+        padding-right:2%;
+        text-decoration:none;
+	height:185px;
+        margin-top:1%;
+        margin-left:1%;
+        background:url(../../images/item_packet.png) no-repeat;
+        background-position: 5px 0px;
+}
+
+.item_conts i{
+font-size:500%;
+color:lightblue;
+}
+
+.smallForm2{
+width:31%;
+}
+
+
+.flat_price{
+float:right;
+color:brown;
+font-size:small;
+}
+.auctions{
+color:brown;
+font-size:small;
+border-right:1px solid brown;
+width:45%;
+}
+.info_button{
+border-bottom:1px #000 solid;
+width:100%;
+padding-top:1%;
+padding-bottom:1%;
+text-align:center;
+background-color:#e7ebf2;
+border-bottom:1px solid lightblue;
+
+}
+.numbers{
+ position:absolute;
+ margin-top:-0.2%;
+ margin-left:1%;
+}
+.description{
+padding: 2%;
+width:70%;
+border:1px solid #eee;
+margin-left:13%;
+margin-top:2%;
+}
+.cover{
+background-color:#e7ebf2;
+padding:2%;
+width:70%;
+margin-left:13%;
+margin-top:5%;
+}
+
+.info_pop{
+width:74%;
+margin-left:12%;
+margin-top:3%;
+padding-top:4px;
+color:grey;
+height:28px;
+text-align:center;
+border:goldenrod 1px solid;
+}
+
+.image_info b {
+font-size:140%;
+font-family:monospace;
+float:left;
+}
+.float_right_tip{
+float:right;
+background:url(../../images/tips.png) no-repeat;
+width:40%;
+padding:1%;
+height:300px;
+}
+.float_right_tip b{ 
+text-decoration:underline;
+}
+
+#mainContainer{
+ width:70%;
+ padding-bottom:20%;
+ border:1px solid lightblue;
+ margin-top: 5%;
+ margin-left:13%;
+ 
+}
+#error_explanation{
+width:98.5%;
+}
+.create_item_form{
+width:55%;
+height:25px;
+}
+
+#partA{
+float:right;
+width:51%;
+height:550px;
+border-left:1px #000 solid;
+}
+#partB{
+width:49%;
+height:500px;
+
+}
+
+.price_content{ 
+padding-left:2%;
+}
+
+.sumbmit{
+margin-top:10%;
+margin-left:30%;
+}
+
+#price_info{
+margin-top:20%;
+padding-left:65%;
+border-top:1px #000 solid;
+border-bottom:1px #000 solid;
+width:34%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

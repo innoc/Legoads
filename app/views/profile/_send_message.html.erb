@@ -1,0 +1,13 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<br/>
+<%=form_tag({:controller=>'messages',:action=>'create_message',:id=>@user.id}) do%>
+<div class="message_form_cover">
+<%=text_area_tag(:body,nil,:class=>"message_body",:autocomplete => "off",:placeholder=>"message content")%>
+</div><br/>
+
+ &nbsp; &nbsp; &nbsp; &nbsp;<%=image_submit_tag ('send_message.png')%>
+
+<%end%>

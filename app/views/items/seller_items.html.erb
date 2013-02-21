@@ -1,0 +1,70 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+  <script type="text/javascript">
+  jQuery(document).ready(function($) {
+  $('a[rel*=facebox]').facebox()
+})
+ </script>
+
+<%if @item.blank?%>
+
+<%else%>
+<div class="item_count2">
+
+ Number of <%=@item[0].category%> found : <%=@item.count%>
+</div>
+
+<div class="item_count">
+<div class="link_back">
+</div>
+
+<div id="borders">
+      <div id="data_partner">
+      <%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+       <%unless @image.blank?%>
+             <%=link_to 'comment/view image',{:controller=>'users',:action=>'comment_on_image',:id=>@user.id},:rel=>'facebox'%><br/>
+       <%end%>
+        <%=image_tag("rate3.png")%><br/>
+      Rank: <%=@user.rank%><br/>
+      Credibility: 0.0
+</div>
+
+       <%if @image.blank?%>
+       <%= image_tag("photo.png")%>
+       <%else%>
+        <%= image_tag(@image.image.url(:thumb))%>
+   <%end%>
+   <br/>
+   <%=@user.user_name%><br/>
+   <%=@user.email%><br/>
+    <%=@user.country%>,<%=@user.state%>
+   </div>
+
+
+  <br/><br/>
+ <% if @user.company_name.blank? %>
+ Items posted by <%=@user.user_name%>
+<%else%>
+ Items posted by <%=@user.company_name%>
+<%end%>
+
+</div>
+
+<%end%>
+
+<div class="item_block">
+
+</div>
+
+<br/>
+ <div id="paginates"><%= will_paginate @item %> </div>
+

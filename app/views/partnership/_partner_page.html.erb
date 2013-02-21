@@ -1,0 +1,210 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<div class="activity_header">
+  &nbsp;Partners
+</div>
+
+
+
+<div class="request_heading">
+<div class="request_hide_partner_section">
+  show content
+</div>
+<%=image_tag("user_add.png")%>&nbsp;Partnership request &nbsp;(<%=@user.requested_partners.count %>)
+</div>
+
+<div id="request_name_list">
+  <table width="84%">
+ <%@user.requested_partners.each do |partner|%>
+ <%@image= UserImage.find(:first,:conditions=>["user_id=?",partner.id])%>
+  <tr class=<%=cycle('partner_box_even','partner_box_odd')%>>
+  <td>
+
+<div id="accept_request">
+ <span class="smiley_set">
+  <%= link_to "Accept",{:controller=>"partnership",:action=>"accept",:id=>partner.id},:confirm=>"Really Accept Partnership with #{partner.user_name}?"%>&nbsp;
+  .&nbsp;<%= link_to "Decline",{:controller=>"partnership",:action=>"decline_request",:id=>partner.id},:confirm=>"Really Decline Partnership with #{partner.user_name}?"%>
+ </span>
+</div>
+
+ <div class="partner_partner_page_info">
+     &nbsp;<%= link_to truncate(partner.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>partner.id},:rel=>'facebox'%><br/>
+     &nbsp;<%= link_to pluralize(partner.beeps.count, 'beep'),{:controller=>"profile",:action=>"profile",:id=>partner.id,:sort=>"all"}%><br/>
+     <%@partners_partner = Partnership.where("user_id=? and status=?",partner.id,"accepted")%>
+     &nbsp;<%= link_to pluralize(@partners_partner.count, 'partner'),{:controller=>"profile",:action=>"profile",:id=>partner.id,:sort=>"partners"}%><br/>
+     &nbsp;<%= link_to pluralize(partner.items.count, 'item'),:controller=>"items",:action=>"manage_item",:type=>'all',:id=>1%><br/><br/>
+      &nbsp;<span class="rank_rack"> <%=@user.rank.rank_type%> </span><br/><br/>
+  </div>
+ <div class="partner_partner_profile_pick">
+     <%if @image.blank?%>
+     <%=image_tag("mid.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:mid))%>
+     <%end%><br/>
+ </div>
+  </td>
+
+  </tr>
+
+<%end%>
+</table>
+<%if @user.requested_partners.blank?%>
+ <br/>
+ <br/>
+ &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ &nbsp
+
+<%=image_tag("empty.png")%>
+ <%end%>
+
+</div>
+
+
+
+
+
+<div class="partner_heading">
+<div class="partner_hide_partner_section">
+  show content
+</div>
+<%=image_tag("user.png")%>&nbsp;Partners &nbsp;(<%=@user.partners.count %>)
+</div>
+
+<div id="partner_name_list">
+
+<table width="84%">
+ <%@user.partners.each do |partner|%>
+ <%@image= UserImage.find(:first,:conditions=>["user_id=?",partner.id])%>
+ <tr class=<%=cycle('partner_box_even','partner_box_odd')%>>
+ <td class="border_bottom">
+
+<div id="accept_request">
+ <span class="smiley_set">
+   <%= link_to "view Profile",{:controller=>"profile",:action=>"profile",:id=>partner.id,:sort=>"all"}%><br/><br/>
+ </span>
+</div>
+
+ <div class="partner_partner_page_info">
+     &nbsp;<%= link_to truncate(partner.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>partner.id},:rel=>'facebox'%><br/>
+     &nbsp;<%= link_to pluralize(partner.beeps.count, 'beep'),{:controller=>"profile",:action=>"profile",:id=>partner.id,:sort=>"all"}%><br/>
+     <%@partners_partner = Partnership.where("user_id=? and status=?",partner.id,"accepted")%>
+     &nbsp;<%= link_to pluralize(@partners_partner.count, 'partner'),{:controller=>"profile",:action=>"profile",:id=>partner.id,:sort=>"partners"}%><br/>
+     &nbsp;<%= link_to pluralize(partner.items.count, 'item'),:controller=>"items",:action=>"manage_item",:type=>'all',:id=>1%><br/><br/>
+      &nbsp;<span class="rank_rack"> <%=@user.rank.rank_type%> </span><br/><br/>
+     <span class="smiley_set">
+    <%= link_to "End Partnership",{:controller=>"partnership",:action=>"delete_partner",:id=>partner.id},:confirm=>"Really Delete Partnership with #{partner.user_name}?"%>
+   </span>
+ </div>
+ <div class="partner_partner_profile_pick">
+     <%if @image.blank?%>
+     <%=image_tag("mid.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:mid))%>
+     <%end%><br/>
+ </div>
+  </td>
+  </tr>
+
+<%end%>
+</table>
+  <%if @user.partners.blank?%>
+ <br/>
+ <br/>
+ &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ &nbsp
+
+<%=image_tag("empty.png")%>
+ <%end%>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="partner_heading">
+<div class="pending_hide_partner_section">
+  show content
+</div>
+<%=image_tag("pending.png")%>&nbsp;Pending Request &nbsp;(<%=@user.pending_partners.count %>)
+</div>
+
+<div id="pending_name_list">
+<table width="84%">
+ <%@user.pending_partners.each do |partner|%>
+ <%@image= UserImage.find(:first,:conditions=>["user_id=?",partner.id])%>
+  <tr class=<%=cycle('partner_box_even','partner_box_odd')%>>
+  <td>
+
+<div id="accept_request">
+ <span class="smiley_set">
+  <%= link_to "Drop Request",{:controller=>"partnership",:action=>"delete_request",:id=>partner.id},:confirm=>"Really delete Partnership with #{partner.user_name}?"%>
+
+ </span>
+</div>
+
+ <div class="partner_partner_page_info">
+     &nbsp;<%= link_to truncate(partner.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>partner.id},:rel=>'facebox'%><br/>
+     &nbsp;<%= link_to pluralize(partner.beeps.count, 'beep'),{:controller=>"profile",:action=>"profile",:id=>partner.id,:sort=>"all"}%><br/>
+     <%@partners_partner = Partnership.where("user_id=? and status=?",partner.id,"accepted")%>
+     &nbsp;<%= link_to pluralize(@partners_partner.count, 'partner'),{:controller=>"profile",:action=>"profile",:id=>partner.id,:sort=>"partners"}%><br/>
+     &nbsp;<%= link_to pluralize(partner.items.count, 'item'),:controller=>"items",:action=>"manage_item",:type=>'all',:id=>1%><br/><br/>
+      &nbsp;<span class="rank_rack"> <%=@user.rank.rank_type%> </span><br/><br/>
+  </div>
+ <div class="partner_partner_profile_pick">
+     <%if @image.blank?%>
+     <%=image_tag("mid.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:mid))%>
+     <%end%><br/>
+ </div>
+  </td>
+
+  </tr>
+
+<%end%>
+</table>
+<%if @user.pending_partners.blank?%>
+ <br/>
+ <br/>
+ &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ &nbsp
+
+<%=image_tag("empty.png")%>
+ <%end%>
+
+</div>
+

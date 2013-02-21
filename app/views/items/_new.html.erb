@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<%=form_for @item,:html=>{:multipart=>true,:name=>"ContactForm"} do |f|%>
+  <div class="info">
+  <b>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creating an item entry</b>
+  </div>
+
+<div class="info_pop">
+  Ensure that you give a precise description of the item entry you are about to create
+</div>
+<br/>
+<br/>
+<br/>
+<div class="numbers">
+  <%=image_tag("number1.png")%>
+</div>
+  <div class="info">
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;
+    <b>Describe the item you are selling</b>
+  </div>
+
+
+<div class="cover">
+
+  Item title or Item name<br/>
+   <%=f.text_field :item_name,:class =>"create_item_form"%>
+   <br/><br/>
+
+  
+  <%= f.label :item_condition %><br/>
+  <%= f.select :item_condition,Item::ITEM_CONDITION,:prompt =>"enter status"%><br/>
+  <br/><br/>
+  Manufacturer<br/>
+   <%= f.text_field :manufacturer,:class => "create_item_form"%><br/>
+    <br/><br/>
+  <%= f.label :category %><br/>
+  <%= f.select :category,Item::CATEGORY_SELECT,:prompt =>"Kindly select a category"%><br/>
+
+  <div class="new_images2">
+   upload images for your item (preferably in different views)<br/>
+  <%=f.fields_for :pictures do |picture| %>
+      <div class="new_image">
+      <%if picture.object.new_record?%>
+      <%=picture.file_field :image,:placeholder=>"Type Item name"%><br/>
+      <%end%>
+     </div>
+     <div class="hide_textField">
+      <%=picture.text_field :item_id%>
+      </div>
+    
+      <%end%>
+     </div>
+
+</div>
+
+<div class="description">
+
+<div class="float_right_tip">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<b>Guidelines</b> <br/><br/>
+In this section you will be needed to give a detailed description
+of the item, such <br/>as the following:<br/> color,size,features and other details.
+<br/>
+<br/>
+ensure that you are as descriptive as possible and check your grammar
+</div>
+
+<%= f.text_area :description,:cols=> 35,:rows => 20,:placeholder=>"Enter a more detailed description"%>
+</div>
+<br/>
+
+<div class="numbers">
+  <%=image_tag("number2.png")%>
+</div>
+ <div class="info">
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;
+    <b>Price</b>
+ </div>
+
+<div class="cover">
+   
+ <div class="flat_priced">
+   Price:<br/><%= f.text_field :item_price,:class => "smallForm2"%><br/>
+   Partner Price:<br/><%= f.text_field :partner_price,:class => "smallForm2"%><span style="color:black;font-size:11px">&nbsp;&nbsp;(not compulsory) <br/>
+   partner price is special price package for your partners only</span>
+ <br/><br/>
+   </div>
+
+
+</div>
+<br/>
+<br/>
+<div class="numbers">
+  <%=image_tag("three.png")%>
+</div>
+ <div class="info">
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;
+    <b>Contact Info</b>
+ </div>
+
+<div class="cover">
+
+ <div class="flat_priced">
+   Information needed for a potential buyer to contact you
+   <br/><br/>
+  <b> Email : </b> <%=@user.email%><br/><br/>
+   Phone number :<br/><%= f.text_field  :contact_number,:class => "smallForm2"%><span style="color:black;font-size:11px">&nbsp;&nbsp;(not compulsory)</span> <br/><br/>
+   BlackBerry Pin :<br/><%= f.text_field :BlackBerry_pin,:class => "smallForm2"%><span style="color:black;font-size:11px">&nbsp;&nbsp;(not compulsory)</span> <br/>
+
+ <br/><br/>
+   </div>
+
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="info_button">
+     
+    Any interest on this item entry will be sent to your office<br/><br/>
+     
+ <%=image_submit_tag("create.png")%>
+
+  
+ </div>
+
+
+
+
+
+
+<%end%>
+
+
+
+
+
+
+
+
+
+

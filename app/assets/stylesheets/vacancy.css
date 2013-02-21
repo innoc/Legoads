@@ -1,0 +1,47 @@
+/* 
+    Document   : vacancy
+    Created on : Oct 25, 2011, 5:20:27 AM
+    Author     : mummy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+.vacancy_block{
+
+
+}
+.jobPicture{
+float:right;
+}
+
+
+.vacancy_block tr td {
+border-top:1px solid pink;
+border-left:1px solid pink;
+}
+
+.right_vacancy {
+border-right:1px solid pink;
+}
+
+.Nojob{
+margin-left:15%;
+margin-top:2%;
+border:1px solid blue;
+width:40%;
+height:500px;
+}
+.vacancy_space{
+min-height:300px;
+border-right:1px solid pink;
+width:75%;
+}

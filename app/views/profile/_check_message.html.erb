@@ -1,0 +1,63 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+
+<%for message in @conversation%>
+<%@message = Message.find(:last,:conditions=>["conversation_id=?",message.id])%>
+<%if @message.user_id == @user.id%>
+<%@message_user = User.find(@message.receiver_id)%>
+<%@sender_flag = "true"%>
+<%else%>
+<%@message_user = User.find(@message.user_id)%>
+<%end%>
+<div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@message_user.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@message_user.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@message_user.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+     <div class="beep_contain_block">
+         <div id="beep_user_names">
+          <%= link_to  truncate(@message_user.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@message_user.id},:rel=>"facebox"%>
+          <div class="beep_icon">
+          <%unless @message.user_id ==@user.id%>
+          <%if @message.status == "unread"%>
+          <%=image_tag("message_indicator.png")%>
+          <%else%>
+          <%=image_tag("message_indicator_read.png")%>
+          <%end%>
+          <%end%>
+          </div>
+        </div>
+         <%if @sender_flag == "true"%> <%=image_tag("message_pointer.png")%>&nbsp;<%end%><span style="color:#5c5c5c"><%=truncate(@message.body,:length =>30)%></span> <br/><br/>
+    
+         <div class="smiley_set">
+         <%=link_to"read full message",:controller=>"messages",:action=>"check_message",:id=>@message.conversation_id%>
+         </div>
+    </div>
+   <span style="color:#808080; font-size:11px"> created <%= time_ago_in_words(message.created_at)%> </span>
+ </div>
+<%end%>
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+

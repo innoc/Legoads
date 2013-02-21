@@ -1,0 +1,77 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%= stylesheet_link_tag 'office.css'%>
+
+
+<%=@item.item_name%>
+<hr/>
+<table border="0" width="100%">
+<tr>
+   <%@image=Picture.find(:all,:conditions=>["item_id=?",@item.id])%>
+
+
+
+<%if @user.rank=="Salesman"%>
+<td width="35%">
+
+  <%= image_tag(@image[0].image.url(:thumb))%>
+</td>
+<%else%>
+<td width="40%">
+ <%= image_tag(@image[1].image.url(:thumb))%>
+</td>
+
+<td width="35%">
+<%= image_tag(@image[2].image.url(:thumb))%>
+</td>
+<%end%>
+</tr>
+
+<tr>
+<td colspan="3">
+<hr> </hr>
+ Description:<br/>
+<%=@item.description%>
+<hr></hr>
+</td>
+
+</tr>
+</table>
+
+<%if @item.item_price.blank?%>
+       Bid starter:<%=@item.starting_bid_price%><br/>
+       <%else%>
+       Price:<%=@item.item_price%><br/>
+<%end%>
+Category:   <%=@item.item_condition%><br/>
+Category:<%=@item.category%><br/>
+
+
+
+
+
+  
+   
+
+
+
+
+ 
+
+
+
+
+
+
+

@@ -1,0 +1,153 @@
+/* 
+    Document   : purchase_item
+    Created on : Oct 8, 2011, 3:22:11 PM
+    Author     : mummy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.item_blocks{
+height:590px;
+}
+.purchase_list{
+ width:29%;
+ height:200px;
+ border:1px solid pink;
+ padding-left:0.5%;
+ padding-top:0.2%;
+}
+#contact{
+margin-top:5%;
+font-size:large;
+padding-top:1%;
+padding-left:1%;
+margin-left:0;
+font-size:small;
+background:transparent url(../../images/contactBox.png) 0 0 no-repeat;
+width:98%;
+height:280px;
+}
+.purchase_content{
+float:right;
+border-left:1px solid pink;
+height:580px;
+width:48.7%;
+}
+.request_content{
+padding-top:1%;
+padding-left:2%;
+height:40%;
+
+}
+.gifImage1{
+margin-top:0%;
+margin-right:-15.3%;
+float:right;
+}
+
+.contact_company{
+text-decoration:underline;
+}
+.size{
+ float:right;
+ margin-right:10%;
+}
+.all_border{
+border:1px solid pink;
+}
+.size a{
+color:grey;
+text-decoration:underline;
+}
+.size a:hover{
+text-decoration:none;
+}
+.item_purchase{
+
+color:black;
+width:50%;
+font-size:200%;
+padding-left:2%;
+}
+.price_purchase{
+padding-left:2%;
+font-size:150%;
+width:80%;
+}
+.item_location{
+padding-left:2%;
+font-size:110%;
+width:80%;
+}
+.float_right{
+float:right;
+margin-right:5%;
+font-size:110%;
+
+}
+.coverItem{
+margin-left:1%;
+padding:1%;
+border-bottom:1px solid pink;
+width:95%;
+height:85px;
+background-color:#eee;
+}
+.borders{
+border:1px solid black;
+width:95%;
+margin-left:1%;
+margin-top:2%;
+padding:1%;
+}
+.interest_form{
+width:100%;
+border-right:1px solid pink;
+margin-left:0%;
+
+}
+.cart_right{
+
+margin-right:13%;
+margin-top:32%;
+}
+.cart_float{
+width:38%;
+height:35%;
+float:right;
+}
+.empty_button{
+float:right;
+}
+.purchase_button{
+margin-left:2%;
+}
+.float_right a{
+ text-decoration:underline;
+ font-size:small;
+ color:grey;
+}
+.float_right a:hover{
+text-decoration:none;
+}
+.item_description{
+
+border:1px pink solid;
+width:90%;
+min-height:150px;
+}
+.price_purchase b{
+color:green;
+}
+
+.purchase_block{ 
+
+height:330px;
+width:100%;
+}
+

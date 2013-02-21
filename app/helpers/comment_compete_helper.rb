@@ -1,0 +1,2 @@
+module CommentCompeteHelper
+end

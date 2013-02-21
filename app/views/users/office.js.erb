@@ -1,0 +1,19 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%if @update == "yes"%>
+$(".page_updater").html("<%= escape_javascript(render("activities"))%>")
+<%else%>
+<%if @mark == "partner"%>
+$(".activity_section").html("<%= escape_javascript(render("activity_user_search"))%>")
+<%else%>
+<%unless @feed.current_page > @feed.num_pages%>
+$(".page_updater").append("<div class='page'><%= escape_javascript(render("activities")) %></div>");
+$(".loader").before('Loading contents <%=image_tag("loader.gif")%>');
+<%end%>
+<%end%>
+<%end%>
+
+

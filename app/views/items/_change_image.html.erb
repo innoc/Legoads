@@ -1,0 +1,55 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%@image=Picture.find(:all,:conditions=>["item_id=?",@item.id])%>
+<%unless @image[0].blank?%>
+<%=image_tag(@image[0].image.url(:medium))%>
+<div class="image_upload">
+ <%=form_for :picture,:html=>{:multipart=>true,:flag=>@image[0].id,:id=>@item.id},:url=>{:action=>"edit_image",:flag=>@image[0].id},:remote=>true do |f|%>
+      <div class="new_imagex">
+         <%=f.file_field :image,:placeholder=>"Type Item name"%><br/>
+         <%=  submit_tag 'change pic'%>
+     </div>
+  <%end%>
+</div>
+<hr/>
+<%end%><br/>
+
+
+
+
+<%unless @image[2].blank?%>
+<%= image_tag(@image[2].image.url(:medium))%>
+<div class="image_upload">
+ <%=form_for :picture,:html=>{:multipart=>true,:flag=>@image[2].id,:id=>@item.id},:url=>{:action=>"edit_image",:flag=>@image[2].id},:remote=>true do |f|%>
+
+      <div class="new_image">
+         <%=f.file_field :image,:placeholder=>"Type Item name"%><br/>
+         <%=  submit_tag 'change pic'%>
+     </div>
+  <%end%>
+ </div>
+<hr/>
+<%end%>
+<br/>
+
+
+
+<%unless @image[1].blank?%>
+
+<%= image_tag(@image[1].image.url(:medium))%>
+
+ <div class="image_upload">
+ <%=form_for :picture,:html=>{:multipart=>true,:flag=>@image[1].id,:id=>@item.id},:url=>{:action=>"edit_image",:flag=>@image[1].id},:remote=>true do |f|%>
+
+      <div class="new_image">
+         <%=f.file_field :image,:placeholder=>"Type Item name"%><br/>
+         <%=  submit_tag 'change pic'%>
+     </div>
+  <%end%>
+ </div>
+
+<%end%>
+

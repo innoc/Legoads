@@ -1,0 +1,111 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<script type="text/javascript">
+   $(document).on("keyup",".beep_comment_list",function(){
+    while($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
+        $(this).height($(this).height()+1);
+    };
+    });
+
+</script>
+
+
+
+
+<div class="mid_page_container">
+<div class="mid_section_center">
+<div class="activity_header">
+<span class="smiley_set">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "back",:back%>
+</span>
+</div>
+
+<%@image=Picture.find(:first,:conditions=>["item_id=?",@item.id])%>
+
+    <div class="market_item_list_all_comment ">
+     <table width="100%">
+      <tr>
+       <td>
+    <div class="item_image_page">
+     <%if @image.blank?%>
+     <%=image_tag("default_image.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:moderate))%>
+     <%end%><br/>
+     <div class="smiley_set">
+
+     </div>
+    </div>
+   
+      <div class="item_content_pricing">
+        
+        <div class="item_price">
+
+          <span style="color:black">price<br/>
+         <%= number_to_currency(@item.item_price)%>
+        <br/><br/>
+        <%unless @item.partner_price.blank?%>
+        Partner Price<br/>
+        <%=number_to_currency(@item.partner_price)%>
+        <%end%>
+        </span>
+         <br/>
+         <br/>
+        <%=link_to image_tag("item_interest.png"),:controller=>'items',:action=>'interested',:id=>@item.id%>
+        </div>
+      </div>
+     &nbsp;<span style="color:black; font-size:large"><%= @item.item_name %></span><br/>
+      &nbsp;<%=@item.item_condition%>
+      </td>
+      </tr>
+      <tr>
+       <td>
+        <span style="color:black; font-size:small"><b>Description</b></span><br/>
+        <%=@item.description %>
+       </td>
+      </tr>
+
+     </table>
+    </div>
+
+
+
+
+
+<%@item_comment = Comment.find(:all, :conditions=>["item_id=?",@item.id],:order=>"created_at desc")%>
+
+<div class="market_comment_background_see_all_comment">
+
+<%=render :partial=>"comment/see_all_comment"%>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>

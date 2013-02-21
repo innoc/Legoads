@@ -1,0 +1,35 @@
+
+
+<%=image_tag("logo_sign.png")%>
+<% if user_notify_dislike(@current_user,@beep) == "no"%>
+<div class="beep_body_header">
+<span style="color:#5c5c5c;">dislike <%=@current_user.user_name%>'s Beep</span><br/><br/>
+</div>
+
+<%unless @beep.dislikes.count.blank?%>
+<div class="likes_added">
+  <%=render :partial=>"dislikes_added"%>
+</div>
+
+<%end%>
+
+<div class="beep_body">
+<%=@beep.beep_content%>
+</div>
+
+ <br/>
+ <br/>
+<div class="likes_change">
+<%=render :partial=>"dislikes_change"%>
+</div>
+
+<%else%>
+<div class="already_here">
+ you cant <span style="color:black">dislike</span> more than once
+</div>
+<br/>
+<div class="beep_body">
+<%=@beep.beep_content%>
+</div>
+
+<%end%>

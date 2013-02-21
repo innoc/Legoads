@@ -1,0 +1,46 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('#loader_comment').ajaxStart(function(){$(this).show();}).ajaxStop(function(){ $(this).hide();});
+    $('#commentOn').ajaxStart(function(){$(this).hide();}).ajaxStop(function(){ $(this).shoe();})
+})
+</script>
+
+<div id="commentOn">
+<%if @commented.blank?%>
+  <br/>
+  <br/>
+  <br/>
+      <span style="color:red; font-size:small">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNo comment has been posted yet <br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbspbe the first to comment</span>
+  <%else%>
+
+  <div class="user_comment_ajax">
+
+    <table cellpadding="0" width="98%" cellspacing="0" border="0">
+
+     <%for commented in @commented%>
+           <tr>
+
+            <td class="user_comment_border" width="100%">
+              <b>[<%=commented.id%>]</b>
+              <%=commented.comment_text %><br/><br/>
+              <span style="color:black;font-size:small;font-family:Comic Sans MS">Posted <%= time_ago_in_words(commented.created_at)%> ago</span>
+
+           </td>
+           </tr>
+       <%end%>
+
+    </table>
+
+  </div>
+  <%end%>
+ </div>
+ <div id="loader_comment">
+    <%=image_tag("loading.gif")%>
+</div>
+
+<span style="color:red;font-size:small;text-decoration:underline;font-family:Comic Sans MS"><%=@message%></span>

@@ -1,0 +1,107 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<script type="text/javascript">
+   $(document).on("click",".see_all_review",function(){
+    $(this).nextAll().slideToggle("fast");
+   });
+ 
+   $(document).on("keyup",".beep_comment_list",function(){
+    while($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
+        $(this).height($(this).height()+1);
+    };
+    });
+ </script>
+<div class="top_border">
+<div class="panda_head">
+<%=image_tag("panda_head.png")%>
+</div>
+<div class="market_search_area">
+<%=form_tag({:controller=>'items',:action=>'market',:id=>"1",:partial=>"search_for"}) do%>
+<div class="market_item_submit"><%=image_submit_tag('search_item.png')%></div>
+<%=text_field_tag(:name,nil,:class =>"market_item_search",:autocomplete => "off",:placeholder=>"Search your items")%>
+<%end%>
+</div>
+
+</div>
+<br/>
+
+
+<% if !flash.empty? %>
+  &nbsp&nbsp&nbsp<div class="error_notice"><%= flash[:notice] %></div>
+    <br/>
+<% end %>
+<div id="result">
+ <%unless @item.blank?%>
+   <%for item in @item%>
+
+     <%@image=Picture.find(:first,:conditions=>["item_id=?",item.id])%>
+
+    <div class="market_item_list">
+     <table width="100%">
+      <tr>
+       <td>
+    <div class="item_image_page">
+     <%if @image.blank?%>
+     <%=image_tag("default_image.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:moderate))%>
+     <%end%><br/>
+     <div class="smiley_set">
+   
+     </div>
+    </div>
+    <div class="market_item_info">
+      <div class="item_content_pricing">
+        <%=item.item_condition%>
+        <div class="item_price">
+            
+          <span style="color:black">price<br/>
+         <%= number_to_currency(item.item_price)%>
+        <br/><br/>
+        <%unless item.partner_price.blank?%>
+        Partner Price<br/>
+        <%= number_to_currency(item.partner_price)%>
+        <%end%>
+        </span>
+         <br/>
+         <br/>
+         <%=link_to image_tag("item_interest.png"),:controller=>'items',:action=>'interested',:id=>item.id%>
+        </div>
+      </div>
+     <span style="color:black; font-size:large"> <%= item.item_name %></span><br/>
+      <br/>
+      <%=item.description %>
+    </div>
+      </td>
+      </tr>
+      <tr>
+       <td>
+       <div class="see_all_review">
+       <%@item_comment = Comment.find(:all, :conditions=>["item_id=?",item.id],:order=>"created_at desc",:limit=>4)%>
+       <%@item_comment_all = Comment.find(:all, :conditions=>["item_id=?",item.id])%>
+       <span class="smiley_set">
+       &nbsp;<span class="change_text" style="cursor:pointer;color:purple;font-size:12px"><%=@item_comment_all.count%> reviews</span>
+       </span>
+       </div>
+       <%@item =Item.find(item.id)%>
+       <div style="display:none;" class="name">
+       <div class="market_comment_background">
+       <%= render :partial=>"comment/item_comment",:locals=>{:item=>item}%>
+       </div>
+       </div>
+       </td>
+      </tr>
+
+     </table>
+    </div>
+
+   <%end%>
+  <%else%>
+  <div class="no_item">
+  <%=image_tag("no_item.png")%>
+  </div>
+  <%end%>
+ </div>

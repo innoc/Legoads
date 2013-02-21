@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag 'createItem.css'%>
+<script type="text/javascript">
+
+jQuery(document).ready(function($) {
+function validateContactForm()
+{
+    	if ( document.ContactForm.bid_price.val()=="" && document.ContactForm.flat_price.val()=="")
+        {
+		// something is wrong
+		alert('enter a price type');
+		return false;
+	}
+	// If the script gets this far through all of your fields
+	// without problems, it's ok and you can submit the form
+
+	return true;
+}
+})
+</script>
+<div class="center_container">
+<div class="errors">
+<% if @item.errors.any? %>
+    
+      <h3><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h3>
+      <ol>
+      <% @item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ol>
+  
+  <% end %>
+</div>
+<div id="mainContainer">
+<%= render :partial=>'new'%>
+</div>
+</div>

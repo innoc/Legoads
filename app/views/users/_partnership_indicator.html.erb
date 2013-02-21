@@ -1,0 +1,32 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+   $(".requester").click(function () {
+   $('.requester').hide();
+   $('.request_pending').show();
+   })
+ });
+ </script>
+
+<span style="font-size:11px; color:red; display:none" class="request_pending"><br/><br/>request is pending</span>
+
+<%unless Partnership.exists?(@user,@current_user) || @user.id == @current_user.id%>
+
+<span class="requester">
+<br/>
+<%=link_to image_tag("request.png"),{:controller=>'partnership',:action=>'create',:id=>@user.id},:remote=>true%>
+</span>
+<%else%>
+<%if partnership_indicator(@user,@current_user)=="yes_boss"%>
+<br/>
+<%=link_to image_tag("profile_big_icon.png"),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%>
+<%else%>
+<%unless @user.id == @current_user.id%>
+<span style="font-size:11px; color:red;"><br/>request is pending</span>
+<%end%>
+<%end%>
+
+<%end%>

@@ -1,0 +1,79 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  $('#loaders').hide()
+    $('#item_submit').click(function(){$('#loaders').show();}).ajaxStop(function(){ $('#loaders').hide();});
+    $('a[rel*=facebox]').facebox();
+ })
+</script>
+
+<div class="activity_header">
+  &nbsp;Items Found   &nbsp;<%=@item_count%>  &nbsp;&nbsp;&nbsp;<span id="loaders"> <%=image_tag("spinner.gif")%></span>
+</div>
+  <div class="create_new_item_link">
+      <%=link_to "create a new item entry",{:controller=>"items",:action=>"new"}%>
+ </div>
+ <div class="search_area">
+<%=form_tag({:controller=>'items',:action=>'manage_item',:id=>"1",:type=>"searching"},:remote=>true) do%>
+<span id="item_submit"><%=image_submit_tag('search_item.png')%></span>
+<%=text_field_tag(:name,nil,:class =>"item_search",:autocomplete => "off",:placeholder=>"Search your items")%>
+<%end%>
+</div>
+
+ <br/>
+   <% if !flash.empty? %>
+  &nbsp&nbsp&nbsp<div class="error_notice"><%= flash[:notice] %></div>
+    <br/>
+<% end %>
+<div id="result">
+ <%unless  @result .blank?%>
+   <%for item in  @result %>
+
+     <%@image=Picture.find(:first,:conditions=>["item_id=?",item.id])%>
+
+      <div class="whole_body">
+     <table width="100%">
+      <tr>
+       <td>
+    <div class="item_image_page">
+     <%if @image.blank?%>
+     <%=image_tag("default_image.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:medium))%>
+     <%end%><br/>
+     <div class="smiley_set">
+      <%=link_to "edit item ",:controller=>"items",:action=>"edit",:id=>item.id%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "delete item",{:action=>"delete",:id=>item.id},:confirm=>"Really delete #{item.item_name}?"%>
+     </div>
+    </div>
+    <div class="item_content">
+      <div class="item_content_pricing">
+        <%=item.item_condition%>
+        <div class="item_price">
+          <span style="color:black">price<br/>
+         <%= number_to_currency(item.item_price)%>
+        <br/><br/>
+        <%unless item.partner_price.blank?%>
+        Partner Price<br/>
+        <%= number_to_currency(item.partner_price)%>
+        <%end%>
+        </span>
+        </div>
+      </div>
+     <span style="color:black; font-size:large"> <%= item.item_name %></span><br/>
+      <br/>
+      <%=item.description %>
+    </div>
+      </td>
+      </tr>
+     </table>
+    </div>
+
+   <%end%>
+  <%else%>
+   No Item Found
+  <%end%>
+
+   </div>

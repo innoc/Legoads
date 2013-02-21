@@ -1,0 +1,125 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="item_block">
+<div class="sideline">
+<div class="steps1"><br/>
+
+<span style="color:grey;">LegoAds! makes it easy to enjoy what matters most to every business "Publicity"</span>
+</div>
+  <br/><br/><br/><br/><br/><br/><br/>
+  <div class="gifImage">
+  <%=image_tag("NewMotions.gif")%>
+    </div>
+ </div>
+<div class="suggested">
+
+
+<%if @item.blank?%>
+  <div class="suggested_empty">
+<div class="form">
+ Request for Items or Services
+</div>
+<div class="form_content">
+
+ <%@item_id=item.category%>
+
+<% form_tag(:controller=>'requests',:action=>'new',:id=>@item_id) do%>
+
+ Kindly enter your Name:<%= text_field_tag :username %><br/><br/>
+ Name of Item/Service  :  <%= text_field_tag :itemname %><br/><br/>
+ Phone Number/email &nbsp;              :  <%= text_field_tag :Contact%><br/><br/>
+ Description: <br/><%= text_area_tag :description%><br/>
+ <div class="button">
+  <%=image_submit_tag("request_button_2.png")%>
+ </div>
+
+ </div>
+
+
+<%end%>
+
+</div>
+
+
+
+
+ <%else%>
+<div class="suggested1">
+<div class="form">
+ Request for Items or Services
+</div>
+<div class="form_content">
+
+ <%@item_id=@item.category%>
+
+<% form_tag(:controller=>'requests',:action=>'new',:id=>@item_id) do%>
+
+ Kindly enter your Name:<%= text_field_tag :username %><br/><br/>
+ Name of Item/Service  :  <%= text_field_tag :itemname %><br/><br/>
+ Phone Number/email &nbsp;              :  <%= text_field_tag :Contact%><br/><br/>
+ <div class="button">
+  <%=image_submit_tag("request_button_2.png")%>
+ </div>
+ Description: <br/><%= text_area_tag :description%><br/>
+
+ <%end%>
+</div>
+</div>
+ <%end%>
+
+ <%unless @item.blank? or @suggested_items.blank?%>
+  <div class="suggested2">
+    Suggested Items
+   </div>
+
+
+     <%=render :partial=>"items/suggested_item"%>
+
+<%end%>
+  </div>
+
+<div class="item_list">
+   <div class="link_back">
+    &nbsp; &nbsp; &nbsp; &nbsp; <%=  link_to '<--Back to item list',:controller=>'items', :action=>'item_list',:id=>@item.category%>
+     </div>
+<table cellpadding="5" cellspacing="0" border="0"  width="100%" class="table_list">
+    
+      <tr>
+       <td>
+         <%@image=Picture.find(:first,:conditions=>["item_id=?",@item.id])%>
+         <%= image_tag(@image.image.url(:thumb))%><br/><br/><br/><br/><br/><br/>
+       </td>
+
+       <td>
+        <%@user = User.find(@item.user_id)%>
+        <span style="font-size:larger;"><%=@item.item_name%></span><br/>
+        <b><span style="font-size:smaller;">Quantity: <%=@item.item_quantity%></span></b><br/>
+        <span style="font-size:smaller;color:grey;">Current Price: </span><%=@item.item_price%><br/>
+        <%@comment = Comment.find(:all,:conditions=>["item_id=?",@item.id])%>
+        <%@comment = @comment.count%>
+        <span style="font-size:smaller;color:grey;">Condition:</span> <%=@item.item_condition%>
+        <br/>
+       <span class="item_item">Posted <%= time_ago_in_words(@item.created_at)%> ago</span><br/>
+        
+      </td>
+
+        <td>
+        <span style="font-size:small;color:orange;"><%=@user.company_name%></span><br/>
+        <span style="font-size:smaller;"><%=@user.country%>(<%=@user.state%>)</span><br/><br/><br/>
+     
+        <div class="contact_button">
+        <%=link_to image_tag('contactButton.png'),:controller=>'items',:action=>'purchase_item',:id=>@item.id %>
+        </div>
+        </td>
+      </tr>
+
+    
+</table>
+  <br/><br/>
+<div id="user_comment"><%=render :partial=>"items/comment"%></div><br/><br/>
+</div>
+
+
+</div>

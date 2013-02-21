@@ -1,0 +1,37 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%@message = @conversation.messages%>
+<%for message in @message%>
+<%@message_user = User.find(message.user_id)%>
+<div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@message_user.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@message_user.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@message_user.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+     <div class="beep_contain_block">
+         <div id="beep_user_names">
+          <%= link_to  truncate(@message_user.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@message_user.id},:rel=>"facebox"%>
+          <div class="beep_icon">
+          <%unless message.user_id ==@user.id%>
+          <%if message.status == "unread"%>
+          <%=image_tag("message_indicator.png")%>
+          <%else%>
+          <%=image_tag("message_indicator_read.png")%>
+          <%end%>
+          <%end%>
+          </div>
+        </div>
+
+     <span style="color:#5c5c5c"><%=message.body%></span><br/>
+     </div>
+   <span style="color:#808080; font-size:11px"> created <%= time_ago_in_words(message.created_at)%> </span>
+ </div>
+<br/>
+   <%end%>

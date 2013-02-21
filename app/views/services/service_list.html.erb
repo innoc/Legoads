@@ -1,0 +1,107 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="item_block">
+<div class="sideline">
+<div class="steps1"><br/>
+
+<span style="color:grey;">LegoAds! makes it easy to enjoy what matters most to every business "Publicity"</span>
+</div>
+  <br/><br/><br/><br/><br/><br/><br/>
+  <div class="gifImage">
+  <%=image_tag("NewMotions.gif")%>
+    </div>
+ </div>
+
+<div class="suggested">
+
+
+
+  <div class="suggested_empty">
+<div class="form">
+ Request for Items or Services
+</div>
+<div class="form_content">
+<% form_tag(:controller=>'requests',:action=>'new_service',:id=>'1') do%>
+ Kindly enter your Name:<%= text_field_tag :username %><br/><br/>
+ Name of Item/Service  :  <%= text_field_tag :itemname %><br/><br/>
+ Phone Number/email &nbsp;              :  <%= text_field_tag :Contact%><br/><br/>
+ <div class="button">
+  <%=image_submit_tag("request_button_2.png")%>
+ </div>
+ Description: <br/><%= text_area_tag :description%><br/>
+
+ <%end%>
+</div>
+</div>
+
+
+</div>
+
+
+
+
+  
+
+<div class="item_list">
+<%if @service.blank?%>
+<div class="empty_block">
+<div class="empty">
+No service has been posted yet.Register your business NOW and let the PUBLIC see your PRODUCTS
+</div>
+</div>
+<%else%>
+
+
+<table cellpadding="5" cellspacing="0" border="0"  width="100%" class="vacancy_block">
+
+
+ <% for service in @service %>
+ <tr>
+    <td colspan="3" class="right_vacancy">
+<span style="background-color:grey;font-size:medium;color:white;"><%=service.id%></span>  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;<span style="font-size:x-large"><%=service.service_name%></span> <span style="color:red"></span>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="10%">
+       <%@user=User.find(:first,:conditions=>['id=?',service.user_id])%>
+       <%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+       <%if @image.blank?%>
+       <%= image_tag("photo.png")%>
+       <%else%>
+        <%= image_tag(@image.image.url(:thumb))%>
+       <%end%>
+    </td>
+    <td>
+       <b><%=@user.company_name%></b><br/>
+       <span style="color:grey">Office Number:</span><%=@user.mobile%><br/>
+       <span style="color:grey">Office location:</span><%=@user.state%><br/>
+       <span style="color:grey">Office Address:</span><%=@user.address%><br/>
+    </td>
+    <td class="right_vacancy">
+      <%=service.description%>
+    </td>
+
+  </tr>
+     <tr>
+     <td colspan="3" style="height:10px;">
+
+    </td>
+   </tr>
+ <%end%>
+  </table>
+<%end%>
+</div>
+
+
+</div>
+
+
+
+

@@ -1,0 +1,65 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    var characters = 220;
+    $("#counter").append("You have <strong>"+characters+"</strong> characters remaining");
+    $(".create_beep").keyup(function(){
+        if($(this).val().length > characters){
+        $(this).val($(this).val().substr(0, characters));
+        }
+    var remaining = characters -  $(this).val().length;
+    $("#counter").html("You have <strong>"+  remaining+"</strong> characters remaining");
+    if(remaining <= 10)
+    {
+        $("#counter").css("color","red");
+    }
+    else
+    {
+        $("#counter").css("color","black");
+    }
+
+});
+
+
+});
+
+</script>
+
+
+
+
+<div class="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:larger; color:black;">Shear your Thought!!!</span><br/> 
+<div class="beep_status">
+<div id="counter"></div>
+</div>
+<%=form_tag({:controller=>'beep',:action=>'create',:id=>@user.id}) do%>
+<%=text_area_tag(:beep_text,nil,:class =>"create_beep",:autocomplete => "off",:placeholder=>"Update Beep")%><br/>
+<div class="create_beep_form">
+<div class="beep_button">
+<%=image_submit_tag ('beep_button.png')%>
+</div>
+ 
+<select name="name" class="profile_restriction_drop_down">
+ <option value="partner">Partners only</option>
+ <option value="public">Public</option>
+</select>
+  
+
+</div>
+</div>
+
+<%end%>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,37 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%= stylesheet_link_tag 'support.css'%>
+<div class="support">
+<%@beep_owner=@beep.user%>
+<div class="partner_indicator">
+<%=render :partial=>'partnership_indicator'%>
+</div>
+<div id="image_tag">
+    <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep.user.id])%>
+
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png")%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid))%>
+     <%end%>
+</div>
+&nbsp;<b><%=truncate(@beep.user.user_name,:length =>19)%></b>(Beginner)<br/>
+&nbsp;<%=pluralize(@beep.user.beeps.count, 'beep')%><br/>
+&nbsp;0 Items<br/>
+&nbsp;<%=pluralize(@partner_count.count, 'partner')%>
+
+
+<div class="beep_content_border">
+<br/>
+
+<span style="font-size:large">"</span>&nbsp&nbsp<%=@beep.content%>&nbsp&nbsp<span style="font-size:large">"</span><br/>
+</div>
+
+
+<div class="back">
+<%=render :partial=>'back'%>
+</div>
+
+</div>

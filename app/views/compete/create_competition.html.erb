@@ -1,0 +1,76 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    var characters = 220;
+    $("#counters").append("You have <strong>"+characters+"</strong> characters remaining");
+    $(".compete_box").keyup(function(){
+        if($(this).val().length > characters){
+        $(this).val($(this).val().substr(0, characters));
+        }
+    var remaining = characters -  $(this).val().length;
+    $("#counters").html("You have <strong>"+  remaining+"</strong> characters remaining");
+    if(remaining <= 10)
+    {
+        $("#counters").css("color","red");
+    }
+    else
+    {
+        $("#counters").css("color","black");
+    }
+
+});
+});
+
+</script>
+
+
+
+<div class="compete_beep_top_background">
+<div class="compete_beep">
+Compete!!!
+</div>
+
+<%=image_tag("logo_sign.png")%> 
+</div>
+<br/>
+<span style="color:#5c5c5c;font-size:13px">
+To compete against a beep is to write something contrary to the already existing beep and see people's opinion.
+The more people "join" you the more points you get.</span> <br/>
+<br/>
+
+<%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep.user_id])%>
+<%@user=User.find(@beep.user_id)%>
+<div id="image_tag">
+<%if @image.blank?%>
+<%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_pic",:id=>@beep.user_id},:rel=>"facebox",:layout=>nil%>
+<%else%>
+<%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_pic",:id=>@beep.user_id},:rel=>"facebox",:layout=>nil%>
+<%end%>
+</div>
+
+<div class="beep_contain_block">
+<div id="beep_user_names">
+<span style="color:black"><%=truncate(@user.user_name,:length =>19)%> </span>
+</div>
+        <div class="beep_icon">
+              <%=image_tag("comment.png")%><br/>
+       </div>
+<%=@beep.beep_content%>
+</div>
+<br/>
+
+
+  &nbsp;&nbsp;&nbsp;<div style="font-size:13px" id="counters"></div>
+
+<%=form_tag({:controller=>'compete',:action=>'create_competition',:id=>@beep.id,:oponent_id=>@beep.user_id}) do%>
+<%=text_area_tag(:compete_text,nil,:class=>"compete_box",:autocomplete => "off",:placeholder=>"Compete")%><br/>
+<div id="beep_button">
+ <%=image_submit_tag ('compete.png')%>
+</div>
+<%end%>
+
+

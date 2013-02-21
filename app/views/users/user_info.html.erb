@@ -1,0 +1,57 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+<div class="facebox_partner_info">
+<%unless @current_user.blank?%>
+<div class="partnership_indicator">
+<%=render :partial=>'partnership_indicator'%>
+</div>
+<%end%>
+<%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+ &nbsp;<%= link_to truncate(@user.user_name,:length =>19),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%> <br/>
+ &nbsp;<%= link_to pluralize(@user.beeps.count, 'beep'),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%><br/>
+ &nbsp;<%= link_to pluralize(@user_items.count, 'item'),:controller=>"items",:action=>"manage_item",:type=>'all',:id=>1%><br/>
+ &nbsp;<%= link_to pluralize(@user.partners.count, 'partner'),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"partners"}%><br/><br/>
+&nbsp;<span class="rank_rack"> <%=@user.rank.rank_type%> </span><br/>
+ </div>
+<div class="image_id">
+     <%if @image.blank?%>
+     <%=link_to image_tag("default.png"),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:thumb)),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%>
+     <%end%><br/>
+</div>
+
+
+<div class="partner_heading">
+Most Recent Beep
+<%unless partnership_indicator(@user,@current_user)=="yes_boss"%>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%unless @current_user.blank?%>
+<span class="request">
+<%=link_to "view full profile",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%>
+</span>
+<%end%>
+<%end%>
+</div>
+<div class="beep_container">
+<%@user_beeps=@user.beeps%>
+<%@user_beeping = @user_beeps.max%>
+<%unless @user_beeps.blank?%>
+<%=@user_beeping.beep_content %>
+<%else%>
+ <span style="font-size:11px;color:black"> no beep avaliable</span>
+<%end%>
+</div>
+<br/>
+<%unless @current_user.blank?%>
+<%unless @user.id == @current_user.id%>
+<span class="smiley_set">
+&nbsp;&nbsp;<%=link_to image_tag('send_message.png'),:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"send_message"%>
+</span>
+<%end%>
+<%end%>

@@ -1,0 +1,757 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="activity_header">
+
+
+  &nbsp;Notification  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+  <span class="smiley_set">
+<%=link_to 'go back', :back %>
+</span>
+
+</div>
+<br/>
+<div class="notification_center">
+<%@user_notification_unread = Notification.find(:all,:conditions=>["notification_flag=? && user_id=?","unread",@user.id],:order=>["created_at desc"])%>
+<%@user_notification = Notification.find(:all,:conditions=>["notification_flag=? && user_id=?","read",@user.id],:order=>["created_at desc"])%>
+
+<%unless @user_notification_unread.blank?%>
+ <div class="notification_container_unread">
+   <%for notice in @user_notification_unread%>
+
+  <%@owner=User.find(notice.user_id)%>
+  <%@reviewer=User.find(notice.reviewer_id)%>
+  <%@action = notice.first_source %>
+    <%if notice.first_source == "partner"%>
+    <div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@reviewer.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+      <div class="beep_contain_block">
+       <%=link_to "#{@reviewer.user_name} sent you a partnership request",office_path(:id=>'partner_page')%><br/>
+
+       <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(notice.created_at)%> ago
+       </span>
+       </div>
+
+       </div>
+       </div>
+
+  
+    <%else%>
+     <%if notice.first_source == "beep_at"%>
+
+  <div class="beep_master_blog_profile">
+     <%@beep = Beep.find(notice.beep_id)%>
+     <%@beeped_at = User.find(@beep.beeped_at)%>
+
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep.user_id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@beep.user.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox"%>
+          <span style="font-size:11.5px;color:#5c5c5c">beeped @ you</span>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+        </div>
+
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(@beep.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+      <div class="see_all">
+      <span class="smiley_set">
+       <br/>
+
+      <span class="change_text" style="cursor:pointer;color:purple">expand</span>
+      </span>
+      </div>
+         <div style="display:none;" class="name">
+         <div id="beed_content">
+
+         <span style="color:#5c5c5c"><%=@beep.beep_content%></span> &nbsp;
+         <span id="beepat_user_names"><%= link_to  truncate("@#{@beeped_at.user_name}",:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beeped_at.id},:rel=>"facebox"%>
+         </span>
+
+
+        </div>
+         </div>
+      </div>
+</div>
+ <%else%>
+ <%if notice.first_source == "contest"%>
+   
+
+
+    <div class="beep_master_blog_profile">
+     <%@beep = Beep.find(notice.beep_id)%>
+
+
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep.user_id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@beep.user.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox"%><br/>
+          <span style="font-size:11.5px;color:#5c5c5c">your beep is involved in a contest</span>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+        </div>
+
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(@beep.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+
+
+      <div class="see_all">
+      <span class="smiley_set">
+       <br/>
+
+        <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>notice.compete_id}%> .
+        <span class="change_text" style="cursor:pointer;color:purple">expand .</span> &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;font-size:11px">manage your contests in the <%=link_to "competition section",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"contest"}%>
+       of your profile</span>
+      </span>
+      </div>
+         <div style="display:none;" class="name">
+         <div id="beed_content">
+
+         <span style="color:#5c5c5c"><%=@beep.beep_content%></span>
+
+
+
+        </div>
+         </div>
+
+
+
+      </div>
+</div>
+
+ <%else%>
+    <%if notice.first_source == "message"%>
+
+
+
+
+
+  <div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@reviewer.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@reviewer.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+           &nbsp;&nbsp;&nbsp;<span class="smiley_set"><%= link_to "sent you a message",{:controller=>"profile",:action=>"profile",:sort=>"check_message",:id=>@owner.id}%></span>
+         <div class="beep_icon">
+          <%=image_tag("message_indicator.png")%>
+          </div>
+        </div>
+
+
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(notice.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+      </div>
+
+</div>
+<%else%>
+
+<%if notice.first_source == "comment"%>
+
+     <div class="beep_master_blog_profile">
+     <%@beep = Beep.find(notice.beep_id)%>
+
+
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@reviewer.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@reviewer.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+          <span style="font-size:11.5px;color:#5c5c5c">commented on your beep</span>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+        </div>
+
+        <div id="beed_content">
+        <%if @beep.beep_picture.blank?%>
+        <%=@beep.beep_content%><br/>
+        <%else%>
+        <%=link_to image_tag(@beep.beep_picture.image.url(:thumb)),{:controller=>"beep",:action=>"full_size",:id=>@beep.beep_picture.id},:target=>'_blank'%>
+        <%end%>
+        </div>
+
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(@beep.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+      <div class="see_all">
+      <span class="smiley_set">
+       <br/>
+
+      <span class="change_textd" style="cursor:pointer;color:purple">expand to see comment</span>
+      </span>
+      </div>
+         <div style="display:none;" class="name">
+         <div id="beed_content">
+          <%@beep_comment = BeepComment.find(notice.first_source_id)%>
+         <span style="color:#5c5c5c"><%=@beep_comment.beep_content%></span> &nbsp;
+
+
+
+        </div>
+         </div>
+      </div>
+</div>
+
+ <%else%>
+  <%if notice.first_source == "join"%>
+
+
+
+    <div class="beep_master_blog_profile">
+     <%@beep = Beep.find(notice.beep_id)%>
+
+
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@reviewer.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@reviewer.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+          <span style="font-size:11.5px;color:#5c5c5c">joined your beep</span>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+        </div>
+         <br/>
+
+
+
+
+
+   <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(notice.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+      <div class="see_all">
+      <span class="smiley_set">
+       <br/>
+
+      <span class="change_text" style="cursor:pointer;color:purple">expand to see beep</span>
+      </span>
+      </div>
+      <div style="display:none;" class="name">
+         <div id="beed_content">
+
+         <span style="color:#5c5c5c"><%=@beep.beep_content%></span> &nbsp;
+
+
+
+       </div>
+      </div>
+
+
+       </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <%end%>
+
+
+
+  <%end%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <%end%>
+    <%end%> 
+    <%end%>
+    <%end%>
+    <%notice.update_attribute("notification_flag","read")%>
+    <%end%>
+   </div>
+    <%end%>
+
+
+
+<%#
+ List of all the read Notifications
+%>
+
+
+
+
+
+  <%unless @user_notification.blank?%>
+  <%for notice in @user_notification%>
+  <%@owner=User.find(notice.user_id)%>
+  <%@reviewer=User.find(notice.reviewer_id)%>
+  <%@action = notice.first_source %>
+
+
+<%if notice.first_source == "partner"%>
+    <div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@reviewer.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+ 
+      <div class="beep_contain_block">
+       <%=link_to "#{@reviewer.user_name} sent you a partnership request",office_path(:id=>'partner_page')%><br/>
+
+       <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(notice.created_at)%> ago
+       </span>
+       </div>
+  
+       </div>
+       </div>
+
+<%else%>
+  
+  <%if notice.first_source == "beep_at"%>
+     <div class="beep_master_blog_profile">
+     <%@beep = Beep.find(notice.beep_id)%>
+     <%@beeped_at = User.find(@beep.beeped_at)%>
+     
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep.user_id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@beep.user.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox"%>
+          <span style="font-size:11.5px;color:#5c5c5c">beeped @ you</span>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+        </div>
+      
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(@beep.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+      <div class="see_all">
+      <span class="smiley_set">
+       <br/>
+             
+      <span class="change_text" style="cursor:pointer;color:purple">expand</span>
+      </span>
+      </div>
+         <div style="display:none;" class="name">
+         <div id="beed_content">
+
+         <span style="color:#5c5c5c"><%=@beep.beep_content%></span> &nbsp;
+         <span id="beepat_user_names"><%= link_to  truncate("@#{@beeped_at.user_name}",:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beeped_at.id},:rel=>"facebox"%>
+         </span>
+        
+
+        </div>
+         </div>
+      </div>
+</div>
+<%else%>
+    <%if notice.first_source == "contest"%>
+
+    <div class="beep_master_blog_profile">
+     <%@beep = Beep.find(notice.beep_id)%>
+  
+
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep.user_id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@beep.user.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox"%><br/>
+          <span style="font-size:11.5px;color:#5c5c5c">your beep is involved in a contest</span>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+        </div>
+
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(@beep.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+
+
+      
+      <span class="smiley_set">
+       <br/>
+         
+        <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>notice.compete_id}%> .
+        <span class="change_text" style="cursor:pointer;color:purple;font-size:11px">expand .</span> &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;font-size:11px">manage your contests in the <%=link_to "competition section",{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"contest"}%>
+       of your profile</span>
+      </span>
+   
+         <div style="display:none;" class="name">
+         <div id="beed_content">
+
+         <span style="color:#5c5c5c"><%=@beep.beep_content%></span>
+
+
+
+        </div>
+         </div>
+
+
+ 
+      </div>
+</div>
+ <%else%>
+    <%if notice.first_source == "message"%>
+
+
+
+
+
+  <div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@reviewer.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@reviewer.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+           &nbsp;&nbsp;&nbsp;<span class="smiley_set"><%= link_to "sent you a message",{:controller=>"profile",:action=>"profile",:sort=>"check_message",:id=>@owner.id}%></span>
+         <div class="beep_icon">
+          <%=image_tag("message_indicator.png")%>
+          </div>
+        </div>
+
+<div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(notice.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+      </div>
+
+</div>
+
+
+
+<%else%>
+  <%if notice.first_source == "comment"%>
+
+     <div class="beep_master_blog_profile">
+     <%@beep = Beep.find(notice.beep_id)%>
+   
+
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@reviewer.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@reviewer.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+          <span style="font-size:11.5px;color:#5c5c5c">commented on your beep</span>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+        </div>
+
+      <div id="beed_content">
+        <%if @beep.beep_picture.blank?%>
+        <%= @beep.beep_content%><br/>
+        <%else%>
+        <%=link_to image_tag(@beep.beep_picture.image.url(:thumb)),{:controller=>"beep",:action=>"full_size",:id=>@beep.beep_picture.id},:target=>'_blank'%>
+        <%end%>
+        </div>
+
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(@beep.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+      <div class="see_all">
+      <span class="smiley_set">
+       <br/>
+
+      <span class="change_text" style="cursor:pointer;color:purple">expand to see comment</span>
+      </span>
+      </div>
+         <div style="display:none;" class="name">
+         <div id="beed_content">
+          <%@beep_comment = BeepComment.find(notice.first_source_id)%>
+         <span style="color:#5c5c5c"><%=@beep_comment.beep_content%></span> &nbsp;
+      
+
+
+        </div>
+         </div>
+      </div>
+</div>
+
+
+  <%else%>
+  <%if notice.first_source == "join"%>
+
+
+
+    <div class="beep_master_blog_profile">
+     <%@beep = Beep.find(notice.beep_id)%>
+
+
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@reviewer.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@reviewer.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@reviewer.id},:rel=>"facebox"%>
+          <span style="font-size:11.5px;color:#5c5c5c">joined your beep</span>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+        </div>
+         <br/>
+
+
+         
+  
+
+   <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(notice.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+
+      <div class="see_all">
+      <span class="smiley_set">
+       <br/>
+
+      <span class="change_text" style="cursor:pointer;color:purple">expand to see beep</span>
+      </span>
+      </div>
+      <div style="display:none;" class="name">
+         <div id="beed_content">
+       
+         <span style="color:#5c5c5c"><%=@beep.beep_content%></span> &nbsp;
+
+
+
+       </div>
+      </div>
+ 
+    
+       </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <%end%>
+  
+  <%end%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <%end%>
+
+      <%end%>
+
+  <%end%>
+  <%end%>
+  <%end%>
+  <%end%>
+<%if @user_notification_unread.blank? && @user_notification.blank?%>
+  <br/>
+  <br/>
+  <br/>
+ &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=image_tag("no_notification.png")%>
+
+
+
+
+
+
+    <%end%>
+    
+</div>
+
+
+
+
+
+  

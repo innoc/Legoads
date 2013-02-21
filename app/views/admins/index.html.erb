@@ -1,0 +1,58 @@
+<div class="center_container">
+<div id="admin-header">
+ <h1><%= image_tag('suitpic.jpg')%> Administrator</h1>
+</div>
+<hr/>
+ 
+<div id="admin-body">
+
+
+<div id="admin-float-right">
+
+<ul>
+
+<li><%=link_to'Add Admin'%></li>
+<li></li>
+<li><%=link_to'Remove Admin',:controller=>'admins'%></li>
+<li></li>
+</ul>
+</div>
+
+<div id="admin-float-left">
+<ul>
+<li><%=link_to'List of Users',:controller=>'admins',:action=>'admin_user_list'%>   <%=@user.count%></li>
+<li></li>
+<li>Beep : <%=Beep.find(:all).count%></li>
+<li></li>
+<li>Likes : <%=Like.find(:all).count%></li>
+<li></li>
+<li>Dislike : <%=Dislike.find(:all).count%></li>
+<li></li>
+<li>Feeds : <%=Feed.find(:all).count%></li>
+<li></li>
+</ul>
+</div>
+
+<div id="admin-middle">
+<ul>
+<li></li>
+<li></li>
+<li></li>
+<li><%=link_to'Items',:controller=>'admins',:action=>'items_list',:id=>'1'%> <%=@item.count%></li>
+<li></li>
+<li>Competitions: <%=Compete.find(:all).count%></li>
+<li></li>
+<li></li>
+</ul>
+</div>
+
+
+</div>
+<br/>
+<br/>
+</div>
+
+
+
+
+ 

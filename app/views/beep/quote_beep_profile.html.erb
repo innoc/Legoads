@@ -1,0 +1,13 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%=image_tag("logo_sign.png")%>
+<div class="quoted_beep">
+   <%=@quoted_beep.beep_content%> <br/><br/><br/>
+
+<div class="quote_beep"> 
+Quote <%=@quoted_user.user_name%>'s beep <br/><br/><%=link_to image_tag("quote_button.png"),{:controller=>"beep",:action=>"quote_beep_profile"},:method=>"post"%>
+</div>
+
+</div>

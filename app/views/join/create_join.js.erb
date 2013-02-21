@@ -1,0 +1,9 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+$(".join_added").html("<%= escape_javascript(render("join_added"))%>")
+<%if @flag=="yes"%>
+$(".join_change").html("<%= escape_javascript(render("join_change"))%>")
+<%end%>

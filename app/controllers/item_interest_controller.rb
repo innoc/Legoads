@@ -1,0 +1,2 @@
+class ItemInterestController < ApplicationController
+end

@@ -1,0 +1,408 @@
+/*
+    Document   : index
+    Created on : Aug 20, 2011, 7:05:32 AM
+    Author     : mummy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+
+root {
+    display: block;
+}
+
+
+.youtube_video{
+    width:275px;
+    margin-left:2.5%;
+}
+
+.rank_index{
+text-align:center;
+width:50%;
+border:1px solid #e7ebf2;
+margin-top:2%;
+margin-left:21%;
+
+}
+
+
+.center_container_index{
+min-height:700px;
+width:103%;
+position:relative;
+left:-1.5%;
+background-color:#e7ebf2;
+margin-left:11.2%;
+margin-top:3.9%;
+border-left:1px solid #c0c0c0;
+border-right:1px solid #c0c0c0;
+border-bottom:1px solid #c0c0c0;
+padding-left:0.2%;
+padding-top:1%;
+}
+
+
+
+facebook{
+width:345px;
+margin-left:1%;
+padding-left:19%;
+margin-top:1%;
+background-color:lightblue;
+}
+
+.slide-advertise{
+float:right;
+margin-right:2%;
+height:40%;
+}
+.hottest_beep_index{
+
+background-color:lightcyan;
+color:black;
+width:85%;
+min-height:350px;
+margin-top:0.5%;
+border:1px solid #c0c0c0;
+
+padding-left:0.5%;
+padding-right:0.5%;
+}
+.index_side{
+float:right;
+border-left:1px solid #c0c0c0 ;
+margin-top:-0.5%;
+width:25%;
+padding-left:2%;
+}
+
+
+
+.welcome{
+float:left;
+width:19%;
+height:442px;
+margin-top:0%;
+margin-left:2.3%;
+text-align:center;
+color:black;
+font-size:11px;
+}
+.welcome_container{
+padding:0.5%;
+padding-top:1%;
+height:100px;
+background-color:#3f5362;
+}
+.welcome_header{
+ color:white;
+ text-align:center;
+ font-size:large;
+}
+.video{
+ padding:1%;
+}
+.welcome_note{
+width:65%;
+background-color:#f1f1f1;
+height:150px;
+margin-left:2.5%;
+-moz-border-radius:5px;
+-webkit-border-radius:5px;
+border-radius:5px;
+border:2px dotted white;
+padding:0.5%;
+padding-top:1%;
+}
+.thinking_panda{
+margin-top:1%;
+margin-left:2%;
+width:20%;
+}
+.text_ablility{
+color:white;
+font-size:17px;
+background-color: #3f5362;
+padding:1%;
+-moz-border-radius:20px;
+-webkit-border-radius:20px;
+border-radius:20px;
+}
+
+.index_float{
+float:right;
+width:78%;
+}
+
+.arrange_it{
+border:1px solid #c0c0c0;
+width:46%;
+margin-left:22%;
+padding:0.3%;
+text-align:center;
+background-color:#f1f1f1;
+}
+.arrange_it:hover{
+background-color:white;
+}
+.sign_in_up{
+float:right;
+border:1px solid #c0c0c0;
+margin-right:2%;
+width:25%;
+font-size:11px;
+background-color:white;
+}
+.sign-up_index{
+text-align:center;
+margin-top:0.5%;
+}
+.login_index{
+width:80%;
+height:25px;
+text-align:center;
+font-size:11px;
+}
+.login_index_password{
+width:80%;
+height:25px;
+text-align:center;
+font-size:11px;
+}
+.sign_in{
+background-color:#e7ebf2;
+text-align:center;
+
+padding-top:0.2%;
+padding-bottom:0.2%;
+
+font-size:17px;
+color:#3f5362;
+}
+
+#menu-position ul{
+	margin:0;
+	padding-left:0%;
+	list-style:none;
+}
+
+#menu-position ul li{
+	position:relative;
+}
+#menu-position li ul
+ {
+		position:absolute;
+		left: 170px;
+		top:1px;
+		display:none;
+		width:100%;
+                z-index:10;
+}
+#menu-position ul li a{
+display:block;
+text-decoration:none;
+color:#808080;
+font-size:small;
+background-color:white;
+padding-right:3px;
+padding-left:5px;
+padding-top:1px;
+padding-bottom:1px;
+border-top:1px solid #f1f1f1;
+border-bottom:1px solid #f1f1f1;
+border-bottom:0;
+}
+
+#mini_drop_down{
+ border:1px solid #727272;
+width:24em;
+height:10em;
+position:fixed;
+right:1%;
+background-color:white;
+display:none;
+}
+.drop_down{
+cursor:pointer;
+margin-top:-3%;
+margin-right:0;
+
+}
+
+#menu-position li:hover ul, li.hover ul{
+display:block;
+}
+#menu-position ul li a:hover{
+color:black;
+}
+
+
+#menu-position{
+    margin-top:-0%;
+}
+img{
+border:0;
+}
+.socialize_now{
+float:right;
+margin-right:1%;
+margin-top:0%;
+color:#4d4d68;
+}
+.new_to_legoAds{
+float:right;
+width:200px;
+margin-right:17%;
+}
+.lineing{
+margin-left:10%;
+}
+.about_legoAds{
+width:120%;
+margin-left:1%;
+margin-top:2.1%;
+}
+.under_rule_lego{
+border-bottom:1px solid #727272;
+width:90%;
+color:#4d4d68;
+
+}
+
+.about_legoAds a{
+text-decoration:none;
+color:#808080;
+}
+
+.about_legoAds a:hover{
+text-decoration:underline;
+}
+
+
+.margin_up{
+margin-top:2px;
+}
+
+#index_top_nav
+{
+float:right;
+margin-top:1%;
+margin-right:20%;
+clear:both;
+}
+#center_index_top_nav
+{
+margin-top:3%;
+margin-right:20%;
+
+}
+
+
+#menus{
+padding-top:0%;
+margin-left:-2%;
+width:175px;
+float:left;
+}
+.under_rule{
+margin-top:0%;
+margin-left:-2%;
+font-size:12px;
+border-bottom:1px solid #727272;
+width:200px;
+height:20px;
+color:#4d4d68;
+
+}
+.lego_champ{
+margin-left:2%;
+margin-top:10%;
+}
+
+.block5{
+float:right;
+margin-top:1.5%;
+margin-right:0.5%;
+width:25%;
+height:325px;
+background:transparent url(../../images/splash_2.png) no-repeat;
+}
+.main_view {
+  margin-top:2%;
+  width:57%;
+  position: relative;
+  border:1px solid #eeeeee;
+}
+/*--Window/Masking Styles--*/
+.window {
+	height:290px;	width:650px;
+	overflow: hidden; /*--Hides anything outside of the set width/height--*/
+	position:relative;
+
+}
+.image_reel {
+	position: absolute;
+	top:-5px; left: 0;
+}
+.image_reel img {margin-top:0.3%;float: left;}
+
+/*--Paging Styles--*/
+.paging {
+        position: absolute;
+        bottom: 0.7px; right: -133px;
+        width: 160px; height:20px;
+	z-index:5; /*--Assures the paging stays on the top layer--*/
+	text-align: center;
+	line-height: 30px;
+        background-color:white;
+      	display:none; /*--Hidden by default, will be later shown with jQuery--*/
+}
+.ads{
+width:81%;
+margin-left:0.5em;
+height:28.2em;
+margin-top:3.1em;
+border:1px solid transparent;
+}
+
+
+
+.video_patch{
+margin-left:5em;
+}
+.live_ture{
+margin-left:2%;
+font-size:100%;
+border-bottom:1px solid #727272;
+width:175px;
+color:#4d4d68;
+}
+.video_ture{
+width:100%;
+height:50%;
+border:1px solid blue;
+background-color:white;
+}
+.paging a {
+	
+	text-decoration: none;
+	color:black;
+       
+}
+.paging a.active {
+	font-weight: bold;
+	background:white;
+        height:5px;
+	border-top: 1px solid #610000;
+
+	
+}
+.paging a:hover {font-weight: bold;}
+
+

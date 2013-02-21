@@ -1,0 +1,12 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<% if user_notify_dislike(@current_user,@beep) == "no"%>
+&nbsp<%=link_to pluralize(@beep.dislikes.count, 'Dislike'),{:controller=>"dislike",:action=>'create_dislike',:id=>@beep.id},:method=>"post",:remote=>true%>
+<span style="color:purple">&nbsp.</span>
+<%else%>
+<span style="color:#5c5c5c">
+&nbsp<%=pluralize(@beep.dislikes.count, 'Dislike')%><span style="color:purple">&nbsp.</span>
+</span>
+<%end%>

@@ -1,0 +1,140 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%@current_user = @beep.user%>
+<div class="mid_page_container">
+<div class="mid_section_center">
+<div class="activity_header">
+&nbsp;<%=@current_user.user_name%>'s beep
+<span class="smiley_set">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to 'go back', :back %>
+</span>
+</div>
+
+<div class="hottest_partner_indicator">
+
+
+
+<%@beep_store = @current_user.beeps%>
+<%for beep in @beep_store%>
+  <%if beep_status(beep)=="winning"%>
+   <%@winning << 1%>
+  <%else%>
+  <%if beep_status(beep)=="losing"%>
+   <%@losing << 1%>
+  <%end%>
+  <%end%>
+<%end%>
+<div class="partner_profile">
+&nbsp;&nbsp;&nbsp;<%= render  :partial=>'partnership_indicator'%>
+</div>
+
+<div class="profile_menu">
+<div class="bottom_border_hot_beep">
+&nbsp;<%= link_to pluralize(@current_user.partners.count,'Partner'),{:controller=>"profile",:action=>"profile",:id=>@beep.user.id,:sort=>"partners"}%><br/>
+
+</div>
+<div class="bottom_border_hot_beep">
+<div class="each_menu">
+&nbsp;<%= link_to pluralize(@winning.count,'winning beep'),{:controller=>"profile",:action=>"profile",:id=>@beep.user.id,:sort=>"winning"}%><br/>
+</div>
+</div>
+<div class="bottom_border_hot_beep">
+
+<div class="each_menu">
+  &nbsp;<%= link_to pluralize(@losing.count,'losing beep'),{:controller=>"profile",:action=>"profile",:id=>@beep.user.id,:sort=>"losing"}%><br/>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="utility_background">
+<div id="beep_owner_image">
+<div class="beep_owner_link">
+<%@beep_owner=@beep.user_id%>
+&nbsp;<span style="font-size:17px;color:black;"><%= link_to truncate( @beep.user.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep.user.id},:rel=>"facebox"%>&nbsp;</span><br/>
+ <div class="default_partner">
+&nbsp;<%= link_to pluralize(@current_user.beeps.count, 'beep'),{:controller=>"profile",:action=>"profile",:id=>@beep.user.id,:sort=>"all"}%><br/>
+&nbsp;<%= link_to pluralize(@beep.user.items.count, 'item'),:controller=>"items",:action=>"manage_item",:type=>'all',:id=>1%><br/>
+&nbsp;<span style="color:black"><%=@beep.user.rank.rank_type%></span>
+</div>
+</div>
+</div>
+
+
+  <div class="image_tag_pro">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep.user.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("default.png"),{:controller=>"users",:action=>"user_info",:id=>@beep.user.id},:rel=>"facebox",:layout=>nil%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:thumb)),{:controller=>"users",:action=>"user_info",:id=>@beep.user.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="beep_commenter">
+<div class="beep_comment">
+ <%=@beep.beep_content%>
+  <%unless @beep.beeped_at.blank?%>
+ <%@beeped_at = User.find(@beep.beeped_at)%>
+  <span id="beepat_user_names"><%= link_to  truncate("@#{@beeped_at.user_name}",:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beeped_at.id},:rel=>"facebox"%>
+  </span>
+<%end%>
+<br/><br/>
+</div>
+<span class="smiley_set">
+ <span class="see_all">
+  &nbsp;<span class="change_text" style="color:#808080"><%=pluralize(@beep.beep_comments.count, 'Comment')%>&nbsp;.</span>
+      <%@current_user = User.find(session[:user_id])%>
+       <%=render :partial=>"like/likes_added"%>
+       <%=render :partial=>"dislike/dislikes_added"%>
+ </span>
+ <%@beep_compete_checker = Compete.find(:first,:conditions=>["original_beep=?",@beep.id])%>
+ <%@current_user = User.find(session[:user_id])%>
+
+ <%unless @current_user.id == @beep.user_id%>
+
+    <%if @beep_compete_checker.blank?%>
+     <%=link_to "compete",{:controller=>"compete",:action=>'create_competition',:id=>@beep.id},:rel=>'facebox'%>
+    <%else%>
+        <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>@beep_compete_checker.id}%>
+    <%end%>
+
+ <%end%>
+
+</span>
+</div>
+
+<br/>
+
+<br/>
+
+<div class="beep_tops">
+<%@beep_comment = BeepComment.find(:all, :conditions=>["beep_id=?",@beep.id],:order=>"created_at desc")%>
+
+
+<div class="comment_background2">
+<%= render :partial=>"comment"%>
+</div>
+</div>
+
+
+
+</div>
+</div>

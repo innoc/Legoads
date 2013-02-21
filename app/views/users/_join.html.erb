@@ -1,0 +1,47 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+
+<div class="beep_master_blog">
+
+     <%@beep = Beep.find(feed.beep_id)%>
+  
+     <%@user = User.find(feed.user_id)%>
+
+     <div id="image_tag">
+       
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@user.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@user.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+       
+     </div>
+
+  
+
+       <div class="beep_contain_block">
+
+      <div id="beep_user_names">
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(@beep.created_at)%>  </span>
+      </div>
+     </div>
+        <%= link_to  truncate(@user.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep.user_id},:rel=>"facebox"%> <span style="color:#5c5c5c;font-size:12px;">joined a beep</span>
+       <span class="smiley_set">
+        <br/>
+       <%=link_to "Join Contest",{:controller=>"compete",:action=>'compete_room',:id=>feed.compete_id}%><br/><br/>
+       </span>
+        </div>
+
+
+    
+      </div>
+  </div>

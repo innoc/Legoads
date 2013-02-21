@@ -1,0 +1,103 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+
+
+<div class="market_item_activity_section">
+<div class="top_border">
+<div class="panda_head">
+<%=image_tag("panda_head.png")%>
+</div>
+<div class="market_search_area">
+<%=form_tag({:controller=>'items',:action=>'market',:id=>"1",:partial=>"search_for"}) do%>
+<div class="market_item_submit"><%=image_submit_tag('search_item.png')%></div>
+<%=text_field_tag(:name,nil,:class =>"market_item_search",:autocomplete => "off",:placeholder=>"Search your items")%>
+<%end%>
+</div>
+
+</div>
+<br/>
+
+<div class="slider-wrapper theme-default">
+            <div id="slider" class="nivoSlider">
+                 <%=image_tag("welcome.jpg")%>
+                 <%=image_tag("mobile_app.jpg")%>
+
+            </div>
+            <div id="htmlcaption" class="nivo-html-caption">
+                <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
+            </div>
+ </div>
+</div>
+
+<div class="mobile_app">
+ <%=image_tag("mobile_app_phone.png")%>
+</div>
+<table border="0" cellpadding="0" cellspacing="0"  class="index_color">
+     <tr>
+      <td colspan="2">
+       <span style="color:black;font-size:15px"> New to LegoAds Market</span>
+      </td>
+      <td>
+      <span style="color:black;font-size:15px"> Tag Along </span>
+      </td>
+    </tr>
+    <tr class="curved_corners">
+      <td class="steps_up" width="7%">
+        Step 1.
+      </td>
+      <td class="steps1_up" width="10%">
+        Click <%=link_to '"Register"',:controller=>'users',:action=>'public_register',:id=>'1' %>
+      </td>
+      <td class="steps1_up" rowspan="4" width="30%">
+        <span style="color:black"> Back for more fun? Sign in now to sell,or to manage your account.
+        Sign in</span><br/><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%=link_to image_tag("loginButton.png"),login_path%><br/>
+         <br/><br/><span style="color:gray"> Not registered yet?</span><br/> <span style="color:black">
+        Join millions of people who are already a part of the LagoAds family.<br/></span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to image_tag("sign_up_index.png"),:controller=>'users',:action=>'public_register'%>
+
+      </td>
+    </tr>
+     <tr>
+      <td class="steps_up">
+        Step 2.
+      </td>
+      <td class="steps1_up" >
+        Get Your Office and Profile where you can create Ads and also Socialize <br/>
+      </td>
+
+
+    </tr>
+
+    <tr>
+      <td class="steps_up">
+        Step 3.
+      </td>
+      <td class="steps1_up" width="30%">
+        Upload & Display Ads for millions of people to see
+      </td>
+    </tr>
+    <tr>
+      <td class="steps_up">
+        Step 4.
+      </td>
+      <td class="steps1_up" width="30%">
+        There is no fourth step! It's that easy
+      </td>
+
+    </tr>
+  </table>
+
+
+
+
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider();
+    });
+ </script>

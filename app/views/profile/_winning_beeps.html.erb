@@ -1,0 +1,239 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  $('#loaders').hide()
+    $('.each_menu').click(function(){$('#loaders').show();}).ajaxStop(function(){ $('#loaders').hide();});
+    $('a[rel*=facebox]').facebox();
+ })
+</script>
+<%@beep_compete_checker = Compete.find(:first,:conditions=>["original_beep=?",beep.id])%>
+
+  <%@beep_owner = User.find(beep.user_id)%>
+  <%unless beep.beeped_at.blank?%>
+  <%@beeped_at = User.find(beep.beeped_at)%>
+  <%unless @beep_owner == beep.beeped_at%>
+     <div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep_owner.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+       <%@beep=Beep.find(beep.id)%>
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@beep_owner.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox"%>
+          <%if @beep.quote_flag == "quote"%>
+          <span style="font-size:11px">&nbsp&nbsp (quoted)</span>
+          <%end%>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+
+        </div>
+        <div id="beed_content">
+
+         <span style="color:#111"><%=@beep.beep_content%></span> &nbsp;
+         <span id="beepat_user_names"><%= link_to  truncate("@#{@beeped_at.user_name}",:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beeped_at.id},:rel=>"facebox"%>
+</span>
+          <br/>
+          <br/>
+
+        </div>
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+        <%= time_ago_in_words(beep.created_at)%> ago </span>
+      </div>
+
+     </div>
+      </div>
+
+      <div class="see_all">
+      <span class="smiley_set">
+       &nbsp;<span class="change_text" style="cursor:pointer;color:#5c5c5c;font-size:11px">expand-hide</span>
+      </span>
+      </div>
+
+     <div style="display:none;" class="name">
+      <div class="see_all">
+      <span class="smiley_set">
+      &nbsp;<span class="change_text" style="cursor:pointer;color:purple"><%=pluralize(@beep.beep_comments.count, 'Comment')%>&nbsp;.</span>
+      <%=render :partial=>"like/likes_added"%>
+      <%=render :partial=>"dislike/dislikes_added"%>
+      <%if @user.id == @profile_visitor.id%>
+      &nbsp;<span class="change_text" style="cursor:pointer;color:#5c5c5c;font-size:11px"><%=link_to "delete",{:controller=>"beep",:action=>"delete",:id=>@beep.id,:user_id=>@profile_visitor.id},:confirm=>"Do you really want to delete this beep?"%></span>
+      <%end%>
+      <br/>
+      </span>
+     </div>
+     <div class="quote">
+     <%if @user.id == @profile_visitor.id%>
+        <%=link_to "quote",{:controller=>"beep",:action=>'quote_beep_profile',:id=>beep.id},:rel=>'facebox'%>
+      <%else%>
+           <%=link_to "quote",{:controller=>"beep",:action=>'quote_beep_partner_profile',:id=>beep.id,:user_id=>@user.id},:rel=>'facebox'%>
+      <%end%>
+     </div>
+
+<br/>
+<div class="beep_tops">
+<%@beep_comment = BeepComment.find(:all, :conditions=>["beep_id=?",@beep.id],:order=>"created_at desc",:limit=>4)%>
+
+
+<div class="comment_background">
+<%= render :partial=>"beep_comment/comment" %>
+</div>
+</div>
+
+
+
+  </div>
+
+
+
+</div>
+
+<%end%>
+
+  <%else%>
+
+    <div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep_owner.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+       <%@beep=Beep.find(beep.id)%>
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@beep_owner.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox"%>
+          <%if @beep.quote_flag == "quote"%>
+          <span style="font-size:11px">&nbsp&nbsp (quoted)</span>
+          <%end%>
+          <div class="beep_icon">
+          <%=image_tag("comment.png")%>
+          </div>
+
+        </div>
+        <div id="beed_content">
+        <%if @beep.beep_picture.blank?%>
+          <span style="color:#111"><%=@beep.beep_content%></span>
+          <br/>
+          <br/>
+        <%else%>
+        <%unless @beep.beep_picture.description.blank? %>
+        <%=@beep.beep_picture.description%>
+        <br/><br/>
+        <%else%>
+        no image description
+        <br/>
+        <br/>
+        <%end%>
+       <%end%>
+        </div>
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+         <%= time_ago_in_words(beep.created_at)%></span>
+      </div>
+
+     </div>
+      </div>
+
+       <div class="see_all">
+      <span class="smiley_set">
+       <%unless @beep.beep_picture.blank? %>
+       &nbsp;<span class="change_text" style="cursor:pointer;color:#5c5c5c;font-size:11px">view photo</span> .
+       <%else%>
+       &nbsp;<span class="change_text" style="cursor:pointer;color:#5c5c5c;font-size:11px">expand-hide</span> .
+      <%end%>
+
+      </span>
+      </div>
+
+     <div style="display:none;" class="name">
+      <div class="see_all">
+      <span class="smiley_set">
+      &nbsp;<span class="change_text" style="cursor:pointer;color:purple"><%=pluralize(@beep.beep_comments.count, 'Comment')%>&nbsp;.</span>
+      <%=render :partial=>"like/likes_added"%>
+      <%=render :partial=>"dislike/dislikes_added"%>
+      <%if @user.id == @profile_visitor.id%>
+      &nbsp;<span class="change_text" style="cursor:pointer;color:#5c5c5c;font-size:11px"><%=link_to "delete",{:controller=>"beep",:action=>"delete",:id=>@beep.id,:user_id=>@profile_visitor.id},:confirm=>"Do you really want to delete this beep?"%></span>
+      <%end%>
+      <br/>
+      </span>
+     </div>
+  <%if @beep.beep_picture.blank? %>
+  <div class="quote">
+    <%if @user.id == @profile_visitor.id%>
+        <%=link_to "quote",{:controller=>"beep",:action=>'quote_beep_profile',:id=>beep.id},:rel=>'facebox'%>
+      <%else%>
+           <%=link_to "quote",{:controller=>"beep",:action=>'quote_beep_partner_profile',:id=>beep.id,:user_id=>@user.id},:rel=>'facebox'%>
+      <%end%>
+  </div>
+
+
+    <%if @beep_compete_checker.blank? && beep.compete.blank?%>
+     <%unless @user.id == @profile_visitor.id%>
+
+     <div class="quote">
+     <%=link_to "compete",{:controller=>"compete",:action=>'create_competition',:id=>beep.id},:rel=>'facebox'%>
+     </div>
+     <%end%>
+     <%else%>
+       <div class="quote">
+
+     <%if beep.compete.blank?%>
+      <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>@beep_compete_checker.id},:style=>"color:red"%>
+    <%else%>
+      <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>beep.compete.id},:style=>"color:red"%>
+     <%end%>
+      </div>
+    <%end%>
+
+<br/>
+    <%end%>
+
+
+
+
+<div class="beep_tops">
+
+<%unless @beep.beep_picture.blank? %>
+<div class="beep_image">
+<%=link_to image_tag(@beep.beep_picture.image.url(:medium)),{:controller=>"beep",:action=>"full_size",:id=>@beep.beep_picture.id},:target=>'_blank'%>
+</div>
+<%end%>
+
+<%@beep_comment = BeepComment.find(:all, :conditions=>["beep_id=?",@beep.id],:order=>"created_at desc",:limit=>4)%>
+
+
+<div class="comment_background">
+<%= render :partial=>"beep_comment/comment" %>
+</div>
+</div>
+
+ </div>
+
+ </div>
+
+
+
+<%end%>
+
+
+
+
+
+
+

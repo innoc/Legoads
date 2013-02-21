@@ -1,0 +1,23 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+
+<div class="comment_partial">
+<%= render :partial=>"comment_partial"%>
+</div>
+
+<%= form_for :comment,:remote=>true,:method=>"post" do |f| %>
+<div class="field">
+<legend>Add a comment</legend>
+<%= f.text_area :comment_text,:cols =>35,:rows => 10%>
+
+</div>
+<div class="actions">
+<%=image_submit_tag("comment.png")%>
+   
+</div>
+<% end %>

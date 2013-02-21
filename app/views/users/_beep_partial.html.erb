@@ -1,0 +1,208 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%@beep=Beep.find(feed.beep_id)%>
+<%@beep_compete_checker = Compete.find(:first,:conditions=>["original_beep=?",@beep.id])%>
+ <% @partner=User.find(feed.user_id)%>
+
+ <%if @beep.beeped_at.blank?%>
+ <div class="beep_master_blog">
+    <div id="image_tag">
+    <%@image= UserImage.find(:first,:conditions=>["user_id=?",@partner.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+    </div>
+    
+    <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+          <div class="beep_icon">
+              <%=image_tag("comment.png")%>
+                <% if feed.third_source == "public"%>
+            <span style="font-size:11px">public</span>
+          <%end%>
+          </div>
+           <%= link_to truncate(@partner.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@partner.id},:rel=>'facebox'%> <span style="font-size:11px"></span>
+              
+             <%if @beep.quote_flag == "quote"%>
+              <%@quoted=User.find(@beep.quoted_user)%>
+
+             <span style="font-size:11px">Quoted Beep from &nbsp;</span><%= link_to truncate(@quoted.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@quoted.id},:rel=>'facebox'%> <span style="font-size:11px"></span>
+             
+            <%end%>
+            
+            
+        </div>
+        <div id="beed_content">
+          <%if @beep.quote_flag == "quote"%>
+             <span style="font-size:22px">"</span>
+               <%=@beep.beep_content%>&nbsp;&nbsp;
+             <span style="font-size:22px">"</span>
+          <%else%>
+         <%=@beep.beep_content%>
+          <%end%>
+        </div>
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+         <%= distance_of_time_in_words_to_now(feed.created_at)%></span> 
+
+      </div>
+    
+     </div>
+      
+    </div>
+    <div class="see_all">
+      <span class="smiley_set">
+      &nbsp;<span class="change_text" style="cursor:pointer;color:purple"><%=pluralize(@beep.beep_comments.count, 'Comment')%>&nbsp;.</span>
+      <%=render :partial=>"like/likes_added"%>
+      <%=render :partial=>"dislike/dislikes_added"%>
+      &nbsp;<span class="change_text" style="cursor:pointer;color:#5c5c5c;font-size:11px">expand-hide</span>
+      </span>
+   
+    </div>
+<div style="display:none;" class="name">
+  
+  <div class="quote">
+      <%=link_to "quote",{:controller=>"beep",:action=>'quote_beep',:id=>feed.beep_id},:rel=>'facebox'%>
+  </div>
+ <%unless @user.id == @beep.user_id%>
+  <div class="quote">
+    <%if @beep_compete_checker.blank?%>
+     <%=link_to "compete",{:controller=>"compete",:action=>'create_competition',:id=>feed.beep_id},:rel=>'facebox'%>
+    <%else%>
+        <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>@beep_compete_checker.id},:style=>"color:red"%>
+    <%end%>
+  </div>
+ <%end%>
+   
+
+<div class="beep_tops">
+<%@beep_comment = BeepComment.find(:all, :conditions=>["beep_id=?",@beep.id],:order=>"created_at desc",:limit=>4)%>
+<br/>
+
+<div class="comment_background">
+
+<%= render :partial=>"beep_comment/comment"%>
+</div>
+</div>
+
+
+
+  </div>
+
+    
+  
+   </div>
+<%else%>
+
+
+
+  <%@beeped_at = User.find(@beep.beeped_at)%>
+  <div class="beep_master_blog">
+    <div id="image_tag">
+    <%@image= UserImage.find(:first,:conditions=>["user_id=?",@partner.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+    </div>
+
+    <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+          <div class="beep_icon">
+              <%=image_tag("comment.png")%><br/>
+                <% if feed.third_source == "public"%>
+            <span style="font-size:11px">public</span>
+          <%end%>
+          </div>
+             <%= link_to truncate(@partner.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@partner.id},:rel=>'facebox'%> <span style="font-size:11px"></span>
+
+             <%if @beep.quote_flag == "quote"%>
+              <%@quoted=User.find(@beep.quoted_user)%>
+
+             <span style="font-size:11px">Quoted Beep from &nbsp;</span><%= link_to truncate(@quoted.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@quoted.id},:rel=>'facebox'%> <span style="font-size:11px"></span>
+
+            <%end%>
+
+
+        </div>
+        <div id="beed_content">
+          <%if @beep.quote_flag == "quote"%>
+             <span style="font-size:22px">"</span>
+               <%=@beep.beep_content%>&nbsp;&nbsp;
+             <span style="font-size:22px">"</span>
+          <%else%>
+         <%=@beep.beep_content%>&nbsp;&nbsp;    <span id="beep_user_names"><%= link_to  truncate("@#{@beeped_at.user_name}",:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beeped_at.id},:rel=>"facebox"%></span>
+       <br/><br/>
+
+          <%end%>
+        </div>
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+         <%= distance_of_time_in_words_to_now(feed.created_at)%></span>
+
+      </div>
+
+     </div>
+
+    </div>
+    <div class="see_all">
+      <span class="smiley_set">
+      &nbsp;<span class="change_text" style="cursor:pointer;color:purple"><%=pluralize(@beep.beep_comments.count, 'Comment')%>&nbsp;.</span>
+      <%=render :partial=>"like/likes_added"%>
+      <%=render :partial=>"dislike/dislikes_added"%>
+      &nbsp;<span class="change_text" style="cursor:pointer;color:#5c5c5c;font-size:11px">expand-hide</span>
+      </span>
+    </div>
+<div style="display:none;" class="name">
+
+  <div class="quote">
+      <%=link_to "quote",{:controller=>"beep",:action=>'quote_beep',:id=>feed.beep_id},:rel=>'facebox'%>
+  </div>
+ <%unless @user.id == @beep.user_id%>
+  <div class="quote">
+    <%if @beep_compete_checker.blank?%>
+     <%=link_to "compete",{:controller=>"compete",:action=>'create_competition',:id=>feed.beep_id},:rel=>'facebox'%>
+    <%else%>
+        <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>@beep_compete_checker.id},:style=>"color:red"%>
+    <%end%>
+  </div>
+ <%end%>
+
+
+<div class="beep_tops">
+<%@beep_comment = BeepComment.find(:all, :conditions=>["beep_id=?",@beep.id],:order=>"created_at desc",:limit=>4)%>
+<br/>
+
+<div class="comment_background">
+
+<%= render :partial=>"beep_comment/comment"%>
+</div>
+</div>
+</div>
+
+
+
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<%end%>

@@ -1,0 +1,63 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+    $('a[rel*=facebox]').facebox();
+    });
+</script>
+
+<% unless  session[:user_id].nil?%>
+<%=form_tag({:controller=>'comment',:action=>'create_comment_see_all',:id=>@item.id},:remote=>true) do%>
+<%=text_area_tag(:content,nil,:class=>"beep_comment_list",:autocomplete => "off",:placeholder=>"Compete")%><br/>
+
+<%=image_submit_tag('commentButton.png')%>
+<%end%>
+<%end%>
+<br/>
+
+
+
+<%if  @item_comment.blank?%>
+&nbsp;<span style="font-size:11px">No response has been made on this item</span>
+<%else%>
+
+&nbsp;<span style="font-size:10px;color:#111">All Comments</span>
+<%for comment in  @item_comment%>
+
+
+   <div class="">
+
+    <div class="market_see_all_previews">
+    <div id="image_tag">
+
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",comment.commenter_id])%>
+     <%@user=User.find(@item.user_id)%>
+     <%if @image.blank?%>
+     <%=image_tag("photo.png")%>
+     <%else%>
+     <%= image_tag(@image.image.url(:small))%>
+     <%end%>
+    </div>
+         <div id="beep_user_names">
+
+             <div class="beep_created_at">
+             <%= time_ago_in_words(comment.created_at)%>
+             </div>
+             <%= link_to truncate(@item.user.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@item.user.id,},:rel=>'facebox'%> <span style="font-size:11px"></span>
+
+          </div>
+        <div id="see_all_content">
+            <%=comment.comment_text%>
+        </div>
+
+
+
+       </div>
+
+   </div>
+
+<%end%>
+<%end%>

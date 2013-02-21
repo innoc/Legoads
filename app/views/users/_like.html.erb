@@ -1,0 +1,89 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+<% @beep=Beep.find(feed.beep_id)%>
+<%@partner=User.find(feed.user_id)%>
+
+ <div class="beep_master_blog">
+    <div id="image_tag">
+     <%if feed.fought_source=='hide'%>
+      <%=image_tag("panda_large.png")%>
+     <%else%>
+    <%@image= UserImage.find(:first,:conditions=>["user_id=?",@partner.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox",:layout=>nil%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@partner.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     <%end%>
+    </div>
+    <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+           
+            <%if feed.fought_source=='hide'%>
+            <div class="beep_icon">
+          <span style="color:#808080;font-size:smaller">masked</span>
+          </div>
+           <span style="color:black">Hidden Identity</span>
+           <%else%>
+           <%= link_to truncate(@partner.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@partner.id},:rel=>'facebox'%>
+           <%end%>
+            <span style="font-size:11px"> likes </span>
+             <%=link_to truncate(@beep.user.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@beep.user.id},:rel=>'facebox'%>'s
+                 <span style="font-size:11.5px">beep</span>
+        </div>
+          
+      <div class="smiley_set">
+      <div class="created_at">
+      <span class="beep_created">
+           &nbsp;&nbsp;&nbsp;<%= distance_of_time_in_words_to_now(feed.created_at)%></span>
+      </div>
+      
+     </div>
+      
+
+     </div>
+
+
+     <div class="see_all">
+       
+       &nbsp;<span class="change_text" style="cursor:pointer;color:#5c5c5c;font-size:11px">expand-hide</span>
+     </div>
+   <br/>
+   
+<div style="display:none;" class="name">
+  <br/>
+  <div class="show_beep">
+    <span style="font-size:11px;color:#808080">Beep</span> &nbsp; &nbsp;<span style="font-size:10px"><%= distance_of_time_in_words_to_now(@beep.created_at)%></span><br/>
+    <%if @beep.beep_picture.blank?%>
+    
+        &nbsp&nbsp<span style="font-size:large">"</span>&nbsp&nbsp<%=link_to @beep.beep_content,:controller=>"users",:action=>"office",:id=>"utility",:mark=>@beep.id%>&nbsp&nbsp<span style="font-size:large">"</span><br/>
+   <%else%>
+        <%=link_to image_tag(@beep.beep_picture.image.url(:thumb)),{:controller=>"beep",:action=>"full_size",:id=>@beep.beep_picture.id},:target=>'_blank'%>
+   <%end%><br/>
+  </div>
+<div class="see_all">
+<div class="smiley_set">
+      <%=render :partial=>"like/likes_added"%>
+      <%=render :partial=>"dislike/dislikes_added"%>
+</div>
+</div>
+
+
+
+  </div>
+
+
+
+
+
+
+     </div>
+
+
+
+  

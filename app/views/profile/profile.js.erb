@@ -1,0 +1,15 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%if @mark == "winning" ||  @mark == "losing" ||  @mark == "quote" || @mark == "partners" || @mark == "send_message" || @mark == "contest"%>
+$(".user_activity").html("<%= escape_javascript(render("profile_feed"))%>")
+<%else%>
+<%unless @beep_store.current_page > @beep_store.num_pages%>
+$(".all_beeps").append("<div class='page'><%= escape_javascript(render("all_beeps"))%></div>")
+<%end%>
+<%end%>
+
+
+

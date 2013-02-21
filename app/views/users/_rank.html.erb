@@ -1,0 +1,39 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+ <%@user=User.find(feed.user_id)%>
+<div class="beep_master_blog">
+    <div id="image_tag">
+    <%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@user.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@user.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+    </div>
+   <div class="beep_contain_block">
+        <div id="beep_user_names">
+             <%= link_to truncate(@user.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@user.id},:rel=>'facebox'%> <span style="font-size:11px"></span>
+        </div>
+   </div>
+  <div id="beed_content">
+    <% if  feed.second_source == "down"%>
+    <span style="color:#5c5c5c;">Degraded </span> <span style="color:black;font-size: 15px"><%=@user.rank.rank_type%></span>&nbsp;<%=image_tag("degrade.png")%>
+    <%end%>
+    <%if  feed.second_source == "up"%>
+      <span style="color:#5c5c5c;">Promoted </span> <span style="color:black;font-size: 15px"><%=@user.rank.rank_type%></span>&nbsp;<%=image_tag("upgrade.png")%>
+    <%end%>
+
+  </div>
+   <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+       </span>
+      </div>
+
+   </div>
+
+ </div>

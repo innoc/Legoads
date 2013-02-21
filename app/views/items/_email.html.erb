@@ -1,0 +1,40 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+<table cellpadding="5" cellspacing="0" border="0" width="100%" class="table_listss">
+      <tr>
+       <td>
+         <%@image=Picture.find(:first,:conditions=>["item_id=?",@item.id])%>
+         <%= image_tag(@image.image.url(:thumb))%><br/><br/>
+       </td>
+
+       <td>
+        <%@user = User.find(@item.user_id)%>
+        <span style="font-size:larger;"><%=@item.item_name%></span><br/>
+        <span style="font-size:smaller;color:grey;">Current Price: </span><%=@item.item_price%><br/>
+        <%@comment = Comment.find(:all,:conditions=>["item_id=?",@item.id])%>
+        <%@comment = @comment.count%>
+        <span style="font-size:smaller;color:grey;">Condition:</span> <%=@item.item_condition%>
+        </td>
+      </tr>
+ </table>
+
+
+
+<%= form_tag  do %>
+<div class="loginField">
+  <span style="color:brown;font-size:small;">you can recommend this item to your friend by entering his/her email in the textbox below</span><br /><br/>
+  <%= text_field_tag(:email,nil,:placeholder => "Enter the email address here",:class => "loginForm") %>
+</div>
+
+<div class="actions">
+<br/>
+
+<%=image_submit_tag("sendButton.png")%>
+</div>
+
+<% end %>

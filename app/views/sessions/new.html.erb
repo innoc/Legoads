@@ -1,0 +1,42 @@
+<div class="mid_page_container">
+<div class="mid_section_center">
+<div class="activity_header">
+&nbsp;Login
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="edit_info">
+
+<%= form_tag session_path do %>
+<div class="loginFieldd">
+  <%= label_tag :user_name %><br />
+   <%= text_field_tag(:username,nil,:class => "loginForm") %>
+</div>
+<br/>
+<div class="loginFieldd">
+<%= label_tag :password %><br />
+<%= password_field_tag :password,nil,:class =>"loginForm"%>
+
+</div>
+<% if !flash.empty? %>
+  <div id="notice"><%= flash[:notice] %><%= flash[:alert] %></div>
+<% end %>
+
+<div class="loginButtong">
+  <br/>
+<%=image_submit_tag("loginButton.png")%>
+</div>
+<% end %>
+
+
+</div>
+<div class="deactivate_account">
+   <div class="smiley_set">
+<span style="color:#808080;font-size:11px">you are not yet a member?</span> <%=link_to "Sign up",:controller=>"users",:action=>"public_register",:id=>"user"%>
+   </div>
+</div>
+
+</div>
+</div>

@@ -1,0 +1,63 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+<%if  @beep_comment.blank?%>
+&nbsp;<span style="font-size:11px">No response has been made on this beep</span>
+<%else%>
+&nbsp;<span style="font-size:10px;color:#111">Recent Comments</span>
+<%for beep in  @beep_comment%>
+
+   <div class="">
+
+    <div class="see_all_previews">
+    <div id="image_tag">
+     <%if beep.hide == 'hide'%>
+      <%=image_tag("panda.png")%>
+     <%else%>
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",beep.user_id])%>
+     <%@user=User.find(beep.user_id)%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("photo.png"),{:controller=>"users",:action=>"user_pic",:id=>beep.user_id},:rel=>"facebox",:layout=>nil%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:small)),{:controller=>"users",:action=>"user_pic",:id=>beep.user_id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     <%end%>
+    </div>
+          <div id="beep_user_names">
+             
+             <div class="beep_created_at">
+             <%= time_ago_in_words(beep.created_at)%>
+             </div>
+             <%= link_to truncate(@user.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@user.id},:rel=>'facebox'%> <span style="font-size:11px"></span>
+            
+          </div>
+        <div id="see_all_content">
+            <%=beep.beep_content%>
+        </div>
+            
+
+   
+       </div>
+
+   </div>
+
+
+<%end%>
+<%if @beep.beep_comments.count > 4%>
+<div class="see_all_comments">
+<%=link_to "see all",:controller=>"users",:action=>"utility",:id=>@beep.id%>
+</div>
+<%end%>
+<%end%>
+
+
+<%=form_tag({:controller=>'beep_comment',:action=>'create_comment',:id=>@beep.id},:remote => true) do%>
+<%=text_area_tag(:content,nil,:class=>"beep_comment_list",:autocomplete => "off",:placeholder=>"Compete")%><br/>
+
+<%=image_submit_tag('commentButton.png')%>
+
+<%end%>
+

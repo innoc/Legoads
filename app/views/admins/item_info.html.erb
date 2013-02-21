@@ -1,0 +1,53 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="center_container">
+<div id="admin-header">
+ <h1><%= image_tag('suitpic.jpg')%> Administrator</h1>
+ </div>
+ <hr>
+
+<%=link_to'Back to items list',:controller=>'admins',:action=>'items_list'%>
+
+<div id="back-to-index">
+ <%=link_to'Back to index',:controller=>'admins',:action=>'index'%>
+ </div>
+ <div id="list-customers">
+ <h3>More information [<span id="color-change"><%= @item.item_name%></span>] </h3>
+ </div>
+<%@image=Picture.find(:all,:conditions=>["item_id=?",@item.id])%>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to image_tag(@image[0].image.url(:thumb)),:action=>"show_image",:id=>@image[0]%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%=link_to image_tag(@image[1].image.url(:thumb)),:action=>"show_image",:id=>@image[1]%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%=link_to image_tag(@image[2].image.url(:thumb)),:action=>"show_image",:id=>@image[2]%>
+ <br/>
+
+<div id="other-info">
+Item Name: <span style="color:purple">&nbsp;&nbsp;<%= @item.item_name%></span><br/>
+Description: <span style="color:purple">&nbsp;&nbsp;<%= @item.description%></span><br/>
+Category: <span style="color:purple">&nbsp;&nbsp;<%=@item.category %></span><br/>
+Item condition: <span style="color:purple">&nbsp;&nbsp;<%= @item.item_condition%></span> <br/>
+Category type: <span style="color:purple">&nbsp;&nbsp;<%= @item.category_type%></span><br/>
+Created on:<span style="color:purple">&nbsp;&nbsp;<%=@item.created_at%></span><br/>
+
+</div>
+<br/>
+
+<br/>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

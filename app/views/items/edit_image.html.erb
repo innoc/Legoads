@@ -1,0 +1,32 @@
+<%#
+
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<div class="center_container">
+<div class="smiley_set">
+<%=link_to "edit other item contents",:controller=>"items",:action=>"edit",:id=>@item.id%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%=link_to "manage Items",:controller=>"items",:action=>"manage_item",:flag=>"all",:id=>@item.id%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%=link_to "office",office_path(:id=>"activity")%>
+
+</div>
+  <br/><br/>
+<%=render :partial=>"change_image" %>
+
+</div>
+
+
+
+
+  

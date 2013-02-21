@@ -1,0 +1,92 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div id="admin-header">
+ <h1><%= image_tag('suitpic.jpg')%> Administrator</h1>
+ </div>
+ <hr/>
+ <div id="back-to-index">
+ <%=link_to'Back to index',:controller=>'admins',:action=>'index'%>
+ </div>
+ <% form_tag :controller => 'admins', :action =>'item_search' do %>
+					<label>User name</label><%= text_field_tag 'item_name'%>
+
+<%=submit_tag 'Search'%>
+<%end%>
+ <div id="list-customers">
+ <h3>List of Tabs</h3>
+ </div>
+
+<br/>
+<table width="100%" border="0" width="100%" cellpadding="2" cellspacing="0" >
+<tr class="admin_user_list">
+<td  id="admin_sideline">
+Duration
+</td>
+
+<td  id="admin_sideline">
+ created date
+</td>
+
+<td  id="admin_sideline">
+User name
+</td>
+
+
+
+<td  id="admin_sideline">
+email
+</td>
+
+<td  id="admin_sideline">
+Status
+</td>
+
+<td  id="admin_sideline">
+
+</td>
+</tr>
+<%if @tabs.blank?%>
+<tr>
+<td colspan="11">
+No Tabs Avaliable
+</td>
+</tr>
+<%else%>
+<%for tabs in @tabs%>
+<tr>
+<td  id="admin_sideline"  width="10%">
+Posted <%= time_ago_in_words(tabs.created_at)%> ago
+</td>
+<td  id="admin_sideline"  width="10%">
+   <%= tabs.created_at%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<% @user= Tab.find(tabs.tab_id)%>
+<%= @user.user_name %>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%=@user.email%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%if tabs.check == 1 %>
+  Unchecked
+<%else%>
+Checked
+<%end%>
+</td>
+<td  id="admin_sideline"  width="10%">
+<%= link_to "send mail",{:controller=>'admins', :action=>'keep_tabs', :id =>tabs.id,},:method => :post %>
+</td>
+</tr>
+<%end%>
+ <%end%>
+</table>
+<br/>
+

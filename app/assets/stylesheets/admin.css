@@ -1,0 +1,76 @@
+/* 
+    Document   : admin
+    Created on : Oct 21, 2011, 6:39:40 AM
+    Author     : mummy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+#admin-header {
+margin-left:40%;
+}
+#admin-body{
+width:75%;
+margin-left : auto;
+margin-right : auto;
+background:#eeeeee;
+border:1px solid #777;
+height:100px;
+}
+
+#admin-body ul{
+list-style:none;
+}
+
+#admin-body  ul li a{
+text-decoration:none;
+color:purple;
+}
+#admin-body ul li a:hover{
+text-decoration:underline;
+color:#777;
+}
+
+#admin_sideline_right{
+border-right:1px solid #ccc;
+}
+#admin-float-right{
+float:right;
+margin-right:5%;
+}
+#admin-middle{
+margin-left:40%;
+
+}
+#back-to-index{
+float:right;
+}
+#admin-float-left{
+float:left;
+}
+#list-customers{
+margin-left:42%;
+}
+.admin_user_list{
+background-color:#eee;
+}
+
+#admin_sideline{
+ border-right:1px solid #ccc;
+ border-bottom:1px solid #ccc;
+}
+#admin_sideline2{
+	border-bottom:1px solid #ccc;
+}
+#other-info{
+margin-left:5%;
+}

@@ -1,0 +1,103 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+
+    var characters = 220;
+    $("#counters").append("You have <strong>"+characters+"</strong> characters remaining");
+    $(".beep_response").keyup(function(){
+        if($(this).val().length > characters){
+        $(this).val($(this).val().substr(0, characters));
+        }
+    var remaining = characters -  $(this).val().length;
+    $("#counters").html("You have <strong>"+  remaining+"</strong> characters remaining");
+    if(remaining <= 10)
+    {
+        $("#counters").css("color","red");
+    }
+    else
+    {
+        $("#counters").css("color","black");
+    }
+
+});
+});
+
+</script>
+<div class="support_box">
+<div class="beep_status">
+<br/>
+<div id="counters"></div>
+</div>
+<%=form_tag({:controller=>'neutral',:action=>'create',:id=>@beep.id},:remote=>true) do%>
+&nbsp;&nbsp;<%=text_area(:content,nil,:class =>"beep_response",:autocomplete=> "off",:placeholder=>"comment on beep ")%><br/>
+<div id="support_button"><%=image_submit_tag ('neutral_button.png')%></div>
+<%end%>
+</div>
+
+<div class="beep_top">
+<%if  @beep_all.blank?%>
+<br/>
+&nbsp;<span style="font-size:11px">No response has been made on this beep</span>
+<%else%>
+&nbsp;<span style="font-size:11px">most recent reviews</span>
+<%for beep in @beep_all%>
+   <div class="beep_master_blog_space">
+    <div id="image_tag">
+    <%@image= UserImage.find(:first,:conditions=>["user_id=?",beep.user_id])%>
+    <%@user=User.find(beep.user_id)%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png")%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:small))%>
+     <%end%>
+    </div>
+    <div class="beep_contain_block">
+          <div id="beep_user_names">
+          <div class="beep_icon">
+          <%if beep.instance_of?(Support)%>
+           <span style="color:red">Support</span>
+          <%else%>
+          <%if beep.instance_of?(Neutral)%>
+           <span style="color:red">Neutral</span>
+          <%else%>
+          <%if beep.instance_of?(Oppose)%>
+          <span style="color:red">Oppose</span>
+          <%end%>
+           <%end%>
+           <%end%>
+          </div>
+              <%= link_to  truncate(@user.user_name,:length =>19)%>
+          </div>
+        <div id="beed_content_space">
+            <%=beep.content%>
+        </div>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="beep_created_at">
+             created <%= time_ago_in_words(beep.created_at)%> ago
+        </div>
+
+       </div>
+
+   </div>
+
+
+
+
+
+
+
+
+
+<%end%>
+<%end%>
+
+</div>

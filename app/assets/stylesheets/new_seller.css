@@ -1,0 +1,79 @@
+/* 
+    Document   : new_seller
+    Created on : Oct 22, 2011, 10:52:24 AM
+    Author     : mummy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+.new_seller{
+    border-left:1px solid pink;
+   
+    height:500px ;
+    width:70%;
+    margin-left:25%;
+}
+.help_menu{
+float:left;
+width:24.5%;
+height:400px
+}
+
+.top_buttom{
+margin-top:5%;
+border-top:1px solid pink;
+border-bottom:1px solid pink;
+padding:5%;
+
+}
+.top_buttom a{
+font-size:medium;
+color:grey;
+text-decoration:none;
+}
+
+.top_buttom a:hover{ 
+text-decoration:underline;
+}
+
+.buttom{
+padding:4%;
+font-size:medium;
+color:grey;
+}
+.buttom a{
+font-size:medium;
+color:grey;
+text-decoration:none;
+}
+
+.buttom a:hover{
+text-decoration:underline;
+}
+
+
+.top{
+ padding-left:25%;
+ background-color:darkorchid;
+ color:white;
+ font-size:medium;
+}
+.side{
+float:right;
+background-color:darkorchid;
+height:200px;
+width:30%;
+padding-left:1%;
+font-size:medium;
+
+color:white;
+}

@@ -1,0 +1,114 @@
+/* 
+    Document   : compete
+    Created on : Sep 26, 2012, 10:13:21 PM
+    Author     : mummy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.compete_beep{
+float:right;
+font-size:15px;
+color:black;
+text-align:center;
+margin-right:40%;
+margin-top:3%;
+}
+.float_right{
+float:right;
+
+width:49.4%;
+}
+
+.mid_message_section_center{
+border-left:1px solid #c0c0c0;
+border-right:1px solid #c0c0c0;
+margin-top:-1.5%;
+margin-left:18%;
+margin-right:18%;
+background-color:white;
+min-height:800px;
+width:auto;
+}
+
+.join_top{
+width:100%;
+border-bottom:1px solid #c0c0c0;
+}
+.beep_header_compete{
+text-align:center;
+font-size:11px;
+}
+
+.compete_info{
+    padding-top:0.4%;
+    background-color:#fefae2;
+    min-height:70px;
+}
+
+.float_panda{
+float:right;
+margin-right:3%;
+}
+
+.compete_beep_content{
+margin-left:5%;
+margin-right:5%;
+width:auto;
+border-top:1px solid #c0c0c0;
+border-bottom:1px solid #c0c0c0;
+background-color:white;
+color:#5c5c5c;
+min-height:50px;
+font-size:13px;
+padding:2%;
+}
+.compete_beep_content_oppose{
+margin-left:5%;
+margin-right:5%;
+width:auto;
+border-top:1px solid #c0c0c0;
+border-bottom:1px solid #c0c0c0;
+background-color:lightcyan;
+color:#5c5c5c;
+min-height:50px;
+font-size:13px;
+padding:2%;
+padding-left:1%;
+}
+.join_box{ 
+width:60%;
+height:100px;
+margin-left:5%;
+}
+.compete_comment_container{
+
+width:60%;
+margin-left:17%;
+}
+
+.compete_comment_box{
+margin-left:20%;
+}
+.float_left{
+border-right:1px dotted black;
+width:50%;
+background-color:lightcyan;
+min-height:200px;
+}
+.compete_box{
+width:80%;
+height:60px;
+margin-left:5%;
+overflow:auto;
+}
+.compete_beep_top_background{
+background-color:#eeeeee;
+padding:0.3%;
+}
+

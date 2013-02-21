@@ -1,0 +1,12 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div id="back-to-index">
+ <%=link_to'Back to index',:controller=>'admins',:action=>'index'%>
+ </div>
+
+<%=link_to'Back to item',:controller=>'admins',:action=>'item_info', :id=>@item.id%><br/><br/>
+
+
+ <%= image_tag(@image.image.url(:original))%>

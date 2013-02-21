@@ -1,0 +1,80 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<div class="tabs">
+  <br/>
+<span style="color:lightblue;font-size:200%;"> &nbsp; &nbsp; &nbsp;Welcome to the request section</span><br/>
+<div class="tabs-body">
+In this section, you will be allowed to request for item that are not currently available on the site.
+Your request will be sent to all the individual sellers and companies along with your contact detail.
+As soon as your requested item is found, you will immediately be contacted by any individual seller or company.so,
+make sure your contact detail is correct in order to ensure a  definite feedback.
+</div>
+<div class="Form">
+<div class="formType">
+<div class="mark">
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=image_tag("mark.png")%><br/><br/>
+
+<div class="font-login">
+
+LegoAds! makes it easy to enjoy what matters most to every business "Publicity"<br/>
+manage your items,services and more.
+You can get more out of the web,get more out of your business with LegoAds.
+</div>
+ </div>
+  </div>
+
+</div>
+<div class="right_corner">
+<div class="sample">
+<div class="form">
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  Request for Items
+</div>
+<div class="form_content">
+
+<% form_tag(:controller=>'requests',:action=>'requester',:id=>'1') do%>
+
+Your Name:&nbsp;&nbsp;&nbsp;&nbsp;<br/><%=text_field_tag(:username,nil,:class => "formTextField")%><br/><br/>
+Name of Item  :&nbsp;&nbsp;&nbsp;&nbsp;<br/><%=text_field_tag(:itemname,nil,:class => "formTextField")%><br/><br/>
+email :&nbsp;&nbsp;&nbsp;&nbsp;<br/><%=text_field_tag(:email,nil,:class => "formTextField")%><br/><br/>
+Phone number :<span style="color:red; font-size:small"><i>&nbsp;&nbsp;&nbsp;Optional</i></span> &nbsp;&nbsp;&nbsp;&nbsp;<br/><%=text_field_tag(:phone_number,nil,:class => "formTextField")%><br/><br/>
+
+Price Range: <select name="name" class="publicTextField">
+  <option value="">--Any Range--</option>
+  <option value="Electronics">0 - 1000 NGN</option>
+  <option value="Automotive">1000 - 5000 NGN</option>
+  <option value="5000 - 10000">5000 - 10000</option>
+  <option value="5000 - 10000">5000 - 10000</option>
+  <option value="10000 - 20000">10000 - 20000</option>
+  <option value="20000 - 30000">20000 - 30000</option>
+  <option value="30000 - 40000">30000 - 40000</option>
+  <option value="50000 - 60000">50000 - 60000</option>
+  <option value="60000 - 70000">60000 - 70000</option>
+  <option value="80000 - 90000">80000 - 90000</option>
+  <option value="90000 - 100000">90000 - 100000</option>
+  <option value="100000 - more">100000 - more</option>
+
+</select><br/><br/>
+Item Description: <br/><%= text_area_tag(:description,nil,:class=>"TextArea")%><br/>
+ <div class="button">
+  <%=image_submit_tag("requestButton.png")%>
+  </div>
+<%end%>
+ </div>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+

@@ -1,0 +1,58 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+  <%= stylesheet_link_tag 'comment.css' %>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+
+    var characters = 220;
+    $("#counters").append("You have <strong>"+characters+"</strong> characters remaining");
+    $(".beep_response").keyup(function(){
+        if($(this).val().length > characters){
+        $(this).val($(this).val().substr(0, characters));
+        }
+    var remaining = characters -  $(this).val().length;
+    $("#counters").html("You have <strong>"+  remaining+"</strong> characters remaining");
+    if(remaining <= 10)
+    {
+        $("#counters").css("color","red");
+    }
+    else
+    {
+        $("#counters").css("color","black");
+    }
+
+});
+});
+
+</script>
+
+<div class="text_limit">
+<div id="counters"></div>
+</div>
+
+<%=image_tag("logo_sign.png")%>
+<%=form_tag({:controller=>'beep_comment',:action=>'create_comment',:id=>@beep.id},:remote=>true) do%>
+<div class="support_box">
+&nbsp;&nbsp;<%=text_area_tag(:content,nil,:class =>"beep_response",:autocomplete=> "off",:placeholder=>"comment here")%><br/>
+</div>
+&nbsp;&nbsp;<div class="commentB"><%=image_submit_tag('commentButton.png')%></div>
+<%end%>
+
+<br/>
+<br/>
+
+
+<div class="back">
+<%=render :partial=>'back'%>
+</div>
+
+
+
+

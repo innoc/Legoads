@@ -1,0 +1,34 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+<div id="image_display_ul">
+ <table>
+  <tr>
+    <td>
+  <ul>
+   <%@image_picture = @user.beep_pictures%>
+
+   <%for image in @image_picture%>
+   <%@beep=Beep.find(image.beep_id)%>
+   <div class="profile_image_display">
+   <li>
+   <%= link_to  image_tag(image.image.url(:small)),{:controller=>"beep",:action=>"full_size",:id=>image.id},:target=>'_blank'%><br/>
+
+   <span style="font-size:11px" class="smiley_set">
+   <%=render :partial=>"like/likes_added"%>
+   <%=render :partial=>"dislike/dislikes_added"%><br/>
+   </span>
+  <span class="beep_created">
+        <%= time_ago_in_words(image.created_at)%> ago </span>
+   </li>
+   </div>
+   <%end%>
+   </ul>
+    </td>
+    </tr>
+  </table>
+
+ </div>

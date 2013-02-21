@@ -1,0 +1,65 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+
+
+
+
+<%unless @partners.blank?%>
+<%for user in @partners%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+   $(".<%="#{user.id}_request"%>").click(function () {
+   $(".<%="#{user.id}_request"%>").hide();
+   $(".<%="#{user.id}_pending"%>").show();
+   })
+ });
+</script>
+<div class="format">
+<div class="request_profile">
+   
+  <%if partnership_indicator(@profile_visitor,user)=="yes_boss" || user.id == @profile_visitor.id%>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to image_tag("profile_big_icon.png"),{:controller=>"profile",:action=>"profile",:id=>user.id,:sort=>"all"}%>
+  <%else%>
+   <%unless Partnership.exists?(@profile_visitor,user)%>
+    <span style="font-size:11px; color:red; display:none" class="<%="#{user.id}_pending"%>"><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request is pending</span>
+   <span class="<%="#{user.id}_request"%>">
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to image_tag("request.png"),{:controller=>'partnership',:action=>'create',:id=>user.id},:remote=>true%>
+   </span>
+   <%else%>
+   <span style="font-size:11px; color:red;"><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request is pending</span>
+   <%end%>
+   <%end%>
+  
+</div>
+
+<div class="default1_profile">
+
+
+<%@image= UserImage.find(:first,:conditions=>["user_id=?",user.id])%>
+ <div class="rep_profile">
+ &nbsp;<span class="rank_rack"> <%=user.rank.rank_type%> </span><br/><br/>
+</div>
+<div class="partner_partner_page_infoh">
+     &nbsp;<%= link_to truncate(user.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>user.id},:rel=>'facebox'%> <br/>
+     &nbsp;<%= link_to pluralize(user.beeps.count, 'beep'),{:controller=>"profile",:action=>"profile",:id=>user.id,:sort=>"all"}%><br/>
+     <%@partners_partner = Partnership.where("user_id=? and status=?",user.id,"accepted")%>
+     &nbsp;<%= link_to pluralize(@partners_partner.count, 'partner'),{:controller=>"profile",:action=>"profile",:id=>user.id,:sort=>'partners'}%><br/>
+     &nbsp;<%= link_to pluralize(user.items.count, 'item'),:controller=>"items",:action=>"manage_item",:type=>'all',:id=>1%><br/>
+</div>
+ </div>
+<div class="partner_profile_pic">
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>user.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>user.id},:rel=>"facebox"%>
+     <%end%><br/>
+</div>
+ </div>
+<%end%>
+<%else%>
+  No partner found
+<%end%>

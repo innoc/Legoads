@@ -1,0 +1,139 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+var moveLeft = 20;
+        var moveDown = 10;
+
+        $('#whatsDis').hover(function(e) {
+          $('div#pop-up1').show();
+          //.css('top', e.pageY + moveDown)
+          //.css('left', e.pageX + moveLeft)
+          //.appendTo('body');
+        }, function() {
+          $('div#pop-up1').hide();
+        });
+
+        $('#whatsDis').mousemove(function(e) {
+          $("div#pop-up1").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+})
+</script>
+
+<div class="item_blocks">
+<div class="sideline">
+<div id="contact">
+&nbsp;&nbsp;Contact Info...
+<hr/>
+
+<table border="0">
+
+<%@user=User.find(@item.user_id)%>
+
+<span style="font-size:100%;text-decoration:underline;color:red;">Address</span><br/>
+<%if @user.address.blank?%>
+Company Address:  Private
+<%else%>
+<%=@user.address%>
+<%end%>
+<br/><br/>
+ <span style="font-size:100%;text-decoration:underline;color:red;">Mobile</span><br/>
+ <%=@user.mobile%>
+<br/><br/>
+<span style="font-size:100%;text-decoration:underline;color:red;">Email</span><br/>
+<%=@user.email%>
+
+
+
+</table>
+</div>
+
+<div class="gifImage1">
+<%=image_tag("NewMotions.gif")%>
+</div>
+</div>
+<div class="purchase_content">
+<div class="purchase_block">
+<div class="float_right">
+<%=image_tag("rate3.png")%> &nbsp;&nbsp;&nbsp;<%=link_to "<--Back to item list",:controller=>'items',:action=>'item_list',:id=>@item.category%>
+</div>
+<div class="item_purchase">
+<%= @item.item_name%><br/><br/>
+</div>
+
+<div class="item_location">
+  <span style="color:grey">Item condition:</span> &nbsp;&nbsp;<%=@item.item_condition%>
+ <br/><br/>
+ <span style="color:grey">Item Location:</span> &nbsp;&nbsp;<%=@user.country%>,<%=@user.state%>
+
+</div><br/>
+<div class="coverItem">
+ <%unless @item.item_price.blank?%>
+ <span>Constant Price:</span><%=@item.item_price%>
+ <%else%>
+ <div class="float_right">
+   
+  <span style="color:black;font-size:120%">Place Bid</span><br/>
+
+  <%form_tag do%>
+  
+  <%=text_field_tag :search_name%><br/><br/>
+  <%=image_submit_tag ('place_bid.png')%>
+  <%end%>
+
+ </div>
+  <span style="color:black;font-size:120%">Bid starter:</span>&nbsp;<%=@item.starting_bid_price%><br/><br/>
+  <span style="color:black;font-size:120%">Highest bid:</span>
+ <%end%>
+</div>
+ 
+ <div class="borders">
+  Description:<br/>
+  <div class="item_description">
+  <%=@item.description%>
+  </div><br/>
+
+ </div>
+ 
+
+
+</div>
+
+
+</div>
+
+<div class="purchase_list">
+  <%@image=Picture.find(:all,:conditions=>["item_id=?",@item.id])%>
+  <div class="size">
+  <span id="whatsDis" style="color:brown;font-size:small;font-family:Comic Sans MS"> view full size </span>
+    <div id="pop-up1">
+       <%= image_tag(@image[0].image.url(:original))%>
+    </div>
+  </div>
+  <div class="images">
+  <%= image_tag(@image[0].image.url(:medium))%><br/> 
+  </div>
+<%unless @item.blank? or @suggested_items.blank?%>
+  <div class="suggested2">
+    Suggested Items
+   </div>
+
+ <%=render :partial=>"suggested_item"%>
+  
+
+<%end%>
+ 
+</div>
+
+
+
+</div>
+
+
+

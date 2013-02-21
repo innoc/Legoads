@@ -1,0 +1,75 @@
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+ $('a[rel*=facebox]').facebox();
+
+// hide it first
+
+
+
+
+
+})
+
+
+</script>
+<div class="center_container">
+
+  <div class="info_section">
+
+
+
+<div class="default">
+<%@image= UserImage.find(:first,:conditions=>["user_id=?",session[:user_id]])%>
+ <div class="user_name">
+ &nbsp;<%= link_to truncate(@user.user_name,:length =>19),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%> <br/>
+</div>
+ &nbsp;<%= link_to pluralize(@user.beeps.count, 'beep'),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%><br/>
+ &nbsp;<%= link_to pluralize(@partner_count.count, 'partner'),office_path(:id=>'partner_page')%><br/>
+
+<div class="rank_rack"> <%=@user.rank.rank_type%> </div>
+ </div>
+<div class="profile_pic_id">
+     <%if @image.blank?%>
+     <%=link_to image_tag("default.png")%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:thumb)),{:controller=>"profile",:action=>"profile",:id=>@user.id,:sort=>"all"}%>
+     <%end%><br/>
+</div>
+
+    <div class="menu_bar_header">
+     Sort Your Items
+    </div>
+    <br/>
+<div id= "item_menu">
+	
+	
+	
+	
+        <ul>
+        <li><%= link_to 'All Item',{:action=>'manage_item',:type=>'all',:id=>"3"},:remote=>true%></li>
+        <li><%= link_to 'New Items',{:action=>'manage_item',:type=>'new',:id=>"2"},:remote=>true%></li>
+	<li><%= link_to 'Used Items',{:action=>'manage_item',:type=>'used',:id=>"1"},:remote=>true%></li>
+        <li><%= link_to 'Almost New',{:action=>'manage_item',:type=>'almost new',:id=>'1'},:remote=>true%></li>
+        <li><%= link_to 'Not Working',{:action=>'manage_item',:type=>'not working',:id=>"1"},:remote=>true%></li>
+	</ul>
+	
+	
+</div>
+<br/>
+
+  
+ 
+ </div>
+  <div class="item_activity_section">
+  
+ <div class="item_sorting">
+ <%=render :partial=>"item_sorting"%>
+ </div>
+</div>
+</div>
+
+
+
+
+
+  

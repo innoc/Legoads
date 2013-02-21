@@ -1,0 +1,61 @@
+<div id="admin-header">
+ <h1><%= image_tag('suitpic.jpg')%> Administrator</h1>
+ </div>
+ <hr>
+
+<%=link_to'Back to users list',:controller=>'admins',:action=>'admin_user_list'%>
+
+<div id="back-to-index">
+ <%=link_to'Back to index',:controller=>'admins',:action=>'index'%>
+ </div>
+ <div id="list-customers">
+ <h3>More information [<span id="color-change"><%= @user.company_name%></span>] </h3>
+ </div>
+ 
+ <%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+       <%if @image.blank?%>
+       <%= image_tag("photo.png")%>
+       <%else%>
+        <%= image_tag(@image.image.url(:thumb))%>
+ <%end%>
+
+<br/>
+
+
+<div id="other-info">
+User Name: <span id="color-change"><%= @user.user_name%></span><br/>
+phone Number: <span id="color-change"><%= @user.mobile%></span><br/>
+Number of Items in myTradr: <span id="color-change"><%=@itemCount %></span><br/>
+Email: <span id="color-change"> <%= @user.email%></span> <br/>
+Date of Establishment: <span id="color-change"><%= @user.year%></span><br/>
+Country: <span id="color-change"><%= @user.country%></span><br/>
+State: <span id="color-change"><%= @user.state%></span><br/>
+Address:<span id="color-change"><%= @user.address%></span><br/> 
+
+
+Sign-Up Date:         <span id="color-change"><%=@user.created_at%></span><br/>
+
+</div>
+<br/>
+<div id="seller_email">
+Email :                                <span id="color-change"> <%=@user.email%></span>
+</div>
+
+
+<br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

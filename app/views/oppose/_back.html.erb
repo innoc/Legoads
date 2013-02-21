@@ -1,0 +1,169 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+
+    var characters = 220;
+    $("#counters").append("You have <strong>"+characters+"</strong> characters remaining");
+    $(".beep_response").keyup(function(){
+        if($(this).val().length > characters){
+        $(this).val($(this).val().substr(0, characters));
+        }
+    var remaining = characters -  $(this).val().length;
+    $("#counters").html("You have <strong>"+  remaining+"</strong> characters remaining");
+    if(remaining <= 10)
+    {
+        $("#counters").css("color","red");
+    }
+    else
+    {
+        $("#counters").css("color","black");
+    }
+
+});
+});
+
+</script>
+<div class="support_box">
+<%unless @user.id ==@beep.user.id%>
+<div class="beep_status">
+<div id="counters"></div>
+</div>
+<%=form_tag({:controller=>'oppose',:action=>'create',:id=>@beep.id},:remote=>true) do%>
+&nbsp;&nbsp;<%=text_area(:content,nil,:class =>"beep_response",:autocomplete=> "off",:placeholder=>"Oppose Beep")%><br/>
+<div class="hide_identity">
+hide Identity <%=check_box_tag 'hide','hide'%>
+</div>
+<div id="support_button"><%=image_submit_tag ('oppose.png')%></div>
+<%end%>
+<%else%>
+<div style="color:#808080; text-align:center;font-size:11px;">cannot oppose your own beep</div>
+<%end%>
+
+</div>
+
+<div class="beep_top">
+<%if  @beep_all.blank?%>
+<br/>
+&nbsp;<span style="font-size:11px">No support on this beep</span>
+<%else%>
+&nbsp;<span style="font-size:11px">most recent reviews</span>
+
+<%unless @user.id ==@beep.user.id%>
+<%for beep in @beep_all%>
+
+   <div class="beep_master_blog_space">
+    <div id="image_tag">
+     <%if beep.hide == 'hide'%>
+      <%=image_tag("panda.png")%>
+     <%else%>
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",beep.user_id])%>
+     <%@user=User.find(beep.user_id)%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("photo.png")%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:small))%>
+     <%end%>
+     <%end%>
+    </div>
+    <div class="beep_contain_block">
+          <div id="beep_user_names">
+          <div class="beep_icon">
+          <%if beep.instance_of?(Support)%>
+           <span style="color:red">Support</span>
+          <%else%>
+          <%if beep.instance_of?(Neutral)%>
+           <span style="color:red">Neutral</span>
+          <%else%>
+          <%if beep.instance_of?(Oppose)%>
+          <span style="color:red">Oppose</span>
+          <%end%>
+           <%end%>
+           <%end%>
+          </div>
+              <%if beep.hide == 'hide'%>
+              <span style="color:#3b59b8">Hidden Identity</span>
+              <%else%>
+              <%= link_to  truncate(@user.user_name,:length =>19)%>
+              <%end%>
+          </div>
+        <div id="beed_content_space">
+            <%=beep.content%>
+        </div>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="beep_created_at">
+             created <%= time_ago_in_words(beep.created_at)%> ago
+        </div>
+
+       </div>
+
+   </div>
+<%end%>
+<%else%>
+<%for beep in @all_beep_oppose%>
+
+   <div class="beep_master_blog_space">
+    <div id="image_tag">
+     <%if beep.hide == 'hide'%>
+      <%=image_tag("panda.png")%>
+     <%else%>
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",beep.user_id])%>
+     <%@user=User.find(beep.user_id)%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("photo.png")%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:small))%>
+     <%end%>
+     <%end%>
+    </div>
+    <div class="beep_contain_block">
+          <div id="beep_user_names">
+          <div class="beep_icon">
+          <%if beep.instance_of?(Support)%>
+           <span style="color:red">Support</span>
+          <%else%>
+          <%if beep.instance_of?(Neutral)%>
+           <span style="color:red">Neutral</span>
+          <%else%>
+          <%if beep.instance_of?(Oppose)%>
+          <span style="color:red">Oppose</span>
+          <%end%>
+           <%end%>
+           <%end%>
+          </div>
+              <%if beep.hide == 'hide'%>
+              <span style="color:#3b59b8">Hidden Identity</span>
+              <%else%>
+              <%= link_to  truncate(@user.user_name,:length =>19)%>
+              <%end%>
+          </div>
+        <div id="beed_content_space">
+            <%=beep.content%>
+        </div>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="beep_created_at">
+             created <%= time_ago_in_words(beep.created_at)%> ago
+        </div>
+
+       </div>
+
+   </div>
+<%end%>
+<%end%>
+<%end%>
+
+</div>

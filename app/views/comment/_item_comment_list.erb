@@ -1,0 +1,70 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+<%if  @item_comment.blank?%>
+&nbsp;<span style="font-size:11px">No response has been made on this item</span>
+<%else%>
+
+&nbsp;<span style="font-size:10px;color:#111">Recent Comments</span>
+<%for comment in  @item_comment%>
+
+
+   <div class="">
+
+    <div class="market_see_all_previews">
+    <div id="image_tag">
+
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",comment.commenter_id])%>
+     <%@user=User.find(@item.user_id)%>
+     <%if @image.blank?%>
+     <%=image_tag("photo.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:small))%>
+     <%end%>
+    </div>
+          <div id="beep_user_names">
+
+             <div class="beep_created_at">
+             <%= time_ago_in_words(comment.created_at)%>
+             </div>
+             <%= link_to truncate(@item.user.user_name,:length =>19),{:controller=>"users",:action=>'user_info',:id=>@item.user.id},:rel=>'facebox'%> <span style="font-size:11px"></span>
+
+          </div>
+        <div id="see_all_content">
+            <%=comment.comment_text%>
+        </div>
+
+
+
+       </div>
+
+   </div>
+
+
+<%end%>
+<%if @item.comments.count > 4%>
+<div class="see_all_comments">
+<%=link_to "see all",:controller=>"items",:action=>"see_all_comments",:id=>@item.id%>
+</div>
+<%end%>
+
+
+<%end%>
+<% unless  session[:user_id].nil?%>
+<%=form_tag({:controller=>'comment',:action=>'create_comment',:id=>@item.id},:remote=>true) do%>
+<%=text_area_tag(:content,nil,:class=>"beep_comment_list",:autocomplete => "off",:placeholder=>"Compete")%><br/>
+
+<%=image_submit_tag('commentButton.png')%>
+
+<%end%>
+<%end%>
+
+

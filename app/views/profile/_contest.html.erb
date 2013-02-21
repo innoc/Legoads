@@ -1,0 +1,131 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  $('#loaders').hide()
+    $('.each_menu').click(function(){$('#loaders').show();}).ajaxStop(function(){ $('#loaders').hide();});
+    $('a[rel*=facebox]').facebox();
+ })
+</script>
+<%for contest in @contest%>
+<%if contest.is_a? Compete%>
+<%@beep = Beep.find(contest.original_beep)%>
+     <%@beep_owner = User.find(@beep.user_id)%>
+     <div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep_owner.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+       <%@beep=Beep.find(@beep.id)%>
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@beep_owner.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox"%>
+          <div class="beep_icon">
+              <%=pluralize(@beep.joins.count, 'joins')%>
+          </div>
+
+        </div>
+        <div id="beed_content">
+
+         <span style="color:#111"><%=@beep.beep_content%></span> &nbsp;
+          <br/>
+          <br/>
+
+        </div>
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+         beep created <%= time_ago_in_words(@beep.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+      </div>
+       <div class="see_all">
+      <span class="smiley_set">
+      <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>contest.id}%> .
+      <%if @user.id == @profile_visitor.id%>
+      &nbsp;<%=link_to "end contest",{:controller=>"compete",:action=>"delete",:id=>contest.id},:confirm=>"Do you really want to end this contest?"%>&nbsp;.
+      <%end%>
+      </span>
+
+    </div>
+
+    </div>
+<%else%>
+ 
+
+     <%@beep_owner = User.find(contest.user_id)%>
+     <div class="beep_master_blog_profile">
+     <div id="image_tag">
+     <%@image= UserImage.find(:first,:conditions=>["user_id=?",@beep_owner.id])%>
+     <%if @image.blank?%>
+     <%=link_to image_tag("mid.png"),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox"%>
+     <%else%>
+     <%=link_to image_tag(@image.image.url(:mid)),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox",:layout=>nil%>
+     <%end%>
+     </div>
+       <%@beep=Beep.find(contest.id)%>
+       <div class="beep_contain_block">
+
+        <div id="beep_user_names">
+         <%= link_to  truncate(@beep_owner.user_name,:length =>19),{:controller=>"users",:action=>"user_info",:id=>@beep_owner.id},:rel=>"facebox"%>
+          <div class="beep_icon">
+              <%=pluralize(@beep.joins.count, 'joins')%>
+          </div>
+
+        </div>
+        <div id="beed_content">
+
+         <span style="color:#111"><%=@beep.beep_content%></span> &nbsp;
+          <br/>
+          <br/>
+
+        </div>
+      <div class="smiley_set">
+      <div class="created_at">
+       <span class="beep_created">
+         beep created <%= time_ago_in_words(@beep.created_at)%> ago </span> &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+
+     </div>
+      </div>
+       <div class="see_all">
+      <span class="smiley_set">
+      <%=link_to "join Contest",{:controller=>"compete",:action=>'compete_room',:id=>contest.compete_id}%> .
+      <%if @user.id == @profile_visitor.id%>
+      &nbsp;<%=link_to "end contest",{:controller=>"compete",:action=>"delete",:id=>contest.compete_id},:confirm=>"Do you really want to end this contest?"%>&nbsp;.
+      <%end%>
+      </span>
+
+    </div>
+
+    </div>
+
+
+
+
+
+
+
+<%end%>
+
+<%end%>
+
+
+
+
+
+
+

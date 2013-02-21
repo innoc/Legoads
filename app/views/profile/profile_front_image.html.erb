@@ -1,0 +1,24 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+
+<%=image_tag("logo_sign.png")%><br/>
+
+<div class="front_image">change front image</div>
+<div class="change_pic">
+
+ <%=form_for :profileimage,:url => {:action =>"profile_front_image", :profile_id =>@profile.id},:html=>{:multipart=>true} do |f|%>
+      <div class="new_image">
+         <%=f.file_field :image,:placeholder=>"Type Item name"%><br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=  submit_tag 'Upload'%>
+     </div>
+  <%end%>
+</div>
+
+<br/>
+<div class="smiley_set">
+<%=link_to "remove front image",{:action=>"delete_front_image",:profile_id =>@profile.id}%>
+</div>
+

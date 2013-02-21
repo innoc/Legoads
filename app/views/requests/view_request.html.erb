@@ -1,0 +1,149 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%= stylesheet_link_tag 'office.css'%>
+
+<div class="main_block">
+
+  <p> </p>
+
+<div class="freeC">
+
+</div>
+
+ <div class="requestPageinate">
+<div class="paginate_item">
+    <%= page_entries_info @requests %>
+   
+</div>
+
+<div class="request_block">
+ <%if  @requests.blank?%>
+  <div class="request">
+    No Request has been posted yet,try again latter
+   </div>
+<%else%>
+ <table cellpadding="5" border="1" cellspacing="0%" width="120%" id="request_table">
+ <tr>
+                          <td>
+                          </td>
+                          <td class="font_type">
+                             Customer
+                          </td>
+
+                          <td class="font_type">
+                          Item/Service
+                          </td>
+
+                          <td class="font_type">
+                            Contact details
+                          </td>
+
+  </tr>
+       <% for request in  @requests %>
+                        <tr>
+                          <td rowspan="4" class="font_type">
+                            <%=request.id%>)
+                          </td>
+                        </tr>
+                   
+                       
+			<tr>
+                        
+			<td width="25%" class="request_border">
+                        <%=request.user_name%>
+                        </td>
+
+			<td width="25%" class="request_border">
+			<span class=""><%=h request.item_name %></span><br/>
+                       </td>
+
+			<td class="request_dorder2">
+			 <%=request.Contact%>
+                        </td>
+                        <tr>
+                            
+                          <td colspan="3" class="request_description">
+                            Description
+                          </td>
+                         </tr>
+			</tr>
+                        <tr>
+                                                   
+                        <td colspan="3" class="request_bottom">
+				<%=request.description%>
+			</td>
+                        </tr>
+
+      <% end %>
+	</table>
+
+
+<div id="paginate"><%= will_paginate @requests %> </div>
+<%end%>
+</div>
+
+ </div>
+
+
+  <div class="blockB">
+
+<div class="change_pic">
+ <%=link_to '<--Upload Your logo',:controller=>'users',:action=>'upload_image',:id=>'1'%>
+
+</div>
+ <div class="card_content">
+ <%=@user.user_name%>
+ </div>
+
+    <table border="1" class="image_block">
+  <tr>
+    <td>
+       <%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+       <%if @image.blank?%>
+       <%= image_tag("photo.png")%>
+       <%else%>
+        <%= image_tag(@image.image.url(:thumb))%>
+       <%end%>
+    </td>
+  </tr>
+
+</table>
+   
+  <div class="office_menus">
+<ul>
+        <li><%= link_to'<--Back to Office',:controller=>'users',:action=>'office', :id=>'1'%></li>
+
+        <li><%= link_to 'CUSTOMER REQUEST',:controller=>'requests',:action=>'view_request',:id=>'1' %></li>
+        <li><%= link_to 'JOB VACANCIES',:controller=>'users',:action=>'vacancy',:id=>'1'%></li>
+        <li><%= link_to 'SERVICES',:controller=>'services',:action=>'services',:id=>'1'%></li
+       </ul>
+
+
+     <div class="sell_item">
+   <%if @user.account == 'Activate'%>
+  <div class="sell_item">
+     <%= link_to image_tag("sellItem.png"),:controller=>'items',:action=>'new'%><br/>
+ </div>
+<%end%>
+   
+ </div>
+  </div>
+
+ </div>
+
+
+<div class="office_Labels">
+
+</div>
+
+
+
+</div>
+
+
+
+
+

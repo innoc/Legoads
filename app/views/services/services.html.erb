@@ -1,0 +1,144 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<%= stylesheet_link_tag 'office.css'%>
+
+<div class="main_block">
+
+  <p> </p>
+
+<div class="freeC">
+
+</div>
+
+ <div class="FreeItemA">
+<div class="paginate_item">
+ <%= page_entries_info    @services %>
+ <%= will_paginate     @services%>
+</div>
+
+ 
+<div class="free_item">
+<%if  @services.blank?%>
+ <div class="NoService">
+<%=image_tag("noService.png")%>
+ </div>
+<%else%>
+<%@service=User.find(@services[0].user_id)%>
+ <table cellpadding="5" border="0"  width="125%" id="item_table">
+   <tr>
+     <td colspan="3">
+      <span style="color:red">List of services created by you</span>
+     </td>
+   </tr>
+<% for service in @services%>
+			<tr class="<%= cycle('list-line-odd', 'list-line-even') %>">
+
+			<td>
+                         <%=service.service_name%>
+
+                       </td>
+
+			<td width="65%">
+			 <%=service.description%>
+			</td>
+
+			<td id="comment">
+				<%= link_to 'Delete', :controller => 'services',:action => 'delete_service',:id=>service.id%><br/>
+				<%= link_to 'Edit',:controller => 'services',:action=>'edit_service',:id=>service.id%><br/>
+                        </td>
+
+			</tr>
+
+<% end %>
+ </table>
+<%end%>
+
+
+<%if @service.account == 'Activate' && @service.user_type == "Business"%>
+ <div class="create_service">
+<% form_tag do%>
+ name of service rendered:<%= text_field_tag :service_name %><br/><br/>
+ Description: <br/><%= text_area_tag :description%>
+ <div class="button">
+  <%=image_submit_tag("service_button.png")%>
+ </div>
+<%end%>
+</div>
+<%else%>
+ <%if @service.user_type == 'regular'%>
+ <div class="create_service">
+<% form_tag do%>
+ name of service rendered:<%= text_field_tag :service_name %><br/><br/>
+ Description: <br/><%= text_area_tag :description%>
+ <div class="button">
+ <%=image_submit_tag("service_button.png")%>
+ </div>
+<%end%>
+</div>
+<%else%>
+ You need to reactivate your account
+ <%end%>
+<%end%>
+
+
+</div>
+
+</div>
+
+
+  <div class="blockB">
+
+ <div class="change_pic">
+ <%=link_to '<--Upload Your logo',:controller=>'users',:action=>'upload_image',:id=>'1'%>
+
+</div>
+ <div class="card_content">
+ <%=@user.user_name%>
+ 
+ </div>
+
+    <table border="1" class="image_block">
+  <tr>
+    <td>
+       <%@image= UserImage.find(:first,:conditions=>["user_id=?",@user.id])%>
+       <%if @image.blank?%>
+       <%= image_tag("photo.png")%>
+       <%else%>
+        <%= image_tag(@image.image.url(:thumb))%>
+       <%end%>
+    </td>
+  </tr>
+
+
+</table>
+   
+  <div class="office_menus">
+	<ul>
+        <li><%= link_to'<--Back to Office',:controller=>'users',:action=>'office', :id=>'1'%></li>
+
+	<li><%= link_to 'ITEMS',:controller=>'items',:action=>'free_item',:id=>1 %></li>
+	<li><%= link_to 'CUSTOMER REQUEST',:controller=>'requests',:action=>'view_request',:id=>'1' %></li>
+        <li><%= link_to 'JOB VACANCIES',:action=>'edit',:id=>'1'%></li>
+       	</ul>
+
+
+   </div>
+
+ </div>
+
+
+<div class="office_Labels">
+
+</div>
+
+
+
+</div>
+
+
+
+
+

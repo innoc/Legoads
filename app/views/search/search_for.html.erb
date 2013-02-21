@@ -1,0 +1,63 @@
+
+
+
+
+
+
+<div class="mid_page_container">
+<div class="mid_section_center">
+<div class="activity_header">
+&nbsp;Search results for <%= params[:search] %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="smiley_set">
+<%=link_to 'go back', :back %>
+</span>
+</div>
+
+
+<%unless @result.blank? || params[:search] == "" || params[:search] == " "%>
+<%@user = User.find(session[:user_id])%>
+<%for user in @result%>
+
+<%unless user.user_type == "admin"%>
+<div class="format">
+<div class="search_request">
+<div class="partnership_indicator">
+<%=render :partial=>'partnership_indicator',:locals=>{:user=>user}%>
+</div>
+</div>
+<div class="default1">
+<%@image= UserImage.find(:first,:conditions=>["user_id=?",user.id])%>
+ <div class="rep">
+ <br/>
+<span class="rank_rack"> <%=@user.rank.rank_type%> </span>
+</div>
+ <%@partner_count = Partnership.where("user_id=? and status=?",user.id,"accepted")%>
+ <% @user_items =user.items%>
+ <div class="default_partner">
+ &nbsp;<%= link_to truncate(user.user_name,:length =>19),{:controller=>"profile",:action=>"profile",:id=>user.id,:sort=>"all"}%> <br/>
+ &nbsp;<%= link_to pluralize(user.beeps.count, 'beep'),{:controller=>"profile",:action=>"profile",:id=>user.id,:sort=>"all"}%><br/>
+ &nbsp;<%= link_to pluralize(@user_items.count, 'item'),:controller=>"items",:action=>"manage_item",:type=>'all',:id=>1%><br/>
+ &nbsp;<%= link_to pluralize(@partner_count.count, 'partner'),{:controller=>"profile",:action=>"profile",:id=>user.id,:sort=>"partners"}%><br/>
+
+
+ </div>
+ </div>
+<div class="partner_profile_picdd">
+     <%if @image.blank?%>
+     <%=image_tag("mid.png")%>
+     <%else%>
+     <%=image_tag(@image.image.url(:mid))%>
+     <%end%><br/>
+</div>
+ </div>
+<%end%>
+ <%end%>
+
+<%else%>
+ No user found
+<%end%>
+
+
+
+</div>
+ </div>

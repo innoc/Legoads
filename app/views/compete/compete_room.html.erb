@@ -1,0 +1,110 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+ $('a[rel*=facebox]').facebox();
+});
+</script>
+
+
+<div class="mid_page_container">
+<div class="mid_message_section_center">
+<div class="activity_header">
+&nbsp;Compete Room&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="smiley_set">
+<%=link_to 'go back', :back %>
+</span>
+</div>
+<div class="compete_info">
+<span style="color:#5c5c5c">
+ <div class="float_panda">
+   &nbsp;&nbsp;&nbsp;<%= image_tag("hand_shack.png") %><br/>
+   <span style="font-size:11px;">its all for fun</span>
+ </div>
+&nbsp;Welcome to the <span id="beep_user_names"><%= link_to "Compete Room",{:controller=>"compete",:action=>"compete_info"},:rel=>'facebox'%></span>. You can participate by <span id="beep_user_names"><%= link_to "Joining",{:controller=>"compete",:action=>"join_info"},:rel=>'facebox'%></span> the beep you support<br/>
+&nbsp;or you can leave a comment in the comment form below
+</span>
+</div>
+<div class="float_right">
+
+ <div class="join_top">
+   &nbsp;&nbsp;<%= image_tag("join_image.png") %>&nbsp;<span style="color:#d2a7fd;font-size:30px"><%=@oposing_beep.joins.count%></span>
+ </div>
+  <br/>
+<div class="beep_header_compete">
+  Beep
+</div>
+  <div class="compete_beep_content_oppose">
+  <%=@oposing_beep.beep_content%>
+  </div>
+ <div class="see_all">
+ <span class="smiley_set">
+ &nbsp&nbsp&nbsp&nbsp&nbsp<%=link_to "Join",{:controller=>"join",:action=>'create_join',:id=>@oposing_beep.id,:compete=>@compete.id},:rel=>'facebox'%>&nbsp;.
+ </span>
+  </div>
+
+</div>
+  <div class="float_left">
+ <div class="join_top">
+   &nbsp;&nbsp;<%= image_tag("join_image.png") %>&nbsp;<span style="color:#d2a7fd;font-size:30px"><%=@original_beep.joins.count%></span>
+ </div>
+  <br/>
+<div class="beep_header_compete">
+  Beep
+</div>
+  <div class="compete_beep_content">
+  <%=@original_beep.beep_content%>
+  </div>
+  <div class="see_all">
+ <span class="smiley_set">
+  &nbsp&nbsp&nbsp&nbsp&nbsp<%=link_to "Join",{:controller=>"join",:action=>'create_join',:id=>@original_beep.id,:compete=>@compete.id},:rel=>'facebox'%>&nbsp;.
+
+ </span>
+  </div>
+  <br/>
+  </div>
+<br/>
+
+
+<div class="beep_tops">
+<div class="compete_comment">
+<%= render :partial=>"compete" %>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>

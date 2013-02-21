@@ -1,0 +1,115 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  $('#loaders').hide()
+    $('.each_menu').click(function(){$('#loaders').show();}).ajaxStop(function(){ $('#loaders').hide();});
+    $('a[rel*=facebox]').facebox();
+ })
+</script>
+    <div class="beep_element">
+    <%@profile_owner = User.find(session[:user_id])%>
+    <%if @user.id == @profile_owner.id%>
+      <%= image_tag("post.png")%>&nbsp;<%= link_to "Create Beep",{:controller=>"beep",:action=>"create",:id=>@user.id},:rel=>'facebox'%>&nbsp;&nbsp;<%= image_tag("slides.png")%>&nbsp;<%=link_to "Beep pictures",{:controller=>"beep",:action=>"beep_picture"},:rel=>"facebox"%>
+    <%end%>
+    </div>
+
+<span style="color:black;font-size:16px"><%=@name%><%if @name == "Beeps"%>&nbsp;<span style="font-size:12px">(<%=@beep_stores.count%>)</span><%end%></span>
+     &nbsp;&nbsp;&nbsp;<span id="loaders"> <%=image_tag("spinner.gif")%></span>
+  <div class="beep_element_top_border"
+       </div>
+<%if @mark == "all"%>
+<%if @beep_store.blank?%>
+   <br/>
+   <br/>
+  <div class="no_beep">
+  <span style="color:black; font-size:11px"><%=image_tag("no_beep.png")%></span>
+  <br/><br/>
+ <div class="smiley_set">
+ <%= link_to "Create your first Beep",{:controller=>"beep",:action=>"create",:id=>@user.id},:rel=>'facebox'%>
+ </div>
+  </div>
+ <%end%>
+<div class="all_beeps">
+<div class="page">
+         <%=render :partial=>"all_beeps"%>
+</div>
+</div>
+
+
+<%else%>
+<%if @mark == "winning"%>
+<%for beep in @beep_status%>
+ <%if beep_status(beep)=="winning"%>
+     <%@winning_beep << beep %>
+<%end%>
+<%end%>
+ <%if @winning_beep.blank?%>
+  <span style="color:black; font-size:11px"> no winning beep avaliable </span>
+ <%end%>
+<%for beep in @winning_beep%>
+<%=render :partial=>"winning_beeps",:locals=>{:beep=>beep}%>
+<%end%>
+<%else%>
+<%if @mark == "losing"%>
+
+<%for beep in @beep_status%>
+ <%if beep_status(beep)=="losing"%>
+     <%@losing_beep << beep %>
+<%end%>
+  
+<%end%>
+<%if @losing_beep.blank?%>
+  <span style="color:black; font-size:11px"> no losing beep avaliable </span>
+ <%end%>
+<%for beep in @losing_beep%>
+<%=render :partial=>"losing_beeps",:locals=>{:beep=>beep}%>
+<%end%>
+<%else%>
+     
+ <%if @mark == "quote"%>
+<%if @quoted_user.blank?%>
+  <span style="color:black; font-size:11px"> no one has quoted your beep </span>
+ <%end%>
+<%for beep in @quoted_user%>
+<%=render :partial=>"quoted_beep",:locals=>{:beep=>beep}%>
+<%end%>
+<%else%>
+<%if @mark == "partners"%>
+<%if @partners.blank?%>
+<span style="color:black; font-size:11px"> no partner </span>
+<%else%>
+<%=render :partial=>"partner_list"%>
+<%end%>
+<%else%>
+<%if @mark == "send_message"%>
+<%=render :partial=>"send_message"%>
+<%else%>
+<%if @mark == "check_message"%>
+<% if @conversation.blank?%>
+<span style="color:black; font-size:11px"> no messages avaliable </span>
+<%end%>
+<%=render :partial=>"check_message"%>
+<%else%>
+<%if @mark == "contest"%>
+<%if @contest.blank?%>
+<span style="color:black; font-size:11px"> no contest avaliable</span>
+<%else%>
+<%=render :partial=>"contest" %>
+<%end%>
+<%else%>
+<%if @mark == "picture_gallary"%>
+<%=render :partial=>"picture_gallary"%>
+<%end%>
+<%end%>
+<%end%>
+<%end%>
+<%end%>
+<%end%>
+
+<%end%>
+<%end%>
+<%end%>
+    
